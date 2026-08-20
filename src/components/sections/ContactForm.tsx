@@ -1,27 +1,93 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { Check, Loader2, ShieldCheck, AlertCircle } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion, type Variants } from "motion/react";
+import { Check, Loader2, ShieldCheck, ChevronDown, Paperclip } from "lucide-react";
 import { formOptions, contact } from "@/lib/site";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sending" | "sent";
 
-const field =
-  "w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-[0.92rem] text-ink-900 placeholder:text-ink-600 transition-colors duration-300 focus:border-brand-400 focus:outline-none focus:ring-4 focus:ring-brand-100";
+const FIELD =
+  "peer w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-[0.92rem] text-ink-900 shadow-[inset_0_1px_2px_rgba(16,15,20,0.03)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] placeholder:text-ink-400 hover:border-ink-300 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100";
 
-const label = "block text-[0.82rem] font-medium text-ink-700";
+function Label({
+  htmlFor,
+  children,
+  required,
+}: {
+  htmlFor: string;
+  children: React.ReactNode;
+  required?: boolean;
+}) {
+  return (
+    <label
+      htmlFor={htmlFor}
+      className="mb-2 block text-[0.8rem] font-medium text-ink-700"
+    >
+      {children}
+      {required && <span className="ml-0.5 text-brand-600">*</span>}
+    </label>
+  );
+}
+
+/** A select that still looks like one — the native arrow is suppressed. */
+function Select({
+  id,
+  name,
+  placeholder,
+  options,
+}: {
+  id: string;
+  name: string;
+  placeholder: string;
+  options: readonly string[];
+}) {
+  return (
+    <div className="relative">
+      <select
+        id={id}
+        name={name}
+        defaultValue=""
+        className={cn(FIELD, "appearance-none pr-11")}
+      >
+        <option value="" disabled>
+          {placeholder}
+        </option>
+        {options.map((o) => (
+          <option key={o}>{o}</option>
+        ))}
+      </select>
+      <ChevronDown
+        aria-hidden
+        className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-ink-500 transition-colors duration-300 peer-focus:text-brand-600"
+      />
+    </div>
+  );
+}
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const reduce = useReducedMotion();
 
+  const group: Variants = {
+    hidden: {},
+    show: { transition: { staggerChildren: reduce ? 0 : 0.05 } },
+  };
+  const field: Variants = {
+    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 12 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: reduce ? 0.2 : 0.5, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
   /**
    * No mail transport is wired up yet — the previous site posted to a PHP
-   * handler that is not part of this rebuild. Until an endpoint exists we hand
-   * the enquiry off to the visitor's mail client so nothing is silently lost.
+   * handler that is not part of this rebuild. Until an endpoint exists the
+   * enquiry is handed to the visitor's mail client so nothing is lost.
    */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,8 +114,8 @@ export function ContactForm() {
     )}&body=${encodeURIComponent(body)}`;
 
     // Handing off to the mail client is fire-and-forget: it cannot report
-    // success, so the confirmation below tells the visitor what to do if their
-    // client did not open rather than claiming the message was sent.
+    // success, so the confirmation tells the visitor what to do if their client
+    // did not open rather than claiming the message was sent.
     window.location.href = href;
     setStatus("sent");
   };
@@ -57,41 +123,59 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative overflow-hidden rounded-2xl border border-ink-200 bg-white p-6 sm:p-7"
+      className="relative overflow-hidden rounded-3xl border border-ink-200 bg-white shadow-(--shadow-card)"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-24 -top-24 size-64 rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.08),transparent_65%)] blur-2xl"
-      />
+      {/* ---- Header ---- */}
+      <div className="relative overflow-hidden border-b border-ink-100 bg-[var(--canvas-subtle)] px-6 py-6 sm:px-8">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-16 -top-20 size-56 rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.12),transparent_65%)] blur-2xl"
+        />
+        <div className="relative">
+          <h2 className="font-display text-[1.5rem] text-ink-950 sm:text-[1.7rem]">
+            Let&rsquo;s discuss your idea
+          </h2>
+          <p className="mt-2 flex items-center gap-2 text-[0.83rem] text-ink-600">
+            <ShieldCheck className="size-4 shrink-0 text-brand-600" aria-hidden />
+            All projects are secured by an NDA · 100% secure, zero spam
+          </p>
+        </div>
+      </div>
 
-      <div className="relative">
-        <h2 className="font-display text-[1.5rem] text-ink-950">
-          Let&rsquo;s discuss your idea
-        </h2>
-        <p className="mt-2 flex items-center gap-2 text-[0.83rem] text-ink-500">
-          <ShieldCheck className="size-4 text-brand-600" aria-hidden />
-          All projects are secured by NDA · 100% secure, zero spam
-        </p>
+      {/* ---- Fields ---- */}
+      <motion.div
+        variants={group}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-10%" }}
+        className="px-6 py-7 sm:px-8"
+      >
+        <motion.p
+          variants={field}
+          className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-500"
+        >
+          About you
+        </motion.p>
 
-        <div className="mt-7 grid gap-5 sm:grid-cols-2">
-          <div className="space-y-2">
-            <label className={label} htmlFor="name">
-              Name <span className="text-brand-600">*</span>
-            </label>
+        <div className="mt-4 grid gap-5 sm:grid-cols-2">
+          <motion.div variants={field}>
+            <Label htmlFor="name" required>
+              Name
+            </Label>
             <input
               id="name"
               name="name"
               required
               autoComplete="name"
               placeholder="Your full name"
-              className={field}
+              className={FIELD}
             />
-          </div>
+          </motion.div>
 
-          <div className="space-y-2">
-            <label className={label} htmlFor="email">
-              Email <span className="text-brand-600">*</span>
-            </label>
+          <motion.div variants={field}>
+            <Label htmlFor="email" required>
+              Email
+            </Label>
             <input
               id="email"
               name="email"
@@ -99,98 +183,102 @@ export function ContactForm() {
               required
               autoComplete="email"
               placeholder="you@company.com"
-              className={field}
+              className={FIELD}
             />
-          </div>
+          </motion.div>
 
-          <div className="space-y-2">
-            <label className={label} htmlFor="mobile">
-              Mobile
-            </label>
+          <motion.div variants={field}>
+            <Label htmlFor="mobile">Mobile</Label>
             <input
               id="mobile"
               name="mobile"
               type="tel"
               autoComplete="tel"
               placeholder="+91 00000 00000"
-              className={field}
+              className={FIELD}
             />
-          </div>
+          </motion.div>
 
-          <div className="space-y-2">
-            <label className={label} htmlFor="company">
-              Company
-            </label>
+          <motion.div variants={field}>
+            <Label htmlFor="company">Company</Label>
             <input
               id="company"
               name="company"
               autoComplete="organization"
               placeholder="Company name"
-              className={field}
+              className={FIELD}
             />
-          </div>
+          </motion.div>
+        </div>
 
-          <div className="space-y-2">
-            <label className={label} htmlFor="service">
-              Service required
-            </label>
-            <select
+        <motion.p
+          variants={field}
+          className="mt-8 font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-500"
+        >
+          About the project
+        </motion.p>
+
+        <div className="mt-4 grid gap-5 sm:grid-cols-2">
+          <motion.div variants={field}>
+            <Label htmlFor="service">Service required</Label>
+            <Select
               id="service"
               name="service"
-              className={cn(field, "appearance-none")}
-            >
-              <option value="">Select a service</option>
-              {formOptions.services.map((s) => (
-                <option key={s}>{s}</option>
-              ))}
-            </select>
-          </div>
+              placeholder="Select a service"
+              options={formOptions.services}
+            />
+          </motion.div>
 
-          <div className="space-y-2">
-            <label className={label} htmlFor="budget">
-              Budget range
-            </label>
-            <select id="budget" name="budget" className={cn(field, "appearance-none")}>
-              <option value="">Select your budget</option>
-              {formOptions.budgets.map((b) => (
-                <option key={b}>{b}</option>
-              ))}
-            </select>
-          </div>
+          <motion.div variants={field}>
+            <Label htmlFor="budget">Budget range</Label>
+            <Select
+              id="budget"
+              name="budget"
+              placeholder="Select your budget"
+              options={formOptions.budgets}
+            />
+          </motion.div>
 
-          <div className="space-y-2 sm:col-span-2">
-            <label className={label} htmlFor="timeline">
-              When would you like to start?
-            </label>
-            <select
+          <motion.div variants={field} className="sm:col-span-2">
+            <Label htmlFor="timeline">When would you like to start?</Label>
+            <Select
               id="timeline"
               name="timeline"
-              className={cn(field, "appearance-none")}
-            >
-              <option value="">Select a timeline</option>
-              {formOptions.timelines.map((t) => (
-                <option key={t}>{t}</option>
-              ))}
-            </select>
-          </div>
+              placeholder="Select a timeline"
+              options={formOptions.timelines}
+            />
+          </motion.div>
 
-          <div className="space-y-2 sm:col-span-2">
-            <label className={label} htmlFor="details">
-              Project details <span className="text-brand-600">*</span>
-            </label>
+          <motion.div variants={field} className="sm:col-span-2">
+            <Label htmlFor="details" required>
+              Project details
+            </Label>
             <textarea
               id="details"
               name="details"
               required
               rows={5}
               placeholder="Tell us what you're trying to build, the problem it solves and anything already in place."
-              className={cn(field, "resize-y")}
+              className={cn(FIELD, "resize-y")}
             />
-          </div>
+            <p className="mt-2 flex items-center gap-1.5 text-[0.76rem] text-ink-500">
+              <Paperclip className="size-3.5" aria-hidden />
+              Have a brief or wireframes? Attach them to the email that opens.
+            </p>
+          </motion.div>
         </div>
+      </motion.div>
 
-        <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <Button type="submit" size="lg" arrow disabled={status === "sending"}>
+      {/* ---- Submit ---- */}
+      <div className="border-t border-ink-100 bg-[var(--canvas-subtle)] px-6 py-5 sm:px-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <Button
+            type="submit"
+            size="lg"
+            arrow
+            disabled={status === "sending"}
+            className="w-full sm:w-auto"
+          >
             {status === "sending" ? (
               <span className="flex items-center gap-2">
                 <Loader2 className="size-4 animate-spin" aria-hidden />
@@ -205,7 +293,7 @@ export function ContactForm() {
             Prefer email?{" "}
             <a
               href={`mailto:${contact.primaryEmail}`}
-              className="font-medium text-brand-700 underline underline-offset-4"
+              className="font-medium text-brand-700 underline underline-offset-4 transition-colors duration-300 hover:text-brand-800"
             >
               {contact.primaryEmail}
             </a>
@@ -219,23 +307,12 @@ export function ContactForm() {
               initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="mt-5 flex items-start gap-2.5 rounded-xl border border-brand-200 bg-brand-50 px-4 py-3 text-[0.86rem] text-brand-900"
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-4 flex items-start gap-2.5 rounded-xl border border-brand-200 bg-brand-50 px-4 py-3 text-[0.86rem] text-brand-900"
             >
               <Check className="mt-0.5 size-4 shrink-0" aria-hidden />
               If your mail client did not open, email your enquiry directly to{" "}
               {contact.primaryEmail} — we reply to every message.
-            </motion.p>
-          )}
-          {status === "error" && (
-            <motion.p
-              role="alert"
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="mt-5 flex items-start gap-2.5 rounded-xl border border-ink-200 bg-ink-50 px-4 py-3 text-[0.86rem] text-ink-700"
-            >
-              <AlertCircle className="mt-0.5 size-4 shrink-0" aria-hidden />
-              Something went wrong. Please email {contact.primaryEmail} directly.
             </motion.p>
           )}
         </AnimatePresence>

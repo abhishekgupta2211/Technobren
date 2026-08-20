@@ -30,6 +30,7 @@ export const contact = {
     "+91 901 664 3264",
     "+91 700 756 6557",
     "+91 972 169 3134",
+    "+91 94 0918 4115",
     "+61 (02) 8317 1138",
   ],
 } as const;
@@ -71,7 +72,10 @@ export const offices: Office[] = [
 ];
 
 export const socials = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/technobren" },
+  {
+    label: "LinkedIn",
+    href: "https://in.linkedin.com/company/technobren-infotech-ptv-ltd",
+  },
   { label: "Facebook", href: "https://www.facebook.com/technobren" },
   { label: "Instagram", href: "https://www.instagram.com/technobren" },
   { label: "X", href: "https://x.com/technobren" },
@@ -104,7 +108,7 @@ export const stats = [
     value: 4,
     suffix: "",
     label: "Global offices",
-    sub: "Across India, the UAE and the USA",
+    sub: "India, the UAE and the USA",
   },
 ];
 
@@ -185,7 +189,7 @@ export const services: Service[] = [
     short:
       "Intelligent systems that automate operations, surface insight and drive measurable efficiency.",
     description:
-      "Harness AI and ML to transform your applications and optimise operations. Our engineers build intelligent solutions using frameworks including TensorFlow, Apache SystemML, Caffe, Apache Mahout, OpenNN, Torch and Neuroph.",
+      "Harness AI and ML to transform your applications and optimise operations. Our skilled AI-ML engineers develop intelligent solutions that can reduce operational costs by up to 30%, using frameworks including TensorFlow, Apache SystemML, Caffe, Apache Mahout, OpenNN, Torch, Neuroph and Mycroft AI.",
     capabilities: [
       "Chatbots & Conversational AI",
       "Predictive Analysis",
@@ -249,13 +253,13 @@ export const secondaryServices = [
   {
     title: "Business Automation",
     description:
-      "Automating routine processes — scheduling, reminders, approvals and billing — to reduce cost and lift operational efficiency.",
+      "Streamlining operations and boosting productivity with custom business automation solutions.",
     icon: "Workflow",
   },
   {
     title: "Technology Integration",
     description:
-      "Seamlessly integrating platforms and services to build cohesive, efficient IT infrastructure across the organisation.",
+      "Seamlessly integrating technologies to build cohesive and efficient IT infrastructures.",
     icon: "Blocks",
   },
   {
@@ -290,8 +294,6 @@ export type Solution = {
   description: string;
   features: string[];
   icon: string;
-  /** true = summary/description drafted for the redesign, pending review */
-  drafted?: boolean;
 };
 
 export const solutions: Solution[] = [
@@ -318,9 +320,9 @@ export const solutions: Solution[] = [
     name: "Van Sales System",
     category: "Field Sales",
     summary:
-      "Direct-store-delivery and mobile selling for field teams operating away from the office.",
+      "A powerful and dedicated solution designed specifically to streamline van sales operations.",
     description:
-      "Equip van sales representatives with the tooling to manage stock, invoice on the spot and settle at the end of a route — including while offline.",
+      "Efficiently manage your entire sales process, inventory, resources and logistics with a cloud-based, scalable and tailored mobile platform. Ensure high availability, performance, agility and control for enhanced productivity and seamless business management.",
     features: [
       "Route and journey planning",
       "On-vehicle stock tracking",
@@ -330,16 +332,15 @@ export const solutions: Solution[] = [
       "Sales representative reporting",
     ],
     icon: "Truck",
-    drafted: true,
   },
   {
     slug: "distributor-management",
     name: "Distributor Management",
     category: "Channel Operations",
     summary:
-      "Visibility and control across a multi-tier distribution network, from primary to secondary sales.",
+      "A robust and scalable solution specifically designed to streamline your distribution network.",
     description:
-      "Bring distributors, stockists and retailers onto one system so orders, inventory, schemes and claims are visible in real time.",
+      "Effortlessly manage inventory, orders, sales, logistics and partner relationships through a centralised, cloud-based and mobile-friendly system. Ensure peak efficiency, performance, agility and control for enhanced productivity and seamless distribution management.",
     features: [
       "Distributor onboarding",
       "Primary & secondary sales tracking",
@@ -349,16 +350,15 @@ export const solutions: Solution[] = [
       "Channel performance reporting",
     ],
     icon: "Network",
-    drafted: true,
   },
   {
     slug: "merchandiser-management",
     name: "Merchandiser Management",
     category: "Retail Execution",
     summary:
-      "Retail execution tooling for merchandising teams working across store outlets.",
+      "A powerful and tailored solution designed to optimise and streamline your merchandising operations.",
     description:
-      "Give merchandisers structured store visits, planogram compliance checks and photo-backed reporting from the shop floor.",
+      "Effortlessly manage inventory, sales, product displays, promotions and logistics through a centralised, scalable and mobile-friendly system. Achieve peak performance, agility, availability and control to enhance productivity and ensure seamless merchandising management.",
     features: [
       "Store visit planning",
       "Planogram compliance checks",
@@ -368,16 +368,15 @@ export const solutions: Solution[] = [
       "Outlet-level performance data",
     ],
     icon: "Store",
-    drafted: true,
   },
   {
     slug: "asset-management",
     name: "Asset Management",
     category: "Operations",
     summary:
-      "Track, service and account for physical assets across their entire lifecycle.",
+      "An advanced, cloud-based solution designed to efficiently manage and optimise your assets throughout their lifecycle.",
     description:
-      "Maintain a single register of assets with assignment, servicing schedules, depreciation and audit history in one place.",
+      "Track, monitor and maintain assets with scalable, mobile-friendly tools, ensuring high availability, performance, agility and control. Enhance operational efficiency, reduce downtime and maximise ROI with a streamlined asset management system.",
     features: [
       "Central asset register",
       "Assignment and custody tracking",
@@ -387,15 +386,15 @@ export const solutions: Solution[] = [
       "Barcode / QR identification",
     ],
     icon: "Boxes",
-    drafted: true,
   },
 ];
 
 /* ------------------------------------------------------------------ */
 /* SOLUTIONS PAGE — verbatim from technobren.com/solution.html         */
-/* NOTE: the published copy for these six focus areas is written around */
-/* healthcare examples. Carried over as-is at the client's request; see */
-/* REDESIGN-NOTES.md item 7.                                            */
+/* Descriptions come from the old site's own Services mega-menu, which   */
+/* carried general-purpose wording. The solution.html versions of these   */
+/* same six items were written around healthcare examples and were not     */
+/* carried over.                                                           */
 /* ------------------------------------------------------------------ */
 
 export const solutionsIntro = {
@@ -409,37 +408,37 @@ export const focusAreas = [
   {
     title: "Artificial Intelligence",
     description:
-      "AI automates tasks, improves diagnoses, predicts outcomes and personalises care in healthcare. Chatbots and predictive analytics are AI technologies to explore.",
+      "Harnessing the power of artificial intelligence to drive innovation and boost efficiency.",
     icon: "BrainCircuit",
   },
   {
     title: "Enterprise Application Services",
     description:
-      "In today's healthcare industry, EHRs, CRMs and other software tools have become critical for managing patient data and improving operational efficiency.",
+      "Empowering organisations with robust and scalable enterprise applications tailored to their needs.",
     icon: "Building2",
   },
   {
     title: "Technology Integration",
     description:
-      "Integrating Electronic Health Records (EHRs), telemedicine and patient engagement platforms is becoming increasingly important in the healthcare industry.",
+      "Seamlessly integrating technologies to build cohesive and efficient IT infrastructures.",
     icon: "Blocks",
   },
   {
     title: "Business Automation",
     description:
-      "Automating routine tasks like patient scheduling, appointment reminders and billing processes can help healthcare businesses reduce costs and improve overall efficiency.",
+      "Streamlining operations and boosting productivity with custom business automation solutions.",
     icon: "Workflow",
   },
   {
     title: "Digital Commerce",
     description:
-      "Online booking, bill payment and medical record access improve patient experience. Mobile apps and portals are healthcare business options.",
+      "Creating high-performance, engaging digital commerce solutions that maximise the business.",
     icon: "ShoppingBag",
   },
   {
     title: "BI and Analytics",
     description:
-      "BI and analytics provide patient insights, trends and better decision making. Dashboards, visualisation and analytics tools help healthcare businesses.",
+      "Turning data into actionable insights with our advanced BI and analytics development service.",
     icon: "BarChart3",
   },
 ];
@@ -772,7 +771,7 @@ export const leadership = [
 export const chairmanMessage = {
   photo: "/team/founder.jpg",
   quote:
-    "Our team lives, breathes and dreams technology. As visionaries, dreamers, specialists and perfectionists, our strength lies in the diversity, dedication and expertise we bring to every project. Working cohesively with our clients and partners, we are driven by a shared vision to become a global leader in IT solutions and services.",
+    "Our team lives, breathes and dreams technology. As visionaries, dreamers, specialists and perfectionists, our strength lies in the diversity, dedication and expertise we bring to every project. Working cohesively with our clients and partners, we are driven by a shared vision to become a global leader in IT solutions and services. Together, we innovate, create and excel.",
   name: "Rajkeshar Yadav",
   role: "Founder, Chairman & CEO",
 };
@@ -811,6 +810,7 @@ export const hireRoles = [
   "VueJS Developers",
   "AngularJS Developers",
   "PHP Developers",
+  "Laravel Developers",
   "Magento Developers",
   "WordPress Developers",
   "Android App Developers",

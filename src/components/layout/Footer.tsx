@@ -243,12 +243,9 @@ export function Footer() {
 
         {/* ---------- Legal ---------- */}
         <div className="flex flex-col gap-4 border-t border-ink-200 py-7 text-[0.78rem] text-ink-500 lg:flex-row lg:items-center lg:justify-between">
-          <p>
-            © {year} {site.legalName}. All rights reserved.
-          </p>
+          <p>{`© ${year} ${site.legalName}. All rights reserved.`}</p>
           <p className="max-w-md text-ink-500">
-            The {site.name} logo, brandmark and name are a registered trademark of{" "}
-            {site.legalName}.
+            {`The ${site.name} logo, brandmark and name are a registered trademark of ${site.legalName}.`}
           </p>
           <a
             href="#main"

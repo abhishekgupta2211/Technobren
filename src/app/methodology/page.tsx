@@ -6,7 +6,6 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/sections/PageHero";
-import { CTASection } from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
   title: "Methodology",
@@ -135,8 +134,6 @@ export default function MethodologyPage() {
           </ol>
         </Container>
       </section>
-
-      <CTASection />
     </>
   );
 }

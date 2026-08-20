@@ -7,8 +7,6 @@ import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/sections/PageHero";
-import { IndustriesSection } from "@/components/sections/IndustriesSection";
-import { CTASection } from "@/components/sections/CTASection";
 import { DASHBOARDS } from "@/components/visuals/dashboard";
 
 export const metadata: Metadata = {
@@ -279,8 +277,30 @@ export default function SolutionsPage() {
         </Container>
       </section>
 
-      <IndustriesSection />
-      <CTASection />
+      {/* ---------- Cross-link to the portfolio ---------- */}
+      <section className="py-14 sm:py-18">
+        <Container size="wide">
+          <Reveal>
+            <div className="flex flex-col items-start gap-5 rounded-3xl border border-ink-200 bg-white p-7 shadow-(--shadow-card) sm:flex-row sm:items-center sm:justify-between sm:p-9">
+              <div>
+                <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-brand-700">
+                  See them running
+                </p>
+                <p className="mt-3 max-w-xl font-display text-[1.4rem] leading-snug text-ink-950 sm:text-[1.7rem]">
+                  Every one of these is a platform we designed, built and deployed.
+                </p>
+                <p className="mt-2.5 max-w-xl text-pretty text-[0.9rem] leading-relaxed text-ink-600">
+                  See the delivery record, the scope of each engagement and the process
+                  behind them.
+                </p>
+              </div>
+              <Button href="/work" size="lg" arrow className="shrink-0">
+                View our work
+              </Button>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
     </>
   );
 }

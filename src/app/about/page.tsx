@@ -8,7 +8,6 @@ import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/sections/PageHero";
 import { ChairmanSection } from "@/components/sections/ChairmanSection";
-import { CTASection } from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -79,38 +78,80 @@ export default function AboutPage() {
       <ChairmanSection />
 
       {/* ---------- Core values ---------- */}
-      <section className="border-t border-ink-100 py-14 sm:py-18">
-        <Container size="wide">
-          <SectionHeading
-            eyebrow="Core values"
-            title={
-              <>
-                The principles that{" "}
-                <span className="text-brand-700">define how we work</span>
-              </>
-            }
-            description="Our core values shape how we treat our clients, our team and everyone we interact with. They highlight our commitment to excellence, integrity and innovation."
-          />
+      <section className="relative overflow-x-clip border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-[10%] top-[16%] size-[32rem] rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.07),transparent_66%)] blur-3xl"
+        />
+        <Container size="wide" className="relative">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <SectionHeading
+              eyebrow="Core values"
+              title={
+                <>
+                  The principles that{" "}
+                  <span className="text-brand-700">define how we work</span>
+                </>
+              }
+              description="Our core values shape how we treat our clients, our team and everyone we interact with. They highlight our commitment to excellence, integrity and innovation."
+            />
+            <Reveal delay={2} className="shrink-0">
+              <span className="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-4 py-2 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-600 shadow-(--shadow-card)">
+                <span aria-hidden className="size-1.5 rounded-full bg-brand-500" />
+                {coreValues.length} values
+              </span>
+            </Reveal>
+          </div>
 
-          <ul className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {coreValues.map((v, i) => (
-              <li key={v.title} className="group relative bg-white p-6 sm:p-7">
-                <span
+              <Reveal
+                as="li"
+                key={v.title}
+                delay={i % 3}
+                className="group relative flex flex-col overflow-hidden rounded-3xl border border-ink-200/80 bg-white p-7 shadow-(--shadow-card) transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:border-brand-200 hover:shadow-(--shadow-card-hover)"
+              >
+                {/* the logo's arc, sweeping in behind the card on hover */}
+                <svg
                   aria-hidden
-                  className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-brand-600 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
-                />
-                <Reveal delay={i % 3}>
-                  <span className="font-mono text-[0.72rem] text-brand-600">
+                  viewBox="0 0 200 200"
+                  className="pointer-events-none absolute -right-16 -top-20 size-56 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                  fill="none"
+                >
+                  <path
+                    d="M8 168C8 80 80 8 168 8"
+                    stroke="#ae3135"
+                    strokeOpacity="0.16"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M44 176C44 103 103 44 176 44"
+                    stroke="#ae3135"
+                    strokeOpacity="0.1"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <circle cx="168" cy="8" r="4" fill="#ae3135" fillOpacity="0.4" />
+                </svg>
+
+                <div className="relative flex items-center gap-4">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800 font-display text-[0.95rem] text-white shadow-[0_6px_16px_-8px_rgba(174,49,53,0.42)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-4 font-display text-[1.15rem] leading-snug text-ink-950">
-                    {v.title}
-                  </h3>
-                  <p className="mt-3 text-pretty text-[0.9rem] leading-relaxed text-ink-600">
-                    {v.description}
-                  </p>
-                </Reveal>
-              </li>
+                  <span
+                    aria-hidden
+                    className="h-px flex-1 origin-left scale-x-0 bg-gradient-to-r from-brand-300 to-transparent transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
+                  />
+                </div>
+
+                <h3 className="relative mt-6 font-display text-[1.15rem] leading-snug text-ink-950">
+                  {v.title}
+                </h3>
+                <p className="relative mt-3 flex-1 text-pretty text-[0.9rem] leading-relaxed text-ink-600">
+                  {v.description}
+                </p>
+              </Reveal>
             ))}
           </ul>
         </Container>
@@ -229,8 +270,6 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
-
-      <CTASection />
     </>
   );
 }

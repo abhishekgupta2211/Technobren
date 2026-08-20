@@ -33,10 +33,11 @@ carried into the rebuild.
 
 - Company name, legal name, trademark line
 - Hero positioning: *"Software engineered for excellence and efficiency"*
-- All six service practices and their capability lists (`service.html` + home mega-menu)
+- All six service practices, and the capability lists that appear on `service.html`
+  (about a third of the list entries have no old-site source — see §3)
 - All five products: Custom ERP, Van Sales System, Distributor Management,
   Merchandiser Management, Asset Management
-- Custom ERP description (the only product with published copy)
+- All five product descriptions, from the home page's product tabs
 - Full technology stack, grouped by the same six categories the old site used
 - Milestones: **48+ projects · 25+ clients · 97% satisfaction**
 - Six differentiators (Flexible Timings, On-Time Delivery, Cost-Effective,
@@ -49,23 +50,45 @@ carried into the rebuild.
 - The 7-day trial offer
 - All office addresses, phone numbers and email addresses
 - Contact form fields (name, email, mobile, company, service, budget,
-  requirement, timeline, project details)
+  project details). The old `requirement` field (Business / Educational) was
+  replaced with a `timeline` field that did not exist before — confirm.
 
 ---
 
 ## 3. Drafted content — **please review before launch**
 
-Marked `drafted: true` in `src/lib/site.ts` where applicable.
+A second pass against the old home page found published copy for items this file
+previously listed as drafted. Those are now carried over verbatim and are no longer
+flagged. What remains genuinely drafted:
 
 | Item | Why it was drafted | File |
 |------|--------------------|------|
-| Descriptions + feature lists for **Van Sales System**, **Distributor Management**, **Merchandiser Management**, **Asset Management** | The old site listed the product names with no copy. Text is deliberately factual and functional — no metrics, no claims. | `src/lib/site.ts` → `solutions[]` |
-| The six **methodology stages** (Discovery → Support) | `methodology.html` was a 404. Stage copy describes a standard delivery process. | `src/lib/site.ts` → `processSteps` |
-| **Industries** list | Derived from the product portfolio (van sales/distribution/merchandising imply FMCG) plus the healthcare references on `solution.html`. **Confirm these are sectors TechnoBren actually serves.** | `src/lib/site.ts` → `industries` |
+| The six **methodology stages** (Discovery → Support) | `methodology.html` was a 404 on the old site. Stage copy describes a standard delivery process. | `src/lib/site.ts` → `processSteps` |
+| **Industries** list | Derived from the product portfolio (van sales / distribution / merchandising imply FMCG) plus the healthcare references on `solution.html`. **Confirm these are sectors TechnoBren actually serves.** | `src/lib/site.ts` → `industries` |
 | Technology category one-liners (`blurb`) | Neutral descriptions of each category. | `src/lib/site.ts` → `techCategories` |
-| Secondary services descriptions | Condensed from the old service page bullet lists. | `src/lib/site.ts` → `secondaryServices` |
+| Parts of the **service capability lists** | Roughly a third of the entries have no old-site source — e.g. "Legacy Modernisation", "API & Systems Design", "Online Booking & Payments", "Customer Portals", "Headless Commerce", "Performance Optimisation", and most of Enterprise Applications & ERP and Business Intelligence & Analytics. **Confirm these are services TechnoBren offers.** | `src/lib/site.ts` → `services[].capabilities` |
+| `SECTOR` map on `/work` | Sector label per platform, inferred from the product's purpose. | `src/app/work/page.tsx` |
 
----
+### Corrected in a later pass — previously wrong in this file
+
+- **Product copy.** All five products have full published descriptions on the old
+  home page's "Our Customer-Centric Business IT Solutions" tabs. Van Sales,
+  Distributor, Merchandiser and Asset Management were briefly running on invented
+  copy; they now use the client's own words.
+- **Focus areas.** The old Services mega-menu carried general-purpose descriptions
+  of the same six focus areas that `solution.html` described in healthcare terms.
+  The general versions are now used, which resolves item 7 in §1.
+- **Chairman's message.** Was missing its closing sentence, *"Together, we innovate,
+  create and excel."* Now quoted in full.
+- **Phone numbers.** `+91 94 0918 4115` was dropped; restored.
+- **AI claim.** *"reduce operational costs by up to 30%"* was dropped while the
+  sibling *"1/3"* claim was kept. Both are the client's own published claims; both
+  are now present.
+- **LinkedIn.** A real, working URL (`in.linkedin.com/company/technobren-infotech-ptv-ltd`)
+  was replaced with a guess. Restored. Facebook is real. **Instagram and X remain
+  guesses** — the old icons had empty `href`s.
+- **Contact page metadata** named Ahmedabad, Indore and Melbourne, none of which are
+  in `offices`. Corrected to the four real offices.
 
 ## 4. Deliberately **not** included
 
@@ -77,8 +100,12 @@ Marked `drafted: true` in `src/lib/site.ts` where applicable.
   under NDA.
 - **"35+ years of experience"** — contradicted by the company's own About page
   ("+4 Years"). Replaced with the concrete, verifiable milestone numbers.
-- **The "Uganda" office** — the address given is in Beverly Hills, USA. Omitted
-  pending clarification (see §5).
+- **The "Uganda" office label** — the old footer labels a Beverly Hills, USA
+  address "Uganda". The old contact page labels the same address "USA", which is
+  what the site uses.
+- **Two named solutions** — *Sales Process Automation* and *Warehouse Management*
+  appear only in the old contact page footer, with no description anywhere. Not
+  carried over; see §5.
 - **"Cut development costs by up to 1/3"** was kept because it is TechnoBren's own
   published claim, but it is a marketing claim rather than a verified figure.
 
@@ -86,24 +113,32 @@ Marked `drafted: true` in `src/lib/site.ts` where applicable.
 
 ## 5. Decisions needed from TechnoBren
 
-1. **The "Uganda" office.** Is there a Uganda office, or was the Beverly Hills
-   address mislabelled? Currently the site lists six offices: Lucknow (HQ),
-   Jaunpur, Ahmedabad, Indore, Dubai, Melbourne. Add or correct in
-   `src/lib/site.ts` → `offices`.
-2. **Years in business.** Confirm the real figure so the copy can say it plainly.
-3. **Client references.** If any clients can be named publicly, supply logos and
-   permission and a trust strip can be added to the homepage.
-4. **Testimonials.** Real quotes with names/roles will slot into a testimonials
-   section; there is no placeholder shipped.
-5. **Social media URLs.** The handles in `src/lib/site.ts` → `socials` are guesses
-   based on the old site's icons (which linked nowhere). Replace with real URLs.
-6. **`RockEye ERP`** — is this a TechnoBren product, a partner product, or leftover
-   copy? Not carried over.
-7. **Team photography.** `/about` currently uses initial monograms. Supply photos
-   to replace them.
-8. **Contact form endpoint.** See §6.
-
----
+1. **Jaunpur address.** The old site carried two different Jaunpur addresses:
+   *B1, Katyani Tower, Near Ambedkar Tiraha, Jaunpur 222002* (footer, 4 pages) and
+   *503, City Tower, Wazidpur Tiraha, Jaunpur* (contact page). The site now uses
+   **5th Floor, City Tower, Wazidpur, Jaunpur** as supplied by the client. Confirm —
+   and confirm whether the Katyani Tower office is still active.
+2. **Ahmedabad and Indore.** Both have full addresses on the old contact page but are
+   not in the shipped four. Add them if still active.
+3. **Australia.** The old copy claimed a presence in Australia and the Australian
+   number `+61 (02) 8317 1138` is still listed, but there is no Australian office in
+   the four. Resolve the inconsistency.
+4. **RockEye ERP.** Now live on `/solutions` at the client's request, using the old
+   `solution.html` copy verbatim. Confirm TechnoBren owns this product before launch.
+5. **Sales Process Automation** and **Warehouse Management** — real products, or
+   leftover footer links?
+6. **Years in business.** The old milestone *"+4 Years of Consistent Growth"* is not
+   carried over. Supply the correct figure if it should appear.
+7. **Client references and testimonials.** None are published, because none on the old
+   site were real. Supply logos, permission and real quotes to add them.
+8. **Instagram and X URLs.** Currently guesses. Replace with real handles or remove.
+9. **Team photography.** `/about` uses initial monograms for everyone but the founder.
+10. **Budget bands.** The old form offered `$700` / `$1000`; the new form offers
+    `Under $5,000` through `$50,000+`. Confirm this repositioning is intended.
+11. **Privacy policy.** The old footer linked one (dead). The form collects personal
+    data, so a real policy page is needed.
+12. **Spam protection.** The old form used reCAPTCHA. The new one has none — see §6.
+13. **Contact form endpoint.** See §6.
 
 ## 6. Contact form — needs a backend
 

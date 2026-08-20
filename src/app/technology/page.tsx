@@ -5,7 +5,6 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/sections/PageHero";
-import { CTASection } from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
   title: "Technology",
@@ -123,8 +122,6 @@ export default function TechnologyPage() {
           </div>
         </Container>
       </section>
-
-      <CTASection />
     </>
   );
 }
