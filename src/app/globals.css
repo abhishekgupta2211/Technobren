@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+/* ============================================================
+   TECHNOBREN DESIGN SYSTEM
+   Brand anchor: logo crimson #AE3135 + logo charcoal #3A3937
+   ============================================================ */
+
+@theme {
+  /* ---- Type ---- */
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+
+  /* ---- Brand crimson (derived from logo #AE3135) ---- */
+  --color-brand-50: #fdf4f4;
+  --color-brand-100: #fbe5e6;
+  --color-brand-200: #f7cfd1;
+  --color-brand-300: #eeaaad;
+  --color-brand-400: #e17c81;
+  --color-brand-500: #d05056;
+  --color-brand-600: #ae3135; /* exact logo crimson */
+  --color-brand-700: #932a2e;
+  --color-brand-800: #7a2528;
+  --color-brand-900: #672326;
+  --color-brand-950: #3a0f11;
+
+  /* ---- Ink / neutrals (warm-leaning, from logo charcoal) ---- */
+  --color-ink-50: #f8f8f7;
+  --color-ink-100: #f0efed;
+  --color-ink-200: #e4e2df;
+  --color-ink-300: #c9c6c2;
+  --color-ink-400: #a3a09b;
+  --color-ink-500: #7c7a80;
+  --color-ink-600: #57565c;
+  --color-ink-700: #3a3937; /* exact logo charcoal */
+  --color-ink-800: #262528;
+  --color-ink-900: #1a191d;
+  --color-ink-950: #111013;
+
+  /* ---- Motion ---- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ---- Layout ---- */
+  --breakpoint-xs: 26rem;
+}
+
+:root {
+  /* One card elevation for the whole site - resting and hover. */
+  --shadow-card:
+    0 1px 2px rgba(16, 15, 20, 0.03), 0 8px 20px -16px rgba(16, 15, 20, 0.18);
+  --shadow-card-hover:
+    0 2px 4px rgba(16, 15, 20, 0.03), 0 16px 34px -22px rgba(174, 49, 53, 0.26);
+
+  --canvas: #ffffff;
+  --canvas-subtle: #faf9f8;
+  --line: #e9e7e4;
+  --line-soft: #f1efec;
+  --night: #111013;
+  --night-2: #1a191d;
+  --ink: #16151a;
+  --ink-muted: #57565c;
+  --ink-soft: #8a888f;
+  --brand: #ae3135;
+  --nav-h: 4.5rem;
+}
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+/* Lenis takes over when active */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--brand);
+  color: #fff;
+}
+
+/* ---- Focus: visible, on-brand, never removed ---- */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ---- Typography rhythm ---- */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+/* Hairline grid backdrop — the engineering substrate */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--line-soft) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line-soft) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.bg-grid-dark {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Radial fade mask for backdrops */
+.mask-fade {
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 0%,
+    #000 30%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 78%);
+}
+/* Edge-fade for marquees */
+.mask-edges {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Gradient text — used sparingly, on key display words only */
+.text-gradient-brand {
+  background: linear-gradient(100deg, #ae3135 0%, #d05056 45%, #7a2528 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 42s) linear infinite;
+  will-change: transform;
+}
+.marquee-host:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Orbit — the logo arc motif */
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-orbit {
+  animation: orbit-spin var(--orbit-duration, 28s) linear infinite;
+  transform-origin: center;
+}
+
+/* Slow ambient drift for gradient blooms */
+@keyframes bloom-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0) scale(1.08);
+    opacity: 1;
+  }
+}
+.animate-bloom {
+  /* No will-change: the animated transform already promotes this layer, and
+     these are very large blurred surfaces to keep composited permanently. */
+  animation: bloom-drift var(--bloom-duration, 16s) ease-in-out infinite;
+}
+
+/* Signal pulse on node dots (logo motif) */
+@keyframes node-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+.animate-node-pulse {
+  animation: node-pulse 2.8s var(--ease-out-expo) infinite;
+}
+
+/* ============================================================
+   REDUCED MOTION — honour it everywhere
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

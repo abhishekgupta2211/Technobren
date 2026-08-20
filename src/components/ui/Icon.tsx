@@ -1,0 +1,73 @@
+import {
+  Code2,
+  Building2,
+  Smartphone,
+  BrainCircuit,
+  BarChart3,
+  Globe,
+  PenTool,
+  Workflow,
+  Blocks,
+  Megaphone,
+  Users,
+  ShieldCheck,
+  LayoutGrid,
+  Truck,
+  Network,
+  Store,
+  Boxes,
+  Clock,
+  CalendarCheck,
+  TrendingDown,
+  MessagesSquare,
+  Award,
+  UserCheck,
+  PackageSearch,
+  ShoppingBag,
+  Factory,
+  HeartPulse,
+  Route,
+  Server,
+  type LucideIcon,
+} from "lucide-react";
+
+const registry: Record<string, LucideIcon> = {
+  Code2,
+  Building2,
+  Smartphone,
+  BrainCircuit,
+  BarChart3,
+  Globe,
+  PenTool,
+  Workflow,
+  Blocks,
+  Megaphone,
+  Users,
+  ShieldCheck,
+  LayoutGrid,
+  Truck,
+  Network,
+  Store,
+  Boxes,
+  Clock,
+  CalendarCheck,
+  TrendingDown,
+  MessagesSquare,
+  Award,
+  UserCheck,
+  PackageSearch,
+  ShoppingBag,
+  Factory,
+  HeartPulse,
+  Route,
+  Server,
+};
+
+/**
+ * Resolves the icon names stored alongside content in `lib/site.ts`,
+ * so the content layer stays free of React imports.
+ */
+export function Icon({ name, className }: { name: string; className?: string }) {
+  const Cmp = registry[name] ?? Code2;
+  return <Cmp className={className} aria-hidden />;
+}

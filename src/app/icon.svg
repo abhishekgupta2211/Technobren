@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#16151A"/>
+  <!-- The logo's own motif: two arcs, each terminating in a node dot -->
+  <path d="M12 46c0-16 12-28 28-28" fill="none" stroke="#AE3135" stroke-width="5" stroke-linecap="round"/>
+  <path d="M20 48c0-11 8-19 18-19" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" opacity="0.85"/>
+  <circle cx="44" cy="17" r="5.5" fill="#AE3135"/>
+  <circle cx="41" cy="29" r="3.6" fill="#FFFFFF" opacity="0.9"/>
+</svg>
