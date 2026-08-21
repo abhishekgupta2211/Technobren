@@ -18,12 +18,12 @@ export function AnimatedWaveScaleSection() {
 
     let animationFrameId: number;
     let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
-    let height = (canvas.height = canvas.parentElement?.clientHeight || 520);
+    let height = (canvas.height = canvas.parentElement?.clientHeight || 340);
 
     const handleResize = () => {
       if (!canvas || !canvas.parentElement) return;
       width = canvas.width = canvas.parentElement.clientWidth;
-      height = canvas.height = canvas.parentElement.clientHeight || 520;
+      height = canvas.height = canvas.parentElement.clientHeight || 340;
     };
 
     window.addEventListener("resize", handleResize);
@@ -34,40 +34,40 @@ export function AnimatedWaveScaleSection() {
       step += 0.009;
       ctx.clearRect(0, 0, width, height);
 
-      // Deep Dark Indigo/Black Base Canvas Gradient
+      // Clean Light Subtle Gradient Background matching Website Theme
       const bgGrad = ctx.createLinearGradient(0, 0, width, height);
-      bgGrad.addColorStop(0, "#09060c");
-      bgGrad.addColorStop(0.5, "#140810");
-      bgGrad.addColorStop(1, "#050307");
+      bgGrad.addColorStop(0, "#ffffff");
+      bgGrad.addColorStop(0.5, "#fff8f8");
+      bgGrad.addColorStop(1, "#fdf2f2");
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, width, height);
 
-      // Render 44 Glowing Wave Ribbon Lines
-      const numLines = 44;
-      ctx.lineWidth = 1.35;
+      // Render 36 TechnoBren Brand Red Wave Ribbon Lines (RGB: 174, 49, 53)
+      const numLines = 36;
+      ctx.lineWidth = 1.2;
 
       for (let i = 0; i < numLines; i++) {
         ctx.beginPath();
 
         const progress = i / numLines;
         
-        // Multi-color spectrum from Neon Magenta to Deep Red & Purple
-        const r = Math.floor(240 - progress * 50);
-        const g = Math.floor(60 + Math.sin(progress * Math.PI) * 80);
-        const b = Math.floor(130 + progress * 110);
-        const alpha = 0.2 + (1 - Math.abs(progress - 0.5) * 2) * 0.65;
+        // Brand Red Spectrum (174, 49, 53)
+        const r = Math.floor(180 + progress * 40);
+        const g = Math.floor(40 + progress * 20);
+        const b = Math.floor(50 + progress * 20);
+        const alpha = 0.08 + (1 - Math.abs(progress - 0.5) * 2) * 0.28;
 
         ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
 
-        const amplitude = 52 + i * 2.4;
-        const frequency = 0.0022 + i * 0.00008;
+        const amplitude = 32 + i * 1.6;
+        const frequency = 0.0024 + i * 0.00008;
 
-        for (let x = 0; x <= width; x += 5) {
+        for (let x = 0; x <= width; x += 6) {
           const yWave1 = Math.sin(x * frequency + step + i * 0.07) * amplitude;
-          const yWave2 = Math.cos(x * 0.0012 + step * 0.8) * 35;
-          const arch = Math.sin((x / width) * Math.PI) * 140;
+          const yWave2 = Math.cos(x * 0.0012 + step * 0.8) * 20;
+          const arch = Math.sin((x / width) * Math.PI) * 70;
 
-          const y = height * 0.58 - arch + yWave1 + yWave2;
+          const y = height * 0.55 - arch + yWave1 + yWave2;
 
           if (x === 0) {
             ctx.moveTo(x, y);
@@ -90,105 +90,96 @@ export function AnimatedWaveScaleSection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#09060c] text-white pt-28 sm:pt-32 lg:pt-36 pb-20 sm:pb-28">
-      {/* Dynamic Animated Canvas Wave */}
+    <section className="relative overflow-hidden border-t border-ink-100 bg-white py-12 sm:py-16">
+      {/* Dynamic Animated Canvas Wave — Brand Red Theme */}
       <canvas
         ref={canvasRef}
-        className="pointer-events-none absolute inset-0 size-full object-cover opacity-90"
+        className="pointer-events-none absolute inset-0 size-full object-cover"
       />
 
-      {/* Ambient Red/Purple Glow */}
+      {/* Subtle Brand Red Glow Orb */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-32 top-10 size-96 rounded-full bg-brand-600/20 blur-3xl"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-32 bottom-10 size-96 rounded-full bg-purple-600/15 blur-3xl"
+        className="pointer-events-none absolute -right-20 top-0 size-80 rounded-full bg-brand-500/10 blur-3xl"
       />
 
       <Container size="wide" className="relative z-10">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
-          <div className="max-w-3xl">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div className="max-w-2xl">
             <Reveal>
-              <div className="inline-flex items-center gap-2 rounded-full border border-brand-400/40 bg-brand-500/15 px-4 py-1.5 backdrop-blur-md">
-                <Activity className="size-3.5 text-brand-400 animate-pulse" />
-                <span className="font-mono text-xs font-bold text-brand-200 tracking-wider">
-                  Enterprise Infrastructure &amp; High-Availability Architecture
-                </span>
+              <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50/80 px-3.5 py-1 text-xs font-semibold text-brand-700">
+                <Activity className="size-3.5 text-brand-600 animate-pulse" />
+                <span>Enterprise Infrastructure &amp; High Availability</span>
               </div>
             </Reveal>
 
             <Reveal delay={1}>
-              <h2 className="mt-6 font-display text-3xl font-extrabold sm:text-5xl lg:text-6xl leading-[1.1] text-white tracking-tight">
-                Scale with confidence. <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 via-pink-200 to-purple-300">
-                  Zero downtime. Unlimited growth.
-                </span>
+              <h2 className="mt-3 font-display text-2xl font-extrabold sm:text-3xl lg:text-4xl text-ink-950 tracking-tight">
+                Scale with confidence. <span className="text-brand-700">Zero downtime.</span>
               </h2>
-              <p className="mt-5 text-base sm:text-lg text-brand-100/90 leading-relaxed max-w-2xl">
-                Handle millions of API transactions per second with sub-millisecond response times, automated auto-scaling clusters, and enterprise resilience — even during peak traffic surges.
+              <p className="mt-2 text-sm sm:text-base text-ink-600 leading-relaxed">
+                Handle millions of API transactions per second with sub-millisecond response times, automated auto-scaling clusters, and enterprise resilience.
               </p>
             </Reveal>
           </div>
 
           <Reveal delay={2}>
-            <div className="flex items-center gap-3 sm:gap-4">
-              <Button href="/hire-developers" variant="primary" size="lg" arrow className="bg-white text-brand-950 hover:bg-brand-50 font-bold shadow-xl">
+            <div className="shrink-0">
+              <Button href="/hire-developers" variant="primary" size="lg" arrow className="shadow-md">
                 Deploy Engineering Team
               </Button>
             </div>
           </Reveal>
         </div>
 
-        {/* Glassmorphism Animated Metrics Cards */}
-        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-8 border-t border-brand-800/40 pt-12">
+        {/* Compact Clean Metrics Grid */}
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3 border-t border-ink-200/60 pt-8">
           <Reveal delay={2}>
-            <div className="group rounded-3xl border border-brand-500/20 bg-gradient-to-b from-brand-950/40 via-purple-950/20 to-black/60 p-6 backdrop-blur-md transition-all duration-300 hover:border-brand-400/50 hover:scale-[1.02]">
+            <div className="group rounded-2xl border border-ink-200 bg-white/80 p-5 backdrop-blur-xs transition-all duration-300 hover:border-brand-300 hover:shadow-md">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[0.7rem] font-bold text-brand-300 uppercase tracking-widest">
+                <span className="font-mono text-[0.68rem] font-bold text-ink-500 uppercase tracking-wider">
                   Daily Throughput
                 </span>
-                <Server className="size-4 text-brand-400" />
+                <Server className="size-4 text-brand-600" />
               </div>
-              <p className="mt-4 font-display text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-200 to-pink-300 sm:text-5xl lg:text-6xl tracking-tight">
+              <p className="mt-2 font-display text-3xl font-extrabold text-brand-700 sm:text-4xl tracking-tight">
                 500m+
               </p>
-              <p className="mt-2 text-xs text-brand-200/80 font-medium">
+              <p className="mt-1 text-xs text-ink-600 font-medium">
                 API requests processed per day with 99.99% SLA uptime
               </p>
             </div>
           </Reveal>
 
           <Reveal delay={3}>
-            <div className="group rounded-3xl border border-brand-500/20 bg-gradient-to-b from-brand-950/40 via-purple-950/20 to-black/60 p-6 backdrop-blur-md transition-all duration-300 hover:border-brand-400/50 hover:scale-[1.02]">
+            <div className="group rounded-2xl border border-ink-200 bg-white/80 p-5 backdrop-blur-xs transition-all duration-300 hover:border-brand-300 hover:shadow-md">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[0.7rem] font-bold text-purple-300 uppercase tracking-widest">
+                <span className="font-mono text-[0.68rem] font-bold text-ink-500 uppercase tracking-wider">
                   Peak Concurrency
                 </span>
-                <Zap className="size-4 text-purple-400" />
+                <Zap className="size-4 text-brand-600" />
               </div>
-              <p className="mt-4 font-display text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-pink-300 sm:text-5xl lg:text-6xl tracking-tight">
+              <p className="mt-2 font-display text-3xl font-extrabold text-brand-700 sm:text-4xl tracking-tight">
                 10k+
               </p>
-              <p className="mt-2 text-xs text-purple-200/80 font-medium">
+              <p className="mt-1 text-xs text-ink-600 font-medium">
                 Simultaneous requests per second under peak load
               </p>
             </div>
           </Reveal>
 
           <Reveal delay={4}>
-            <div className="group rounded-3xl border border-brand-500/20 bg-gradient-to-b from-brand-950/40 via-purple-950/20 to-black/60 p-6 backdrop-blur-md transition-all duration-300 hover:border-brand-400/50 hover:scale-[1.02]">
+            <div className="group rounded-2xl border border-ink-200 bg-white/80 p-5 backdrop-blur-xs transition-all duration-300 hover:border-brand-300 hover:shadow-md">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[0.7rem] font-bold text-pink-300 uppercase tracking-widest">
+                <span className="font-mono text-[0.68rem] font-bold text-ink-500 uppercase tracking-wider">
                   Database Velocity
                 </span>
-                <ShieldCheck className="size-4 text-emerald-400" />
+                <ShieldCheck className="size-4 text-emerald-600" />
               </div>
-              <p className="mt-4 font-display text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-pink-200 to-brand-300 sm:text-5xl lg:text-6xl tracking-tight">
+              <p className="mt-2 font-display text-3xl font-extrabold text-brand-700 sm:text-4xl tracking-tight">
                 150k+
               </p>
-              <p className="mt-2 text-xs text-pink-200/80 font-medium">
+              <p className="mt-1 text-xs text-ink-600 font-medium">
                 Secured transactions per minute with instant data sync
               </p>
             </div>
