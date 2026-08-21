@@ -19,42 +19,42 @@ const TECH_RATES: Record<string, { base: number; multiplier: number; logo: strin
   "React / Next.js": {
     base: 1800,
     multiplier: 1.0,
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    logo: "/tech-logos/react.svg",
   },
   "Node.js / Express": {
     base: 1900,
     multiplier: 1.0,
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    logo: "/tech-logos/nodejs.svg",
   },
   "Flutter / Mobile": {
     base: 2000,
     multiplier: 1.1,
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
+    logo: "/tech-logos/flutter.svg",
   },
   "Python / AI / ML": {
     base: 2200,
     multiplier: 1.25,
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    logo: "/tech-logos/python.svg",
   },
   ".NET / C#": {
     base: 2100,
     multiplier: 1.15,
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg",
+    logo: "/tech-logos/dotnet.svg",
   },
   "PHP / Laravel": {
     base: 1500,
     multiplier: 0.9,
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
+    logo: "/tech-logos/laravel.svg",
   },
   "UI/UX Design": {
     base: 1600,
     multiplier: 0.95,
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    logo: "/tech-logos/figma.svg",
   },
   "QA & Automation": {
     base: 1400,
     multiplier: 0.85,
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg",
+    logo: "/tech-logos/selenium.svg",
   },
 };
 
