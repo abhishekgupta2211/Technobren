@@ -104,13 +104,15 @@ export function Footer() {
                 </a>
               ))}
               <a
-                href={`tel:${contact.primaryPhone.replace(/\s/g, "")}`}
+                href={`https://wa.me/${contact.primaryPhone.replace(/[^\d]/g, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2.5 text-[0.87rem] font-medium text-ink-800 transition-colors duration-300 hover:text-brand-700"
               >
                 <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
                   <Phone className="size-3.5" aria-hidden />
                 </span>
-                {contact.primaryPhone}
+                {contact.primaryPhone} (WhatsApp)
               </a>
             </div>
 

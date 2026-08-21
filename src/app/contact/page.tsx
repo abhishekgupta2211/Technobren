@@ -62,14 +62,16 @@ export default function ContactPage() {
               </span>
             </a>
             <a
-              href={`tel:${contact.primaryPhone.replace(/\s/g, "")}`}
+              href={`https://wa.me/${contact.primaryPhone.replace(/[^\d]/g, "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group mt-2 flex items-center gap-3 rounded-xl border border-ink-200 px-4 py-3 transition-colors duration-300 hover:border-brand-200 hover:bg-brand-50/50"
             >
               <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
                 <Phone className="size-4" aria-hidden />
               </span>
               <span className="truncate text-[0.88rem] font-medium text-ink-900">
-                {contact.primaryPhone}
+                {contact.primaryPhone} (WhatsApp Call / Chat)
               </span>
             </a>
             <p className="mt-5 flex items-start gap-2 text-pretty text-[0.83rem] leading-relaxed text-ink-600">
@@ -119,24 +121,26 @@ export default function ContactPage() {
                     ))}
                   </div>
 
-                  <div className="mt-3 rounded-xl border border-ink-200 p-4">
-                    <span className="flex items-center gap-2 text-[0.78rem] text-ink-500">
-                      <Phone className="size-3.5 text-brand-600" aria-hidden />
-                      Call us
-                    </span>
-                    <ul className="mt-3 space-y-2">
-                      {contact.phones.map((p) => (
-                        <li key={p}>
-                          <a
-                            href={`tel:${p.replace(/[^\d+]/g, "")}`}
-                            className="text-[0.9rem] font-medium text-ink-800 transition-colors duration-300 hover:text-brand-700"
-                          >
-                            {p}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    <div className="mt-3 rounded-xl border border-ink-200 p-4">
+                      <span className="flex items-center gap-2 text-[0.78rem] font-medium text-ink-600">
+                        <Phone className="size-3.5 text-brand-600" aria-hidden />
+                        WhatsApp Call & Chat
+                      </span>
+                      <ul className="mt-3 space-y-2">
+                        {contact.phones.map((p) => (
+                          <li key={p}>
+                            <a
+                              href={`https://wa.me/${p.replace(/[^\d]/g, "")}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 text-[0.88rem] font-medium text-ink-800 transition-colors duration-300 hover:text-brand-700"
+                            >
+                              {p}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                 </div>
               </Reveal>
 

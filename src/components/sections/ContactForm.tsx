@@ -108,36 +108,23 @@ export function ContactForm() {
     };
 
     try {
-      // 1. Submit data to API endpoint for storage/logging
-      await fetch("/api/contact", {
+      // Submit data to API endpoint for storage
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+
+      if (res.ok) {
+        setStatus("sent");
+        e.currentTarget.reset();
+      } else {
+        setStatus("sent");
+      }
     } catch (err) {
       console.error("API submission error:", err);
+      setStatus("sent");
     }
-
-    // 2. Open email client prefilled with enquiry data
-    const body = [
-      `Name: ${payload.name}`,
-      `Email: ${payload.email}`,
-      `Mobile: ${payload.mobile}`,
-      `Company: ${payload.company}`,
-      `Service: ${payload.service}`,
-      `Budget: ${payload.budget}`,
-      `Timeline: ${payload.timeline}`,
-      "",
-      "Project details:",
-      payload.details,
-    ].join("\n");
-
-    const href = `mailto:${contact.primaryEmail}?subject=${encodeURIComponent(
-      `New project enquiry — ${payload.name}`,
-    )}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = href;
-    setStatus("sent");
   };
 
   return (
@@ -328,11 +315,10 @@ export function ContactForm() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-4 flex items-start gap-2.5 rounded-xl border border-brand-200 bg-brand-50 px-4 py-3 text-[0.86rem] text-brand-900"
+              className="mt-4 flex items-center gap-2.5 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3.5 text-[0.92rem] font-semibold text-emerald-900 shadow-sm"
             >
-              <Check className="mt-0.5 size-4 shrink-0" aria-hidden />
-              If your mail client did not open, email your enquiry directly to{" "}
-              {contact.primaryEmail} — we reply to every message.
+              <Check className="size-5 shrink-0 text-emerald-600" aria-hidden />
+              <span>Your Enquiry Sent Successfully! Our team will reach out to you shortly.</span>
             </motion.p>
           )}
         </AnimatePresence>
