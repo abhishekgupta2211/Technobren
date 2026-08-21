@@ -89,13 +89,13 @@ export const socials = [
 
 export const stats = [
   {
-    value: 48,
+    value: 90,
     suffix: "+",
     label: "Projects delivered",
     sub: "Shipped with precision and quality",
   },
   {
-    value: 25,
+    value: 40,
     suffix: "+",
     label: "Clients served",
     sub: "Businesses that trust our expertise",
