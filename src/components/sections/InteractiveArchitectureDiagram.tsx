@@ -3,204 +3,243 @@
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Container } from "@/components/ui/Container";
-import { Reveal } from "@/components/ui/Reveal";
 
-interface SystemNode {
-  id: string;
-  label: string;
-  subLabel?: string;
-  type?: "group" | "single" | "hub" | "icons";
-  icons?: string[];
-}
+// Slides data matching screenshots 2, 3, 4 with real icons & node states
+const ARCH_SLIDES = [
+  {
+    id: 0,
+    heading: "Connect to existing systems.",
+    subHeading:
+      "Orchestrate enterprise data across ERPs, booking systems, and legacy infrastructure using custom APIs.",
+    activeNodes: ["CRM", "Subscriptions", "Booking system", "SDK", "Event Destinations"],
+    leftAppIcons: [
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/slack/slack-original.svg", name: "Slack" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg", name: "Jira" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg", name: "Postman" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/trello/trello-plain.svg", name: "Trello" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", name: "GitHub" },
+    ],
+    rightCloudIcon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+  },
+  {
+    id: 1,
+    heading: "Automate custom workflows.",
+    subHeading:
+      "Trigger event destinations, real-time data pipelines, and third-party integrations seamlessly.",
+    activeNodes: ["CRM", "Booking system", "SDK", "Event Destinations", "Data Pipeline"],
+    leftAppIcons: [
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hubspot/hubspot-original.svg", name: "Hubspot" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", name: "Figma" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg", name: "Google" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/salesforce/salesforce-original.svg", name: "Salesforce" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redhat/redhat-original.svg", name: "RedHat" },
+    ],
+    rightCloudIcon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+  },
+  {
+    id: 2,
+    heading: "Scale enterprise data & analytics.",
+    subHeading:
+      "Stream multi-channel data to Snowflake, BigQuery, and custom AI machine learning models.",
+    activeNodes: ["ERP", "CRM", "Subscriptions", "Legacy billing", "Booking system"],
+    leftAppIcons: [
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/salesforce/salesforce-original.svg", name: "Salesforce" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg", name: "Oracle" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", name: "Python" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg", name: "Azure" },
+      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", name: "AWS" },
+    ],
+    rightCloudIcon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+  },
+];
 
 export function InteractiveArchitectureDiagram() {
   const reduce = useReducedMotion();
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
-  // Auto animation cycle between nodes
+  // Auto transition animation loop every 4 seconds
   useEffect(() => {
     if (reduce) return;
     const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % 5);
-    }, 3500);
+      setActiveSlideIndex((prev) => (prev + 1) % ARCH_SLIDES.length);
+    }, 4000);
     return () => clearInterval(interval);
   }, [reduce]);
 
+  const currentSlide = ARCH_SLIDES[activeSlideIndex];
+
   return (
-    <section className="relative overflow-hidden bg-[#090507] text-white py-20 sm:py-28">
-      {/* Background Subtle Red Dot Matrix */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(#ae3135_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-15"
-      />
+    <section className="relative overflow-hidden bg-white text-ink-950 py-16 sm:py-24 border-t border-ink-100">
+      <Container size="wide" className="relative">
+        {/* Animated Top Heading (No Dark Background) */}
+        <div className="max-w-3xl">
+          <motion.div
+            key={currentSlide.id}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <h2 className="font-display text-3xl font-extrabold sm:text-4xl lg:text-5xl text-ink-950 tracking-tight leading-[1.15]">
+              {currentSlide.heading}{" "}
+              <span className="text-brand-700 font-semibold block sm:inline">
+                {currentSlide.subHeading.split(".")[0]}.
+              </span>
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-ink-600 leading-relaxed max-w-2xl">
+              {currentSlide.subHeading}
+            </p>
+          </motion.div>
 
-      <Container size="wide" className="relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Heading & Description matching Screenshot 2 */}
-          <div className="lg:col-span-5 space-y-6">
-            <Reveal>
-              <div className="inline-flex items-center gap-2 rounded-full border border-brand-400/30 bg-brand-500/10 px-3.5 py-1 backdrop-blur-md">
-                <span className="size-2 rounded-full bg-brand-500 animate-ping" />
-                <span className="font-mono text-xs font-bold text-brand-200 tracking-wider">
-                  Seamless System Integration
-                </span>
-              </div>
-            </Reveal>
+          {/* Slide Indicator Dots */}
+          <div className="mt-6 flex items-center gap-2">
+            {ARCH_SLIDES.map((s, idx) => (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => setActiveSlideIndex(idx)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  activeSlideIndex === idx ? "w-8 bg-brand-600" : "w-2 bg-ink-200 hover:bg-brand-300"
+                }`}
+                aria-label={`Slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
 
-            <Reveal delay={1}>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-[1.15] tracking-tight">
-                Connect to existing systems.{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 via-rose-200 to-white">
-                  Orchestrate data &amp; workflows.
-                </span>
-              </h2>
-            </Reveal>
+        {/* ---------- EXACT STRIPE NEURAL NETWORK ARCHITECTURE NODE TREE (NO DARK BG) ---------- */}
+        <div className="mt-14 relative flex flex-col items-center justify-center min-h-[460px] sm:min-h-[500px]">
+          
+          {/* Animated Connecting Neural Lines (SVG) */}
+          <svg className="pointer-events-none absolute inset-0 size-full z-0" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="linePulseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#ae3135" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#e11d48" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#ae3135" stopOpacity="0.8" />
+              </linearGradient>
+            </defs>
 
-            <Reveal delay={2}>
-              <p className="text-base sm:text-lg text-brand-100/80 leading-relaxed">
-                Connect your legacy ERPs, mobile applications, billing engines, and AI pipelines through TechnoBren’s high-speed API orchestrator with pre-built enterprise connectors.
-              </p>
-            </Reveal>
+            {/* Neural Lines from Top Bar to SDK & Event Destinations */}
+            <path d="M 33% 20% L 33% 34%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
+            <path d="M 67% 20% L 67% 34%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
 
-            {/* Interactive Step Features */}
-            <Reveal delay={3}>
-              <div className="space-y-3 pt-4 border-t border-brand-900/40">
-                {[
-                  { title: "ERP & Legacy Billing", desc: "Automated real-time inventory & invoice sync" },
-                  { title: "Mobile & Web Interfaces", desc: "Native iOS/Android & React Web App connectors" },
-                  { title: "AI & Event Destinations", desc: "Real-time stream analytics & machine learning pipelines" },
-                ].map((item, i) => (
-                  <button
-                    key={item.title}
-                    type="button"
-                    onClick={() => setActiveStep(i)}
-                    className={`w-full flex items-start gap-3 rounded-2xl border p-3 text-left transition-all duration-300 ${
-                      activeStep === i
-                        ? "border-brand-500 bg-brand-500/15 text-white shadow-md ring-1 ring-brand-400/30"
-                        : "border-transparent bg-brand-950/20 text-brand-200/70 hover:bg-brand-900/20"
+            {/* Neural Lines from SDK & Event Destinations to Center Hub */}
+            <path d="M 33% 40% L 50% 52%" stroke="url(#linePulseGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            <path d="M 67% 40% L 50% 52%" stroke="url(#linePulseGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+
+            {/* Horizontal Neural Line: Left Marketplace -> Center Hub -> Right Data Pipeline */}
+            <path d="M 22% 54% L 32% 54%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.5" />
+            <path d="M 32% 54% L 45% 54%" stroke="url(#linePulseGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            <path d="M 55% 54% L 68% 54%" stroke="url(#linePulseGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            <path d="M 68% 54% L 88% 54%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.5" />
+
+            {/* Neural Line: Center Hub -> Bottom Orchestration */}
+            <path d="M 50% 60% L 50% 74%" stroke="url(#linePulseGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            <path d="M 50% 80% L 42% 88%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
+            <path d="M 50% 80% L 47% 88%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
+            <path d="M 50% 80% L 53% 88%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
+            <path d="M 50% 80% L 58% 88%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
+          </svg>
+
+          {/* Neural Tree Nodes Structure */}
+          <div className="relative z-10 size-full flex flex-col items-center justify-between py-2 space-y-7">
+            
+            {/* ROW 1: Top Enterprise Node Group Bar */}
+            <div className="flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-brand-200 bg-brand-50/60 p-2.5 backdrop-blur-xs shadow-xs">
+              {["ERP", "CRM", "Subscriptions", "Legacy billing", "Booking system"].map((item) => {
+                const isActive = currentSlide.activeNodes.includes(item);
+                return (
+                  <motion.span
+                    key={item}
+                    animate={isActive ? { scale: [1, 1.05, 1] } : {}}
+                    transition={{ duration: 0.3 }}
+                    className={`rounded-xl px-4 py-2 font-mono text-xs font-bold transition-all duration-300 ${
+                      isActive
+                        ? "border border-brand-500 bg-brand-600 text-white shadow-md shadow-brand-500/20"
+                        : "border border-ink-200/80 bg-white text-ink-600 opacity-60"
                     }`}
                   >
-                    <span className={`flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold mt-0.5 ${activeStep === i ? "bg-brand-500 text-white" : "bg-brand-950 text-brand-300"}`}>
-                      {i + 1}
-                    </span>
-                    <div>
-                      <h4 className="text-xs font-bold text-white">{item.title}</h4>
-                      <p className="text-[0.72rem] text-brand-200/80">{item.desc}</p>
-                    </div>
-                  </button>
+                    {item}
+                  </motion.span>
+                );
+              })}
+            </div>
+
+            {/* ROW 2: SDK & Event Destinations */}
+            <div className="w-full flex items-center justify-between px-12 sm:px-32">
+              <span className="rounded-xl border border-brand-300 bg-brand-600 px-4 py-2 font-mono text-xs font-bold text-white shadow-sm">
+                SDK Engine
+              </span>
+              <span className="rounded-xl border border-brand-300 bg-brand-600 px-4 py-2 font-mono text-xs font-bold text-white shadow-sm">
+                Event Destinations
+              </span>
+            </div>
+
+            {/* ROW 3: Left App Grid | CENTER HUB (technobren) | App Marketplace | Right Cloud Logo */}
+            <div className="w-full flex items-center justify-between gap-3 px-2 sm:px-8">
+              
+              {/* Left App Icons Matrix Card matching Screenshot 2/3/4 */}
+              <div className="hidden sm:flex flex-col gap-1.5 rounded-2xl border border-brand-200 bg-brand-50/70 p-3 shadow-sm">
+                <div className="grid grid-cols-3 gap-2">
+                  {currentSlide.leftAppIcons.map((app, i) => (
+                    <motion.div
+                      key={app.name + i}
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: i * 0.08 }}
+                      className="flex size-9 items-center justify-center rounded-xl bg-white border border-ink-100 p-1.5 shadow-2xs"
+                    >
+                      <img src={app.logo} alt={app.name} className="size-full object-contain" />
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <span className="rounded-xl border border-brand-400 bg-brand-600 px-4 py-2.5 font-mono text-xs font-bold text-white shadow-md">
+                App Marketplace ↗
+              </span>
+
+              {/* CENTER NEURAL HUB: technobren */}
+              <motion.div
+                animate={reduce ? false : { scale: [1, 1.05, 1], boxShadow: ["0 0 15px rgba(174,49,53,0.3)", "0 0 35px rgba(174,49,53,0.6)", "0 0 15px rgba(174,49,53,0.3)"] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                className="rounded-2xl border-2 border-brand-400 bg-gradient-to-br from-brand-600 via-brand-700 to-brand-900 px-8 py-5 text-center font-display text-lg font-extrabold text-white shadow-xl"
+              >
+                technobren
+                <span className="block text-[0.65rem] font-mono text-brand-100 uppercase tracking-widest mt-0.5">
+                  Neural Core Hub
+                </span>
+              </motion.div>
+
+              <span className="rounded-xl border border-brand-400 bg-brand-600 px-4 py-2.5 font-mono text-xs font-bold text-white shadow-md">
+                Data Pipeline
+              </span>
+
+              {/* Right Cloud Integration Icon matching Screenshot 2/3/4 */}
+              <motion.div
+                key={currentSlide.rightCloudIcon}
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                className="hidden sm:flex size-11 items-center justify-center rounded-2xl border border-brand-200 bg-white p-2.5 shadow-sm"
+              >
+                <img src={currentSlide.rightCloudIcon} alt="Cloud Database" className="size-full object-contain" />
+              </motion.div>
+            </div>
+
+            {/* ROW 4: Orchestration & PSP Nodes */}
+            <div className="flex flex-col items-center gap-2.5">
+              <span className="rounded-xl border border-brand-400 bg-brand-600 px-5 py-2 font-mono text-xs font-bold text-white shadow-sm">
+                API Orchestration
+              </span>
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {["Stripe PSP", "Razorpay", "PayPal", "Bank Transfer"].map((psp) => (
+                  <span key={psp} className="rounded-xl border border-brand-200 bg-brand-50/80 px-3 py-1 font-mono text-[0.7rem] font-bold text-brand-900 shadow-2xs">
+                    {psp}
+                  </span>
                 ))}
               </div>
-            </Reveal>
-          </div>
-
-          {/* Right Column: Exact Architecture Tree Node Diagram (Stripe Style) matching Screenshot 2 */}
-          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[460px] sm:min-h-[500px]">
-            {/* SVG Connector Dashed Lines */}
-            <svg className="pointer-events-none absolute inset-0 size-full z-0" xmlns="http://www.w3.org/2000/svg">
-              {/* Top Group to Center Hub */}
-              <path d="M 50% 22% L 50% 48%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.6" />
-              <path d="M 40% 34% L 50% 48%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.6" />
-              <path d="M 62% 34% L 50% 48%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.6" />
-
-              {/* Left Marketplace to Center Hub */}
-              <path d="M 28% 54% L 50% 54%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.6" />
-              <path d="M 18% 54% L 32% 54%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.4" />
-
-              {/* Right Data Pipeline & Azure to Center Hub */}
-              <path d="M 50% 54% L 68% 54%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.6" />
-              <path d="M 68% 54% L 84% 54%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.4" />
-
-              {/* Center Hub to Bottom Orchestration */}
-              <path d="M 50% 60% L 50% 74%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.6" />
-              <path d="M 50% 80% L 44% 88%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.5" />
-              <path d="M 50% 80% L 54% 88%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="4,4" opacity="0.5" />
-            </svg>
-
-            {/* Nodes Grid Container */}
-            <div className="relative z-10 size-full flex flex-col items-center justify-between py-2 space-y-6">
-              
-              {/* TOP ROW: ERP | Subscriptions | Legacy billing | Booking system */}
-              <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 rounded-2xl border border-brand-500/25 bg-brand-950/40 p-2 backdrop-blur-md">
-                <span className="rounded-xl border border-brand-500/30 bg-brand-600/30 px-3 py-1.5 font-mono text-[0.72rem] font-bold text-white shadow-xs">
-                  ERP Systems
-                </span>
-                <span className="rounded-xl border border-brand-500/30 bg-brand-600/30 px-3 py-1.5 font-mono text-[0.72rem] font-bold text-white shadow-xs">
-                  Subscriptions
-                </span>
-                <span className="rounded-xl border border-brand-500/30 bg-brand-600/30 px-3 py-1.5 font-mono text-[0.72rem] font-bold text-white shadow-xs">
-                  Legacy Billing
-                </span>
-                <span className="rounded-xl border border-brand-500/30 bg-brand-600/30 px-3 py-1.5 font-mono text-[0.72rem] font-bold text-white shadow-xs">
-                  Booking Engine
-                </span>
-              </div>
-
-              {/* SECOND ROW: SDK & Event Destinations */}
-              <div className="w-full flex items-center justify-between px-8 sm:px-16">
-                <span className="rounded-xl border border-brand-400/40 bg-brand-600/60 px-3.5 py-1.5 font-mono text-xs font-bold text-white shadow-md">
-                  REST SDK
-                </span>
-                <span className="rounded-xl border border-brand-400/40 bg-brand-600/60 px-3.5 py-1.5 font-mono text-xs font-bold text-white shadow-md">
-                  Event Destinations
-                </span>
-              </div>
-
-              {/* CENTER ROW: App Marketplace Grid | TECHNOBREN HUB | Data Pipeline | Azure Icon */}
-              <div className="w-full flex items-center justify-between gap-2 px-2 sm:px-6">
-                {/* App Marketplace Icons Mini Box */}
-                <div className="hidden sm:flex flex-col gap-1 rounded-xl border border-brand-500/30 bg-brand-950/50 p-2">
-                  <div className="grid grid-cols-3 gap-1">
-                    <span className="flex size-6 items-center justify-center rounded-lg bg-black/60 font-bold text-[0.6rem] text-white">⚛️</span>
-                    <span className="flex size-6 items-center justify-center rounded-lg bg-brand-900/80 font-bold text-[0.6rem] text-white">🟢</span>
-                    <span className="flex size-6 items-center justify-center rounded-lg bg-brand-800/80 font-bold text-[0.6rem] text-white">📱</span>
-                    <span className="flex size-6 items-center justify-center rounded-lg bg-brand-700/80 font-bold text-[0.6rem] text-white">🐍</span>
-                    <span className="flex size-6 items-center justify-center rounded-lg bg-black/60 font-bold text-[0.6rem] text-white">🔷</span>
-                    <span className="flex size-6 items-center justify-center rounded-lg bg-brand-900/80 font-bold text-[0.6rem] text-white">🔴</span>
-                  </div>
-                </div>
-
-                <span className="rounded-xl border border-brand-400/50 bg-brand-600/80 px-3.5 py-2 font-mono text-xs font-bold text-white shadow-lg">
-                  App Marketplace ↗
-                </span>
-
-                {/* MAIN CENTER HUB: TechnoBren Core */}
-                <motion.div
-                  animate={reduce ? false : { scale: [1, 1.04, 1] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="rounded-2xl border-2 border-brand-400 bg-gradient-to-br from-brand-500 via-brand-700 to-brand-950 px-6 py-4 text-center font-display text-base font-extrabold text-white shadow-[0_0_30px_rgba(174,49,53,0.6)]"
-                >
-                  technobren
-                  <span className="block text-[0.6rem] font-mono text-brand-200 uppercase font-medium">
-                    Core Engine
-                  </span>
-                </motion.div>
-
-                <span className="rounded-xl border border-brand-400/50 bg-brand-600/80 px-3.5 py-2 font-mono text-xs font-bold text-white shadow-lg">
-                  Data Pipeline
-                </span>
-
-                {/* Cloud Azure/AWS Single Icon Badge */}
-                <span className="hidden sm:flex size-9 items-center justify-center rounded-xl border border-brand-400/40 bg-white font-extrabold text-sm text-brand-950 shadow-md">
-                  ☁️
-                </span>
-              </div>
-
-              {/* BOTTOM ROW: Orchestration -> PSP / Gateways */}
-              <div className="flex flex-col items-center gap-2">
-                <span className="rounded-xl border border-brand-400/50 bg-brand-600 px-4 py-1.5 font-mono text-xs font-bold text-white shadow-md">
-                  API Orchestration
-                </span>
-                <div className="flex items-center gap-3">
-                  <span className="rounded-lg border border-brand-500/30 bg-brand-950/70 px-3 py-1 font-mono text-[0.68rem] font-bold text-brand-200">
-                    Stripe PSP
-                  </span>
-                  <span className="rounded-lg border border-brand-500/30 bg-brand-950/70 px-3 py-1 font-mono text-[0.68rem] font-bold text-brand-200">
-                    Razorpay
-                  </span>
-                </div>
-              </div>
-
             </div>
+
           </div>
         </div>
       </Container>
