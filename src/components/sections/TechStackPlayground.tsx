@@ -191,7 +191,7 @@ export function TechStackPlayground() {
   const currentTab = TECH_TABS.find((t) => t.id === activeTabId) || TECH_TABS[0];
 
   return (
-    <section className="relative overflow-hidden bg-white border-t border-ink-100 py-16 sm:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-white border-t border-ink-100 py-10 sm:py-12 lg:py-14">
       {/* Background Ambient Glow */}
       <div
         aria-hidden

@@ -89,7 +89,7 @@ export default function TechnologyPage() {
       <TechStackPlayground />
 
       {/* ---------- Categories ---------- */}
-      <section className="py-14 sm:py-18 lg:py-22">
+      <section className="pt-8 pb-14 sm:pt-10 sm:pb-18 lg:pt-12 lg:pb-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="The stack"
