@@ -89,33 +89,53 @@ export function ContactForm() {
    * handler that is not part of this rebuild. Until an endpoint exists the
    * enquiry is handed to the visitor's mail client so nothing is lost.
    */
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("sending");
 
     const data = new FormData(e.currentTarget);
     const get = (k: string) => String(data.get(k) ?? "").trim();
 
+    const payload = {
+      name: get("name"),
+      email: get("email"),
+      mobile: get("mobile"),
+      company: get("company"),
+      service: get("service"),
+      budget: get("budget"),
+      timeline: get("timeline"),
+      details: get("details"),
+    };
+
+    try {
+      // 1. Submit data to API endpoint for storage/logging
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      console.error("API submission error:", err);
+    }
+
+    // 2. Open email client prefilled with enquiry data
     const body = [
-      `Name: ${get("name")}`,
-      `Email: ${get("email")}`,
-      `Mobile: ${get("mobile")}`,
-      `Company: ${get("company")}`,
-      `Service: ${get("service")}`,
-      `Budget: ${get("budget")}`,
-      `Timeline: ${get("timeline")}`,
+      `Name: ${payload.name}`,
+      `Email: ${payload.email}`,
+      `Mobile: ${payload.mobile}`,
+      `Company: ${payload.company}`,
+      `Service: ${payload.service}`,
+      `Budget: ${payload.budget}`,
+      `Timeline: ${payload.timeline}`,
       "",
       "Project details:",
-      get("details"),
+      payload.details,
     ].join("\n");
 
     const href = `mailto:${contact.primaryEmail}?subject=${encodeURIComponent(
-      `New project enquiry — ${get("name")}`,
+      `New project enquiry — ${payload.name}`,
     )}&body=${encodeURIComponent(body)}`;
 
-    // Handing off to the mail client is fire-and-forget: it cannot report
-    // success, so the confirmation tells the visitor what to do if their client
-    // did not open rather than claiming the message was sent.
     window.location.href = href;
     setStatus("sent");
   };
