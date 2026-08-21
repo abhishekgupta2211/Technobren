@@ -91,18 +91,21 @@ export function Footer() {
             </p>
 
             <div className="mt-6 flex flex-col gap-2.5">
-              <a
-                href={`mailto:${contact.primaryEmail}`}
-                className="group inline-flex items-center gap-2.5 text-[0.9rem] font-medium text-ink-800 transition-colors duration-300 hover:text-brand-700"
-              >
-                <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
-                  <Mail className="size-3.5" aria-hidden />
-                </span>
-                {contact.primaryEmail}
-              </a>
+              {contact.emails.map((item) => (
+                <a
+                  key={item.email}
+                  href={`mailto:${item.email}`}
+                  className="group inline-flex items-center gap-2.5 text-[0.87rem] font-medium text-ink-800 transition-colors duration-300 hover:text-brand-700"
+                >
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
+                    <Mail className="size-3.5" aria-hidden />
+                  </span>
+                  <span className="truncate">{item.email}</span>
+                </a>
+              ))}
               <a
                 href={`tel:${contact.primaryPhone.replace(/\s/g, "")}`}
-                className="group inline-flex items-center gap-2.5 text-[0.9rem] font-medium text-ink-800 transition-colors duration-300 hover:text-brand-700"
+                className="group inline-flex items-center gap-2.5 text-[0.87rem] font-medium text-ink-800 transition-colors duration-300 hover:text-brand-700"
               >
                 <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
                   <Phone className="size-3.5" aria-hidden />
@@ -202,42 +205,6 @@ export function Footer() {
               ))}
             </ul>
           </nav>
-        </div>
-
-        {/* ---------- Offices ---------- */}
-        <div className="border-t border-ink-200 py-10">
-          <div className="flex items-center justify-between">
-            <ColumnTitle>Offices</ColumnTitle>
-            <span className="font-mono text-[0.66rem] text-ink-500">
-              {offices.length} offices · 3 countries
-            </span>
-          </div>
-
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {offices.map((o) => (
-              <li
-                key={o.city}
-                className="group rounded-2xl border border-ink-200 bg-white p-4 shadow-(--shadow-card) transition-all duration-300 hover:-translate-y-1 hover:border-brand-200"
-              >
-                <p className="flex items-center gap-2 text-[0.88rem] font-semibold text-ink-950">
-                  <CountryMark country={o.country} />
-                  {o.city}
-                  {o.hq && (
-                    <span className="rounded border border-brand-200 bg-brand-50 px-1.5 py-px font-mono text-[0.58rem] uppercase tracking-wider text-brand-700">
-                      HQ
-                    </span>
-                  )}
-                </p>
-                <p className="mt-2 flex items-start gap-1.5 text-[0.76rem] leading-relaxed text-ink-500">
-                  <MapPin
-                    className="mt-0.5 size-3 shrink-0 text-brand-400"
-                    aria-hidden
-                  />
-                  {o.address}
-                </p>
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* ---------- Legal ---------- */}

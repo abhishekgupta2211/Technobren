@@ -9,6 +9,7 @@ import { WhySection } from "@/components/sections/WhySection";
 import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { HireTeamSection } from "@/components/sections/HireTeamSection";
+import { OfficesSection } from "@/components/sections/OfficesSection";
 import { CTASection } from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
@@ -41,7 +42,9 @@ export default function HomePage() {
       <ProcessSection />
       {/* 10 — Offshore teams */}
       <HireTeamSection />
-      {/* 11 — Conversion */}
+      {/* 11 — Global Offices */}
+      <OfficesSection />
+      {/* 12 — Conversion */}
       <CTASection />
     </>
   );

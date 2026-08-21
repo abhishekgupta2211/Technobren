@@ -97,22 +97,27 @@ export default function ContactPage() {
                     Direct contact
                   </h3>
 
-                  <a
-                    href={`mailto:${contact.primaryEmail}`}
-                    className="group mt-5 flex items-start gap-3.5 rounded-xl border border-ink-200 p-4 transition-colors duration-300 hover:border-brand-200 hover:bg-brand-50/50"
-                  >
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
-                      <Mail className="size-4" aria-hidden />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block text-[0.78rem] text-ink-500">
-                        Business enquiries
-                      </span>
-                      <span className="block truncate text-[0.92rem] font-semibold text-ink-950">
-                        {contact.primaryEmail}
-                      </span>
-                    </span>
-                  </a>
+                  <div className="mt-5 space-y-2.5">
+                    {contact.emails.map((item) => (
+                      <a
+                        key={item.email}
+                        href={`mailto:${item.email}`}
+                        className="group flex items-center gap-3.5 rounded-xl border border-ink-200 p-3.5 transition-colors duration-300 hover:border-brand-200 hover:bg-brand-50/50"
+                      >
+                        <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
+                          <Mail className="size-4" aria-hidden />
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block text-[0.72rem] font-medium text-ink-500">
+                            {item.label}
+                          </span>
+                          <span className="block truncate text-[0.88rem] font-semibold text-ink-950">
+                            {item.email}
+                          </span>
+                        </span>
+                      </a>
+                    ))}
+                  </div>
 
                   <div className="mt-3 rounded-xl border border-ink-200 p-4">
                     <span className="flex items-center gap-2 text-[0.78rem] text-ink-500">

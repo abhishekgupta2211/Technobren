@@ -24,6 +24,12 @@ export const site = {
 export const contact = {
   primaryEmail: "info@technobren.com",
   salesEmail: "r.yadav@technobren.com",
+  hrEmail: "hr@technobren.com",
+  emails: [
+    { label: "General & Business", email: "info@technobren.com" },
+    { label: "Direct & Sales", email: "r.yadav@technobren.com" },
+    { label: "Careers & HR", email: "hr@technobren.com" },
+  ],
   primaryPhone: "+91 93 0536 5576",
   phones: [
     "+91 93 0536 5576",
