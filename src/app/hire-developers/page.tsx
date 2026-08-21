@@ -120,7 +120,7 @@ export default function HireDevelopersPage() {
   return (
     <div className="overflow-x-clip">
       {/* 01 — ULTRA MODERN HERO WITH GLOW & ANIMATED TECH MARQUEE */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[var(--canvas-subtle)] via-white to-[var(--canvas-subtle)] pt-12 pb-20 sm:pt-16 sm:pb-28">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[var(--canvas-subtle)] via-white to-[var(--canvas-subtle)] pt-24 pb-20 sm:pt-28 sm:pb-28 lg:pt-32">
         {/* Glow Effects */}
         <div
           aria-hidden
