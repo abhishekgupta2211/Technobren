@@ -142,7 +142,14 @@ export function AssetDashboard({ className }: { className?: string }) {
       aria-label="Asset management dashboard showing the tagged asset register, maintenance schedule and condition split with sample data"
     >
       <Screen>
-        <Sidebar product="Asset Mgmt" items={NAV} activeIndex={0} />
+        <Sidebar
+          product="Asset Mgmt"
+          items={NAV}
+          activeIndex={0}
+          bgFill="#24201b"
+          accentColor="#d97706"
+          activePillColor="#38322a"
+        />
         <TopBar title="Dashboard" />
 
         {/* ---- KPI row ---- */}

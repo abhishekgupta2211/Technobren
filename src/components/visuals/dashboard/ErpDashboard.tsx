@@ -97,7 +97,14 @@ export function ErpDashboard({ className }: { className?: string }) {
       aria-label="Custom ERP dashboard interface showing sales, inventory and finance modules with sample data"
     >
       <Screen>
-        <Sidebar product="Custom ERP" items={NAV} activeIndex={0} />
+        <Sidebar
+          product="Custom ERP"
+          items={NAV}
+          activeIndex={0}
+          bgFill="#1e1b29"
+          accentColor="#ae3135"
+          activePillColor="#322d45"
+        />
         <TopBar title="Dashboard" />
 
         {/* ---- KPI row ---- */}

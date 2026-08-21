@@ -95,7 +95,14 @@ export function DistributorDashboard({ className }: { className?: string }) {
       aria-label="Distributor management dashboard showing channel performance and primary versus secondary sales with sample data"
     >
       <Screen>
-        <Sidebar product="Distributor Mgmt" items={NAV} activeIndex={0} />
+        <Sidebar
+          product="Distributor Mgmt"
+          items={NAV}
+          activeIndex={0}
+          bgFill="#111c2e"
+          accentColor="#2563eb"
+          activePillColor="#1c2d47"
+        />
         <TopBar title="Dashboard" />
 
         {/* ---- KPI row ---- */}

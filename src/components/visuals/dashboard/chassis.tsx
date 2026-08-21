@@ -387,22 +387,30 @@ export function Sidebar({
   activeIndex = 0,
   user = "John Admin",
   role = "Administrator",
+  bgFill = PALETTE.sidebar,
+  accentColor = PALETTE.brand,
+  activePillColor = PALETTE.sidebarSoft,
+  activePillText = "#ffffff",
 }: {
   product: string;
   items: { label: string; icon: string }[];
   activeIndex?: number;
   user?: string;
   role?: string;
+  bgFill?: string;
+  accentColor?: string;
+  activePillColor?: string;
+  activePillText?: string;
 }) {
   return (
     <g>
       <path
         d={`M0 12 A12 12 0 0 1 12 0 H${SIDEBAR_W} V${H} H12 A12 12 0 0 1 0 ${H - 12} Z`}
-        fill={PALETTE.sidebar}
+        fill={bgFill}
       />
 
       {/* product lockup */}
-      <rect x="22" y="24" width="30" height="30" rx="8" fill={PALETTE.brand} />
+      <rect x="22" y="24" width="30" height="30" rx="8" fill={accentColor} />
       <rect x="30" y="32" width="6" height="6" rx="1.6" fill="#fff" />
       <rect x="38" y="32" width="6" height="6" rx="1.6" fill="#fff" opacity="0.6" />
       <rect x="30" y="40" width="6" height="6" rx="1.6" fill="#fff" opacity="0.6" />
@@ -413,7 +421,7 @@ export function Sidebar({
         fontFamily="var(--font-manrope, system-ui)"
         fontSize="14"
         fontWeight="700"
-        fill={PALETTE.sidebarText}
+        fill="#ffffff"
       >
         {product}
       </text>
@@ -431,7 +439,7 @@ export function Sidebar({
                 width={SIDEBAR_W - 28}
                 height="34"
                 rx="9"
-                fill={PALETTE.sidebarSoft}
+                fill={activePillColor}
               />
             )}
             {on && (
@@ -441,17 +449,17 @@ export function Sidebar({
                 width="3"
                 height="34"
                 rx="1.5"
-                fill={PALETTE.brand}
+                fill={accentColor}
               />
             )}
-            {glyph(item.icon, 28, y + 6, on ? "#fff" : "rgba(255,255,255,0.45)")}
+            {glyph(item.icon, 28, y + 6, on ? activePillText : "rgba(255,255,255,0.45)")}
             <text
               x="58"
               y={y + 19}
               fontFamily="var(--font-inter, system-ui)"
-              fontSize="11.5"
-              fontWeight={on ? 600 : 400}
-              fill={on ? "#fff" : "rgba(255,255,255,0.55)"}
+              fontSize="12.5"
+              fontWeight={on ? "600" : "500"}
+              fill={on ? activePillText : "rgba(255,255,255,0.55)"}
             >
               {item.label}
             </text>

@@ -89,7 +89,14 @@ export function MerchandiserDashboard({ className }: { className?: string }) {
       aria-label="Merchandiser dashboard showing today's store visits and shelf compliance photo audit with sample data"
     >
       <Screen>
-        <Sidebar product="Merchandiser" items={NAV} activeIndex={0} />
+        <Sidebar
+          product="Merchandiser"
+          items={NAV}
+          activeIndex={0}
+          bgFill="#201a2e"
+          accentColor="#8b5cf6"
+          activePillColor="#312647"
+        />
         <TopBar title="Dashboard" />
 
         {/* ---- KPI row ---- */}

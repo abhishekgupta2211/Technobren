@@ -143,6 +143,9 @@ export function VanSalesDashboard({ className }: { className?: string }) {
           activeIndex={0}
           user="Field Manager"
           role="Operations"
+          bgFill="#0f261e"
+          accentColor="#10b981"
+          activePillColor="#1c3d32"
         />
         <TopBar title="Dashboard" />
 
