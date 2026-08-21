@@ -64,7 +64,7 @@ export function InteractiveArchitectureDiagram() {
         {/* ---------- CENTERED NEURAL NETWORK DIAGRAM WITH CIRCULAR TECHNOBREN LOGO HUB ---------- */}
         <div className="mt-10 relative max-w-5xl mx-auto min-h-[460px] sm:min-h-[500px] flex items-center justify-center p-4">
           
-          {/* Animated Connecting Neural Beams SVG */}
+          {/* Curved Animated Connecting Neural Beams SVG */}
           <svg className="pointer-events-none absolute inset-0 size-full z-0" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="neuralBeamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -74,36 +74,33 @@ export function InteractiveArchitectureDiagram() {
               </linearGradient>
             </defs>
 
-            {/* Glowing Connection Beams to All Nodes */}
-            <line x1="50%" y1="50%" x2="22%" y2="16%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
-            <line x1="50%" y1="50%" x2="50%" y2="14%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
-            <line x1="50%" y1="50%" x2="78%" y2="16%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            {/* Organic Curved Neural Path Connections */}
+            <path d="M 50% 50% Q 35% 30% 22% 16%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" fill="none" className="animate-pulse" />
+            <path d="M 50% 50% Q 50% 32% 50% 14%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" fill="none" className="animate-pulse" />
+            <path d="M 50% 50% Q 65% 30% 78% 16%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" fill="none" className="animate-pulse" />
 
-            <line x1="50%" y1="50%" x2="16%" y2="44%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
-            <line x1="50%" y1="50%" x2="16%" y2="58%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            <path d="M 50% 50% Q 30% 46% 16% 44%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" fill="none" className="animate-pulse" />
+            <path d="M 50% 50% Q 30% 54% 16% 58%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" fill="none" className="animate-pulse" />
 
-            <line x1="50%" y1="50%" x2="84%" y2="44%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
-            <line x1="50%" y1="50%" x2="84%" y2="58%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            <path d="M 50% 50% Q 70% 46% 84% 44%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" fill="none" className="animate-pulse" />
+            <path d="M 50% 50% Q 70% 54% 84% 58%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" fill="none" className="animate-pulse" />
 
-            <line x1="50%" y1="50%" x2="30%" y2="84%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
-            <line x1="50%" y1="50%" x2="70%" y2="84%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            <path d="M 50% 50% Q 38% 70% 30% 84%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" fill="none" className="animate-pulse" />
+            <path d="M 50% 50% Q 62% 70% 70% 84%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" fill="none" className="animate-pulse" />
           </svg>
 
-          {/* 🌟 CENTER CORE HUB: PERFECT PURE CIRCLE BADGE (COMPACT SIZE) 🌟 */}
+          {/* 🌟 CENTER CORE HUB: PURE TECHNOBREN LOGO CIRCLE (NO TEXT) 🌟 */}
           <motion.div
-            animate={reduce ? false : { scale: [1, 1.06, 1], boxShadow: ["0 0 15px rgba(174,49,53,0.3)", "0 0 35px rgba(174,49,53,0.6)", "0 0 15px rgba(174,49,53,0.3)"] }}
+            animate={reduce ? false : { scale: [1, 1.06, 1], boxShadow: ["0 0 15px rgba(174,49,53,0.3)", "0 0 40px rgba(174,49,53,0.65)", "0 0 15px rgba(174,49,53,0.3)"] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 cursor-pointer rounded-full overflow-hidden"
           >
-            <div className="flex flex-col items-center justify-center size-24 sm:size-28 rounded-full border-3 border-brand-500 bg-white p-2 shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden">
+            <div className="flex items-center justify-center size-24 sm:size-28 rounded-full border-3 border-brand-500 bg-white p-2.5 shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden">
               <img
                 src="/brand/technobren-logo.png"
                 alt="TechnoBren Infotech Logo"
-                className="h-6 sm:h-8 w-auto object-contain max-w-[85%]"
+                className="h-8 sm:h-11 w-auto object-contain max-w-[90%]"
               />
-              <span className="mt-0.5 text-[0.52rem] font-mono font-extrabold uppercase tracking-widest text-brand-700">
-                Core Hub
-              </span>
             </div>
           </motion.div>
 
@@ -117,9 +114,9 @@ export function InteractiveArchitectureDiagram() {
                   type="button"
                   onClick={() => setActiveNodeId(node.id)}
                   onMouseEnter={() => setActiveNodeId(node.id)}
-                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-sm ${
+                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-xs ${
                     isActive
-                      ? "border-brand-500 bg-brand-600 text-white shadow-lg shadow-brand-500/30 scale-105 ring-2 ring-brand-400/30"
+                      ? "border-brand-500 bg-brand-50/90 text-brand-950 shadow-md ring-2 ring-brand-400/30 scale-105"
                       : "border-ink-200 bg-white text-ink-800 hover:border-brand-300"
                   }`}
                 >
@@ -140,9 +137,9 @@ export function InteractiveArchitectureDiagram() {
                   type="button"
                   onClick={() => setActiveNodeId(node.id)}
                   onMouseEnter={() => setActiveNodeId(node.id)}
-                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-sm ${
+                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-xs ${
                     isActive
-                      ? "border-brand-500 bg-brand-600 text-white shadow-lg shadow-brand-500/30 scale-105 ring-2 ring-brand-400/30"
+                      ? "border-brand-500 bg-brand-50/90 text-brand-950 shadow-md ring-2 ring-brand-400/30 scale-105"
                       : "border-ink-200 bg-white text-ink-800 hover:border-brand-300"
                   }`}
                 >
@@ -163,9 +160,9 @@ export function InteractiveArchitectureDiagram() {
                   type="button"
                   onClick={() => setActiveNodeId(node.id)}
                   onMouseEnter={() => setActiveNodeId(node.id)}
-                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-sm ${
+                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-xs ${
                     isActive
-                      ? "border-brand-500 bg-brand-600 text-white shadow-lg shadow-brand-500/30 scale-105 ring-2 ring-brand-400/30"
+                      ? "border-brand-500 bg-brand-50/90 text-brand-950 shadow-md ring-2 ring-brand-400/30 scale-105"
                       : "border-ink-200 bg-white text-ink-800 hover:border-brand-300"
                   }`}
                 >
@@ -186,9 +183,9 @@ export function InteractiveArchitectureDiagram() {
                   type="button"
                   onClick={() => setActiveNodeId(node.id)}
                   onMouseEnter={() => setActiveNodeId(node.id)}
-                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-sm ${
+                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-xs ${
                     isActive
-                      ? "border-brand-500 bg-brand-600 text-white shadow-lg shadow-brand-500/30 scale-105 ring-2 ring-brand-400/30"
+                      ? "border-brand-500 bg-brand-50/90 text-brand-950 shadow-md ring-2 ring-brand-400/30 scale-105"
                       : "border-ink-200 bg-white text-ink-800 hover:border-brand-300"
                   }`}
                 >
