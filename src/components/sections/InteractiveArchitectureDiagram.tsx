@@ -89,19 +89,19 @@ export function InteractiveArchitectureDiagram() {
             <line x1="50%" y1="50%" x2="70%" y2="84%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
           </svg>
 
-          {/* 🌟 CENTER CORE HUB: PERFECT CIRCULAR TECHNOBREN LOGO BADGE 🌟 */}
+          {/* 🌟 CENTER CORE HUB: PERFECT PURE CIRCLE BADGE (COMPACT SIZE) 🌟 */}
           <motion.div
-            animate={reduce ? false : { scale: [1, 1.06, 1], boxShadow: ["0 0 20px rgba(174,49,53,0.3)", "0 0 50px rgba(174,49,53,0.65)", "0 0 20px rgba(174,49,53,0.3)"] }}
+            animate={reduce ? false : { scale: [1, 1.06, 1], boxShadow: ["0 0 15px rgba(174,49,53,0.3)", "0 0 35px rgba(174,49,53,0.6)", "0 0 15px rgba(174,49,53,0.3)"] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 cursor-pointer"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 cursor-pointer rounded-full overflow-hidden"
           >
-            <div className="flex flex-col items-center justify-center size-28 sm:size-36 rounded-full border-4 border-brand-500 bg-white p-3 shadow-2xl transition-all duration-300 hover:scale-105">
+            <div className="flex flex-col items-center justify-center size-24 sm:size-28 rounded-full border-3 border-brand-500 bg-white p-2 shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden">
               <img
                 src="/brand/technobren-logo.png"
                 alt="TechnoBren Infotech Logo"
-                className="h-8 sm:h-11 w-auto object-contain"
+                className="h-6 sm:h-8 w-auto object-contain max-w-[85%]"
               />
-              <span className="mt-1 text-[0.58rem] font-mono font-extrabold uppercase tracking-widest text-brand-700">
+              <span className="mt-0.5 text-[0.52rem] font-mono font-extrabold uppercase tracking-widest text-brand-700">
                 Core Hub
               </span>
             </div>
