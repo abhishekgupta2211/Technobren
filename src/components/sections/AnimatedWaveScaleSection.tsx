@@ -90,7 +90,7 @@ export function AnimatedWaveScaleSection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#09060c] text-white py-24 sm:py-32">
+    <section className="relative overflow-hidden bg-[#09060c] text-white pt-28 sm:pt-32 lg:pt-36 pb-20 sm:pb-28">
       {/* Dynamic Animated Canvas Wave */}
       <canvas
         ref={canvasRef}
