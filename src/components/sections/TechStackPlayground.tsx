@@ -16,6 +16,7 @@ export interface TechStackTab {
   logo: string;
   tagline: string;
   description: string;
+  codeSnippet: { filename: string; lines: string[] };
   features: string[];
   useCases: string[];
   capabilities: { label: string; value: string }[];
@@ -31,6 +32,18 @@ export const TECH_TABS: TechStackTab[] = [
     tagline: "Ultra-Fast Server-Rendered Enterprise Web Platforms",
     description:
       "We engineer sub-second SEO-optimised web applications, dynamic customer portals, and high-concurrency e-commerce storefronts using Next.js App Router and React Server Components.",
+    codeSnippet: {
+      filename: "technobren-next-router.ts",
+      lines: [
+        'import { createServerClient } from "@technobren/core";',
+        "",
+        'export async function GET(req: Request) {',
+        '  const client = await createServerClient({ edge: true });',
+        '  const data = await client.queries.fetchEnterpriseDashboard();',
+        '  return Response.json({ status: 200, latency: "< 15ms", data });',
+        "}",
+      ],
+    },
     features: [
       "Server-Side Rendering (SSR) & Static Generation",
       "Sub-50ms Initial Page Load Speed",
@@ -58,6 +71,18 @@ export const TECH_TABS: TechStackTab[] = [
     tagline: "High-Concurrency Asynchronous Event Microservices",
     description:
       "Our backend engineers build resilient event-driven microservices, real-time WebSockets API gateways, and distributed transactional engines that handle millions of requests flawlessly.",
+    codeSnippet: {
+      filename: "technobren-node-service.ts",
+      lines: [
+        'import { EventBus, Microservice } from "@technobren/backend";',
+        "",
+        "const bus = new EventBus({ concurrency: 50000 });",
+        'bus.on("transaction.created", async (event) => {',
+        '  await Microservice.processOrderSync(event.payload);',
+        '  console.log("✔ Order processed sub-25ms");',
+        "});",
+      ],
+    },
     features: [
       "Event-Driven Asynchronous Non-Blocking I/O",
       "REST & GraphQL Microservice Architecture",
@@ -85,6 +110,17 @@ export const TECH_TABS: TechStackTab[] = [
     tagline: "Intelligent Data Pipelines & Predictive Machine Learning",
     description:
       "We design custom AI pipelines, automated OCR document extractors, predictive sales forecasting engines, and LLM-powered enterprise chatbots tailored to business operations.",
+    codeSnippet: {
+      filename: "technobren_ai_pipeline.py",
+      lines: [
+        "from technobren_ai import DemandForecastModel, OCRPipeline",
+        "",
+        'pipeline = OCRPipeline(accuracy_threshold=0.987)',
+        'result = pipeline.extract_invoice_data("invoice_scan.pdf")',
+        'prediction = DemandForecastModel.predict_sales(result)',
+        'print(f"✔ Forecast generated: {prediction.confidence}%")',
+      ],
+    },
     features: [
       "PyTorch & TensorFlow Model Training",
       "Automated OCR & Intelligent Document Processing",
@@ -112,6 +148,18 @@ export const TECH_TABS: TechStackTab[] = [
     tagline: "Native Performance iOS & Android Field Operations Apps",
     description:
       "We deliver high-speed, offline-first mobile apps for field sales, driver delivery, merchandisers, and consumer mobile apps with instant SQLite sync engine.",
+    codeSnippet: {
+      filename: "technobren_mobile_sync.dart",
+      lines: [
+        "import 'package:technobren_mobile/offline_db.dart';",
+        "",
+        "void syncVanSalesData() async {",
+        "  final db = await OfflineDB.init(sqliteVersion: 3.42);",
+        "  await db.autoSyncTransactions(endpoint: 'https://api.technobren.com');",
+        "  print('✔ 15,000 Offline invoices synced zero-loss');",
+        "}",
+      ],
+    },
     features: [
       "Single Codebase Native iOS & Android Compilation",
       "Offline-First SQLite Database Auto-Sync",
@@ -139,6 +187,17 @@ export const TECH_TABS: TechStackTab[] = [
     tagline: "ACID-Compliant Relational Data Engines & Search",
     description:
       "We architect high-availability transactional PostgreSQL clusters, Redis caching layers, and vector search databases designed for zero data loss and sub-10ms queries.",
+    codeSnippet: {
+      filename: "technobren-cluster-query.sql",
+      lines: [
+        "-- TechnoBren High-Speed PgVector & ACID Replicas",
+        "SELECT order_id, customer_name, total_amount",
+        "FROM enterprise_orders_partitioned",
+        "WHERE status = 'COMPLETED' AND created_at >= NOW() - INTERVAL '1 hour'",
+        "ORDER BY created_at DESC",
+        "LIMIT 100; -- Execution Time: 4.2ms",
+      ],
+    },
     features: [
       "ACID Compliant Multi-Region Read Replicas",
       "PgVector & AI Embedding Vector Search",
@@ -166,6 +225,18 @@ export const TECH_TABS: TechStackTab[] = [
     tagline: "Automated CI/CD Kubernetes & Serverless Infrastructure",
     description:
       "Our Cloud Architects deploy self-healing Kubernetes clusters, serverless AWS Lambda pipelines, and automated Terraform infrastructure to guarantee zero downtime.",
+    codeSnippet: {
+      filename: "technobren-k8s-deploy.yaml",
+      lines: [
+        "apiVersion: apps/v1",
+        "kind: Deployment",
+        "metadata:",
+        "  name: technobren-auto-scaler",
+        "spec:",
+        "  replicas: 12",
+        "  template: { spec: { containers: [{ name: app, image: technobren/core:v2 }] } }",
+      ],
+    },
     features: [
       "Docker & Kubernetes (EKS) Orchestration",
       "Infrastructure as Code (Terraform / CloudFormation)",
@@ -240,10 +311,10 @@ export function TechStackPlayground() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTabId(tab.id)}
-                className={`relative flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-xs font-bold transition-all duration-200 text-center ${
+                className={`relative flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-xs font-extrabold transition-all duration-200 text-center ${
                   isActive
-                    ? "border-2 border-brand-600 bg-brand-600 text-white shadow-md"
-                    : "border border-ink-200/80 bg-white text-ink-700 hover:border-brand-300 hover:bg-brand-50/50 hover:text-ink-950"
+                    ? "border-2 border-brand-500 bg-brand-50/90 text-brand-950 shadow-md ring-2 ring-brand-400/20"
+                    : "border border-ink-200/80 bg-white text-ink-700 hover:border-brand-300 hover:bg-brand-50/40 hover:text-ink-950"
                 }`}
               >
                 <img src={tab.logo} alt={tab.name} className="size-4 shrink-0 object-contain" />
@@ -334,26 +405,27 @@ export function TechStackPlayground() {
                 {/* Right Column: Code Simulation Terminal & Use Cases */}
                 <div className="lg:col-span-5 flex flex-col justify-between gap-5">
                   
-                  {/* Mock Terminal Card */}
-                  <div className="rounded-2xl border border-ink-800 bg-ink-950 p-4 text-white shadow-xl font-mono text-xs">
+                  {/* Dynamic Mock Terminal Card */}
+                  <div className="rounded-2xl border border-ink-800 bg-ink-950 p-4 text-white shadow-xl font-mono text-xs overflow-hidden">
                     <div className="flex items-center justify-between border-b border-ink-800 pb-2 mb-3">
                       <div className="flex items-center gap-1.5">
                         <span className="size-2.5 rounded-full bg-rose-500" />
                         <span className="size-2.5 rounded-full bg-amber-500" />
                         <span className="size-2.5 rounded-full bg-emerald-500" />
                       </div>
-                      <span className="text-[0.65rem] text-ink-400 font-bold uppercase tracking-wider">
-                        technobren-architect.ts
+                      <span className="text-[0.65rem] text-brand-400 font-bold uppercase tracking-wider">
+                        {currentTab.codeSnippet.filename}
                       </span>
                     </div>
-                    <div className="space-y-1.5 text-ink-300">
-                      <p><span className="text-rose-400">const</span> engine = <span className="text-emerald-400">new</span> TechnoBrenEngine({'{'}</p>
-                      <p className="pl-4">stack: <span className="text-amber-300">&quot;{currentTab.name}&quot;</span>,</p>
-                      <p className="pl-4">mode: <span className="text-amber-300">&quot;Enterprise Production&quot;</span>,</p>
-                      <p className="pl-4">latency: <span className="text-emerald-400">&quot;&lt; 25ms&quot;</span>,</p>
-                      <p className="pl-4">security: <span className="text-sky-300">&quot;ISO 27001 Certified&quot;</span></p>
-                      <p>{'}'});</p>
-                      <p className="text-emerald-400 pt-1">✔ Engine deployed to production cluster.</p>
+                    <div className="space-y-1 text-ink-300 overflow-x-auto no-scrollbar py-1">
+                      {currentTab.codeSnippet.lines.map((line, idx) => (
+                        <p key={idx} className="whitespace-pre">
+                          <span className="text-ink-600 select-none mr-3">{idx + 1}</span>
+                          <span className={line.startsWith("import") || line.startsWith("from") || line.startsWith("SELECT") ? "text-rose-400 font-bold" : line.includes("print") || line.includes("console") || line.includes("WHERE") ? "text-emerald-400 font-bold" : "text-ink-200"}>
+                            {line}
+                          </span>
+                        </p>
+                      ))}
                     </div>
                   </div>
 
