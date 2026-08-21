@@ -57,7 +57,7 @@ export function HireTeamSection() {
 
             <Reveal delay={4}>
               <div className="mt-9 flex flex-wrap gap-3">
-                <Button href="/contact" arrow>
+                <Button href="/hire-developers" arrow>
                   Hire Dedicated Developers
                 </Button>
                 <Button href="/services" variant="secondary">

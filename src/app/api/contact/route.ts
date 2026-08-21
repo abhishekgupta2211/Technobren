@@ -9,24 +9,40 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
 
+    const isDeveloperHiring = data.enquiry_type === "developer_hiring";
+
     const submission = {
       id: `inq_${Date.now()}`,
       timestamp: new Date().toISOString(),
-      name: data.name || "",
-      email: data.email || "",
-      mobile: data.mobile || "",
-      company: data.company || "",
-      service: data.service || "",
+      enquiry_type: data.enquiry_type || "general",
+      name: data.name || data.contactPerson || "",
+      contactPerson: data.contactPerson || data.name || "",
+      email: data.email || data.workEmail || "",
+      workEmail: data.workEmail || data.email || "",
+      mobile: data.mobile || data.phone || "",
+      phone: data.phone || data.mobile || "",
+      company: data.company || data.companyName || "",
+      companyName: data.companyName || data.company || "",
+      companyWebsite: data.companyWebsite || "",
+      technologies: data.technologies || [],
+      developerType: data.developerType || [],
+      numDevelopers: data.numDevelopers || "",
+      experience: data.experience || "",
+      engagementType: data.engagementType || [],
+      workMode: data.workMode || "",
+      service: data.service || (isDeveloperHiring ? "Developer Hiring / Staff Augmentation" : ""),
       budget: data.budget || "",
-      timeline: data.timeline || "",
-      details: data.details || "",
+      timeline: data.timeline || data.hiringTimeline || "",
+      hiringTimeline: data.hiringTimeline || data.timeline || "",
+      details: data.details || data.requirementDetails || "",
+      requirementDetails: data.requirementDetails || data.details || "",
     };
 
     // Store in-memory / DB
     localSubmissions.push(submission);
 
     console.log("------------------------------------------");
-    console.log("NEW PROJECT ENQUIRY RECEIVED:");
+    console.log(`NEW ${isDeveloperHiring ? "DEVELOPER HIRING" : "GENERAL"} ENQUIRY RECEIVED:`);
     console.log(JSON.stringify(submission, null, 2));
     console.log("------------------------------------------");
 
@@ -39,16 +55,32 @@ export async function POST(request: Request) {
     // Fire-and-forget background notification
     (async () => {
       try {
-        const messageBody = `🔔 *New Website Enquiry*\n\n` +
-          `👤 *Name:* ${submission.name}\n` +
-          `📞 *Phone:* ${submission.mobile || "N/A"}\n` +
-          `📧 *Email:* ${submission.email}\n` +
-          `🏢 *Company:* ${submission.company || "N/A"}\n` +
-          `🛠️ *Service:* ${submission.service || "N/A"}\n` +
-          `💰 *Budget:* ${submission.budget || "N/A"}\n` +
-          `⏱️ *Timeline:* ${submission.timeline || "N/A"}\n` +
-          `📝 *Message:* ${submission.details}\n\n` +
-          `🌐 *Website:* Technobren Infotech`;
+        const messageBody = isDeveloperHiring
+          ? `🚀 *New Developer Hiring Request*\n\n` +
+            `🏢 *Company:* ${submission.companyName || "N/A"}\n` +
+            `👤 *Contact:* ${submission.contactPerson}\n` +
+            `📧 *Email:* ${submission.workEmail}\n` +
+            `📞 *Phone:* ${submission.phone || "N/A"}\n` +
+            `🌐 *Website:* ${submission.companyWebsite || "N/A"}\n\n` +
+            `🛠️ *Technologies:* ${Array.isArray(submission.technologies) ? submission.technologies.join(", ") : submission.technologies}\n` +
+            `👨‍💻 *Developer Type:* ${Array.isArray(submission.developerType) ? submission.developerType.join(", ") : submission.developerType}\n` +
+            `👥 *Developers Required:* ${submission.numDevelopers}\n` +
+            `🎓 *Experience:* ${submission.experience}\n` +
+            `💼 *Engagement:* ${Array.isArray(submission.engagementType) ? submission.engagementType.join(", ") : submission.engagementType}\n` +
+            `🏠 *Work Mode:* ${submission.workMode}\n` +
+            `⏱️ *Timeline:* ${submission.hiringTimeline}\n` +
+            `💰 *Budget:* ${submission.budget || "N/A"}\n\n` +
+            `📝 *Requirement:* ${submission.requirementDetails}`
+          : `🔔 *New Website Enquiry*\n\n` +
+            `👤 *Name:* ${submission.name}\n` +
+            `📞 *Phone:* ${submission.mobile || "N/A"}\n` +
+            `📧 *Email:* ${submission.email}\n` +
+            `🏢 *Company:* ${submission.company || "N/A"}\n` +
+            `🛠️ *Service:* ${submission.service || "N/A"}\n` +
+            `💰 *Budget:* ${submission.budget || "N/A"}\n` +
+            `⏱️ *Timeline:* ${submission.timeline || "N/A"}\n` +
+            `📝 *Message:* ${submission.details}\n\n` +
+            `🌐 *Website:* Technobren Infotech`;
 
         if (whatsappToken && whatsappPhoneId) {
           // 1. WhatsApp Cloud API Official
