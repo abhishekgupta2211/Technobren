@@ -61,15 +61,15 @@ type NativeButtonProps = StyleProps &
 
 function Inner({ children, arrow }: { children: React.ReactNode; arrow?: boolean }) {
   return (
-    <>
-      <span className="relative z-10">{children}</span>
+    <span className="relative z-10 inline-flex items-center justify-center gap-2 whitespace-nowrap">
+      <span>{children}</span>
       {arrow && (
         <ArrowRight
           aria-hidden
-          className="relative z-10 size-4 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:translate-x-1"
+          className="relative z-10 size-4 shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:translate-x-1"
         />
       )}
-    </>
+    </span>
   );
 }
 
