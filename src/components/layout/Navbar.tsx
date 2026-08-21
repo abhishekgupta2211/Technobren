@@ -97,33 +97,35 @@ export function Navbar() {
                         : "text-ink-600 hover:text-ink-950",
                     )}
                   >
-                    {/* Hover animated expanding line (small to full width) */}
-                    {isHovered && !active && (
-                      <motion.span
-                        initial={{ scaleX: 0, opacity: 0 }}
-                        animate={{ scaleX: 1, opacity: 1 }}
-                        exit={{ scaleX: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                        className="absolute bottom-1 left-2.5 right-2.5 h-[2px] rounded-full bg-brand-400/60"
-                      />
-                    )}
+                    <span className="relative z-10 block">
+                      {item.label}
 
-                    {/* Active animated line (starts small in center & expands smoothly to cover full text width) */}
-                    {active && (
-                      <motion.span
-                        layoutId="nav-active-full-line"
-                        initial={{ scaleX: 0, opacity: 0 }}
-                        animate={{ scaleX: 1, opacity: 1 }}
-                        transition={
-                          reduce
-                            ? { duration: 0 }
-                            : { type: "spring", stiffness: 350, damping: 26 }
-                        }
-                        className="absolute bottom-0.5 left-2.5 right-2.5 h-[2.5px] rounded-full bg-gradient-to-r from-brand-600 via-brand-500 to-brand-600 shadow-[0_2px_8px_rgba(174,49,53,0.4)]"
-                      />
-                    )}
+                      {/* Hover line: 0% to 100% width animation */}
+                      {isHovered && !active && (
+                        <motion.span
+                          initial={{ width: "0%" }}
+                          animate={{ width: "100%" }}
+                          exit={{ width: "0%" }}
+                          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                          className="absolute -bottom-1 left-0 h-[2px] rounded-full bg-brand-400/70"
+                        />
+                      )}
 
-                    <span className="relative z-10">{item.label}</span>
+                      {/* Active line: smooth 0% to 100% text width expansion animation */}
+                      {active && (
+                        <motion.span
+                          layoutId="nav-active-text-line"
+                          initial={{ width: "0%" }}
+                          animate={{ width: "100%" }}
+                          transition={
+                            reduce
+                              ? { duration: 0 }
+                              : { duration: 0.45, ease: [0.16, 1, 0.3, 1] }
+                          }
+                          className="absolute -bottom-1 left-0 h-[2.5px] rounded-full bg-gradient-to-r from-brand-600 via-brand-500 to-brand-600 shadow-[0_2px_8px_rgba(174,49,53,0.35)]"
+                        />
+                      )}
+                    </span>
                   </Link>
                 </li>
               );
