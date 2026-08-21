@@ -452,14 +452,14 @@ export function Sidebar({
                 fill={accentColor}
               />
             )}
-            {glyph(item.icon, 28, y + 6, on ? activePillText : "rgba(255,255,255,0.45)")}
+            {glyph(item.icon, 28, y + 6, on ? "#ffffff" : "rgba(255,255,255,0.8)")}
             <text
               x="58"
               y={y + 19}
               fontFamily="var(--font-inter, system-ui)"
               fontSize="12.5"
-              fontWeight={on ? "600" : "500"}
-              fill={on ? activePillText : "rgba(255,255,255,0.55)"}
+              fontWeight={on ? "700" : "600"}
+              fill={on ? "#ffffff" : "rgba(255,255,255,0.85)"}
             >
               {item.label}
             </text>
