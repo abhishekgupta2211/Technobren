@@ -151,14 +151,14 @@ export function DeveloperCostCalculator() {
                     onClick={() => setSelectedTech(tech)}
                     className={`flex items-center gap-2 rounded-2xl border p-3 text-left text-xs font-semibold transition-all duration-200 ${
                       active
-                        ? "border-brand-600 bg-brand-600 text-white shadow-md scale-[1.02]"
-                        : "border-ink-200 bg-white text-ink-800 hover:border-brand-300 hover:bg-brand-50/40"
+                        ? "border-brand-500 bg-brand-50/80 text-brand-950 shadow-xs ring-2 ring-brand-400/20 font-bold scale-[1.02]"
+                        : "border-ink-200 bg-white text-ink-800 hover:border-brand-300 hover:bg-brand-50/30"
                     }`}
                   >
                     <img
                       src={info.logo}
                       alt={tech}
-                      className={`size-4 shrink-0 object-contain ${active ? "brightness-0 invert" : ""}`}
+                      className="size-4 shrink-0 object-contain"
                     />
                     <span className="truncate">{tech.split(" / ")[0]}</span>
                   </button>
@@ -185,12 +185,12 @@ export function DeveloperCostCalculator() {
                     onClick={() => setSelectedExp(exp.id)}
                     className={`flex flex-col rounded-2xl border p-3 text-left transition-all duration-200 ${
                       active
-                        ? "border-brand-600 bg-brand-600 text-white shadow-md scale-[1.02]"
-                        : "border-ink-200 bg-white text-ink-800 hover:border-brand-300 hover:bg-brand-50/40"
+                        ? "border-brand-500 bg-brand-50/80 text-brand-950 font-bold shadow-xs ring-2 ring-brand-400/20 scale-[1.02]"
+                        : "border-ink-200 bg-white text-ink-800 hover:border-brand-300 hover:bg-brand-50/30"
                     }`}
                   >
                     <span className="text-xs font-bold">{exp.label}</span>
-                    <span className={`text-[0.7rem] ${active ? "text-brand-100" : "text-ink-500"}`}>
+                    <span className={`text-[0.7rem] ${active ? "text-brand-800" : "text-ink-500"}`}>
                       {exp.detail}
                     </span>
                   </button>
@@ -215,12 +215,12 @@ export function DeveloperCostCalculator() {
                       onClick={() => setSelectedTeam(ts.id)}
                       className={`flex flex-col rounded-2xl border p-2.5 text-center transition-all duration-200 ${
                         active
-                          ? "border-brand-600 bg-brand-600 text-white shadow-md"
+                          ? "border-brand-500 bg-brand-50/80 text-brand-950 font-bold shadow-xs ring-2 ring-brand-400/20"
                           : "border-ink-200 bg-white text-ink-800 hover:border-brand-300"
                       }`}
                     >
                       <span className="text-xs font-bold">{ts.label}</span>
-                      <span className={`text-[0.68rem] ${active ? "text-brand-100" : "text-ink-400"}`}>
+                      <span className={`text-[0.68rem] ${active ? "text-brand-800 font-medium" : "text-ink-400"}`}>
                         {ts.desc}
                       </span>
                     </button>
@@ -239,12 +239,12 @@ export function DeveloperCostCalculator() {
                   onClick={() => setEngagementType("full")}
                   className={`flex flex-col items-center rounded-2xl border p-2.5 text-center transition-all duration-200 ${
                     engagementType === "full"
-                      ? "border-brand-600 bg-brand-600 text-white shadow-md"
+                      ? "border-brand-500 bg-brand-50/80 text-brand-950 font-bold shadow-xs ring-2 ring-brand-400/20"
                       : "border-ink-200 bg-white text-ink-800 hover:border-brand-300"
                   }`}
                 >
                   <span className="text-xs font-bold">Full-Time</span>
-                  <span className={`text-[0.68rem] ${engagementType === "full" ? "text-brand-100" : "text-ink-400"}`}>
+                  <span className={`text-[0.68rem] ${engagementType === "full" ? "text-brand-800 font-medium" : "text-ink-400"}`}>
                     160h / Month
                   </span>
                 </button>
@@ -254,12 +254,12 @@ export function DeveloperCostCalculator() {
                   onClick={() => setEngagementType("part")}
                   className={`flex flex-col items-center rounded-2xl border p-2.5 text-center transition-all duration-200 ${
                     engagementType === "part"
-                      ? "border-brand-600 bg-brand-600 text-white shadow-md"
+                      ? "border-brand-500 bg-brand-50/80 text-brand-950 font-bold shadow-xs ring-2 ring-brand-400/20"
                       : "border-ink-200 bg-white text-ink-800 hover:border-brand-300"
                   }`}
                 >
                   <span className="text-xs font-bold">Part-Time</span>
-                  <span className={`text-[0.68rem] ${engagementType === "part" ? "text-brand-100" : "text-ink-400"}`}>
+                  <span className={`text-[0.68rem] ${engagementType === "part" ? "text-brand-800 font-medium" : "text-ink-400"}`}>
                     80h / Month
                   </span>
                 </button>
