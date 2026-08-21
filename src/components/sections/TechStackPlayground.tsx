@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -188,10 +188,29 @@ export const TECH_TABS: TechStackTab[] = [
 
 export function TechStackPlayground() {
   const [activeTabId, setActiveTabId] = useState("nextjs");
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Automatic rotation loop every 3.5 seconds (pauses on hover)
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setActiveTabId((currentId) => {
+        const currentIndex = TECH_TABS.findIndex((t) => t.id === currentId);
+        const nextIndex = (currentIndex + 1) % TECH_TABS.length;
+        return TECH_TABS[nextIndex].id;
+      });
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
   const currentTab = TECH_TABS.find((t) => t.id === activeTabId) || TECH_TABS[0];
 
   return (
-    <section className="relative overflow-hidden bg-white border-t border-ink-100 py-10 sm:py-12 lg:py-14">
+    <section
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      className="relative overflow-hidden bg-white border-t border-ink-100 py-10 sm:py-12 lg:py-14"
+    >
       {/* Background Ambient Glow */}
       <div
         aria-hidden
