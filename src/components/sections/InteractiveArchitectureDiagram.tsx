@@ -181,44 +181,52 @@ export function InteractiveArchitectureDiagram() {
 
         {/* ---------- EXACT DIAGRAM NETWORK NODE CANVAS FIT IN SINGLE VIEW ---------- */}
         <div className="relative max-w-5xl mx-auto size-full min-h-[380px] sm:min-h-[420px] my-2 flex items-center justify-center p-1 sm:p-4 shrink-0">
-                 {/* Animated Connecting Right-Angle Dotted Neural Lines SVG matching Image 2 */}
-          <svg className="pointer-events-none absolute inset-0 size-full z-0 overflow-visible" xmlns="http://www.w3.org/2000/svg">
-            {/* Exact Dotted Orthogonal Connectors to Center Concentric Ring */}
+          {/* ⚡ DIRECT NEURAL NETWORK BEAMS CONNECTOR SVG ⚡ */}
+          <svg className="pointer-events-none absolute inset-0 size-full z-10 overflow-visible" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="neuralStrokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#ae3135" stopOpacity="0.95" />
+                <stop offset="50%" stopColor="#f43f5e" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#ae3135" stopOpacity="0.95" />
+              </linearGradient>
+            </defs>
+
+            {/* DIRECT NEURAL LINES FROM CENTER (50% 50%) TO ALL 9 NODE CARDS */}
             {/* 1. TOP CENTER: Subscriptions */}
-            <path d="M 50% 12% L 50% 36%" stroke="#ae3135" strokeWidth="2.5" strokeDasharray="4,4" strokeLinecap="round" fill="none" />
-            <circle cx="50%" cy="36%" r="4" fill="#ae3135" />
+            <path d="M 50% 50% L 50% 8%" stroke="url(#neuralStrokeGrad)" strokeWidth="2.5" strokeDasharray="5,4" className="animate-pulse" fill="none" />
+            <circle cx="50%" cy="8%" r="4" fill="#ae3135" />
 
             {/* 2. TOP LEFT: Enterprise ERP */}
-            <path d="M 28% 12% V 28% H 42%" stroke="#ae3135" strokeWidth="2.5" strokeDasharray="4,4" strokeLinecap="round" fill="none" />
-            <circle cx="42%" cy="28%" r="4" fill="#ae3135" />
+            <path d="M 50% 50% L 20% 12%" stroke="url(#neuralStrokeGrad)" strokeWidth="2.5" strokeDasharray="5,4" className="animate-pulse" fill="none" />
+            <circle cx="20%" cy="12%" r="4" fill="#ae3135" />
 
             {/* 3. TOP RIGHT: Booking System */}
-            <path d="M 72% 12% V 28% H 58%" stroke="#ae3135" strokeWidth="2.5" strokeDasharray="4,4" strokeLinecap="round" fill="none" />
-            <circle cx="58%" cy="28%" r="4" fill="#ae3135" />
+            <path d="M 50% 50% L 80% 12%" stroke="url(#neuralStrokeGrad)" strokeWidth="2.5" strokeDasharray="5,4" className="animate-pulse" fill="none" />
+            <circle cx="80%" cy="12%" r="4" fill="#ae3135" />
 
             {/* 4. MID LEFT TOP: Mobile Apps */}
-            <path d="M 23% 39% H 40%" stroke="#ae3135" strokeWidth="2.5" strokeDasharray="4,4" strokeLinecap="round" fill="none" />
-            <circle cx="40%" cy="39%" r="4" fill="#ae3135" />
+            <path d="M 50% 50% L 16% 38%" stroke="url(#neuralStrokeGrad)" strokeWidth="2.5" strokeDasharray="5,4" className="animate-pulse" fill="none" />
+            <circle cx="16%" cy="38%" r="4" fill="#ae3135" />
 
             {/* 5. MID LEFT BOTTOM: Web Portal */}
-            <path d="M 23% 60% H 40%" stroke="#ae3135" strokeWidth="2.5" strokeDasharray="4,4" strokeLinecap="round" fill="none" />
-            <circle cx="40%" cy="60%" r="4" fill="#ae3135" />
+            <path d="M 50% 50% L 16% 58%" stroke="url(#neuralStrokeGrad)" strokeWidth="2.5" strokeDasharray="5,4" className="animate-pulse" fill="none" />
+            <circle cx="16%" cy="58%" r="4" fill="#ae3135" />
 
             {/* 6. MID RIGHT TOP: AI & Data Pipeline */}
-            <path d="M 77% 39% H 60%" stroke="#ae3135" strokeWidth="2.5" strokeDasharray="4,4" strokeLinecap="round" fill="none" />
-            <circle cx="60%" cy="39%" r="4" fill="#ae3135" />
+            <path d="M 50% 50% L 84% 38%" stroke="url(#neuralStrokeGrad)" strokeWidth="2.5" strokeDasharray="5,4" className="animate-pulse" fill="none" />
+            <circle cx="84%" cy="38%" r="4" fill="#ae3135" />
 
             {/* 7. MID RIGHT BOTTOM: Cloud & DevOps */}
-            <path d="M 77% 60% H 60%" stroke="#ae3135" strokeWidth="2.5" strokeDasharray="4,4" strokeLinecap="round" fill="none" />
-            <circle cx="60%" cy="60%" r="4" fill="#ae3135" />
+            <path d="M 50% 50% L 84% 58%" stroke="url(#neuralStrokeGrad)" strokeWidth="2.5" strokeDasharray="5,4" className="animate-pulse" fill="none" />
+            <circle cx="84%" cy="58%" r="4" fill="#ae3135" />
 
             {/* 8. BOTTOM LEFT: Real-time Database */}
-            <path d="M 32% 87% V 72% H 42%" stroke="#ae3135" strokeWidth="2.5" strokeDasharray="4,4" strokeLinecap="round" fill="none" />
-            <circle cx="42%" cy="72%" r="4" fill="#ae3135" />
+            <path d="M 50% 50% L 26% 88%" stroke="url(#neuralStrokeGrad)" strokeWidth="2.5" strokeDasharray="5,4" className="animate-pulse" fill="none" />
+            <circle cx="26%" cy="88%" r="4" fill="#ae3135" />
 
             {/* 9. BOTTOM RIGHT: Payment Gateways */}
-            <path d="M 68% 87% V 72% H 58%" stroke="#ae3135" strokeWidth="2.5" strokeDasharray="4,4" strokeLinecap="round" fill="none" />
-            <circle cx="58%" cy="72%" r="4" fill="#ae3135" />
+            <path d="M 50% 50% L 74% 88%" stroke="url(#neuralStrokeGrad)" strokeWidth="2.5" strokeDasharray="5,4" className="animate-pulse" fill="none" />
+            <circle cx="74%" cy="88%" r="4" fill="#ae3135" />
           </svg>
 
           {/* 🌟 CENTER HUB: MULTI-LAYERED GLOWING CONCENTRIC CIRCLE WITH TECHNOBREN LOGO 🌟 */}
