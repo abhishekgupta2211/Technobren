@@ -10,6 +10,7 @@ import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { HireTeamSection } from "@/components/sections/HireTeamSection";
 import { AnimatedWaveScaleSection } from "@/components/sections/AnimatedWaveScaleSection";
+import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { OfficesSection } from "@/components/sections/OfficesSection";
 import { CTASection } from "@/components/sections/CTASection";
 
@@ -43,7 +44,9 @@ export default function HomePage() {
       <ProcessSection />
       {/* 10.5 — Scale with Confidence Animated Wave */}
       <AnimatedWaveScaleSection />
-      {/* 11 — Global Offices */}
+      {/* 11 — Enterprise Client Testimonials */}
+      <TestimonialsSection />
+      {/* 11.5 — Global Offices */}
       <OfficesSection />
       {/* 12 — Conversion */}
       <CTASection />

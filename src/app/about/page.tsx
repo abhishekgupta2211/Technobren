@@ -9,6 +9,8 @@ import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/sections/PageHero";
 import { ChairmanSection } from "@/components/sections/ChairmanSection";
+import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { OfficesSection } from "@/components/sections/OfficesSection";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -95,6 +97,9 @@ export default function AboutPage() {
       </section>
 
       <ChairmanSection />
+
+      {/* ---------- Enterprise Client Testimonials ---------- */}
+      <TestimonialsSection />
 
       {/* ---------- Core values ---------- */}
       <section className="relative overflow-x-clip border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
