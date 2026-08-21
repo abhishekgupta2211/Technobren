@@ -212,8 +212,8 @@ export function TechStackPlayground() {
           />
         </div>
 
-        {/* ---------- Interactive Tab Navigation Bar ---------- */}
-        <div className="mt-10 flex flex-wrap items-center gap-2.5 sm:gap-3 border-b border-ink-100 pb-4 overflow-x-auto no-scrollbar">
+        {/* ---------- Interactive Glowing Tab Navigation Bar ---------- */}
+        <div className="mt-10 flex flex-wrap items-center gap-3 border-b border-ink-200/80 pb-5 overflow-x-auto no-scrollbar">
           {TECH_TABS.map((tab) => {
             const isActive = tab.id === activeTabId;
             return (
@@ -221,18 +221,20 @@ export function TechStackPlayground() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTabId(tab.id)}
-                className={`relative flex items-center gap-2.5 rounded-2xl px-4 py-3 text-xs sm:text-sm font-bold transition-all duration-300 shrink-0 ${
+                className={`relative flex items-center gap-3 rounded-2xl px-5 py-3.5 text-xs sm:text-sm font-extrabold transition-all duration-300 shrink-0 ${
                   isActive
-                    ? "border-2 border-brand-500 bg-brand-50/90 text-brand-950 shadow-md shadow-brand-500/10 ring-2 ring-brand-400/20"
-                    : "border border-ink-200/80 bg-white text-ink-700 hover:border-brand-300 hover:bg-brand-50/40 hover:text-ink-950"
+                    ? "border-2 border-brand-500 bg-gradient-to-r from-brand-50 via-white to-brand-50/50 text-brand-950 shadow-xl shadow-brand-500/15 scale-[1.03] ring-4 ring-brand-400/15"
+                    : "border border-ink-200/80 bg-white/90 text-ink-700 hover:border-brand-300 hover:bg-brand-50/40 hover:text-ink-950 hover:shadow-md"
                 }`}
               >
-                <img src={tab.logo} alt={tab.name} className="size-5 object-contain" />
+                <div className={`flex size-7 items-center justify-center rounded-xl transition-all ${isActive ? "bg-brand-600 p-1 shadow-sm" : "bg-ink-100 p-1"}`}>
+                  <img src={tab.logo} alt={tab.name} className="size-full object-contain" />
+                </div>
                 <span>{tab.name}</span>
                 {isActive && (
                   <motion.div
                     layoutId="tech-tab-active-indicator"
-                    className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-8 h-1 rounded-t-full bg-brand-600 shadow-sm"
+                    className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-12 h-1.5 rounded-t-full bg-gradient-to-r from-brand-600 via-rose-600 to-brand-600 shadow-md shadow-brand-600/50"
                   />
                 )}
               </button>
@@ -240,64 +242,81 @@ export function TechStackPlayground() {
           })}
         </div>
 
-        {/* ---------- Active Tech Card Content Display ---------- */}
+        {/* ---------- Active Tech Card Display with Interactive Code & Live Metrics ---------- */}
         <div className="mt-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentTab.id}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="rounded-3xl border border-ink-200/90 bg-gradient-to-br from-white via-white to-brand-50/30 p-6 sm:p-10 shadow-xl"
+              initial={{ opacity: 0, scale: 0.98, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.98, y: -20 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="relative overflow-hidden rounded-3xl border-2 border-brand-500/70 bg-gradient-to-br from-white via-white to-brand-50/30 p-7 sm:p-10 shadow-2xl shadow-brand-600/10"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
                 
                 {/* Left Column: Tech Overview & Capabilities */}
-                <div className="lg:col-span-7 flex flex-col justify-between h-full">
+                <div className="lg:col-span-7 flex flex-col justify-between">
                   <div>
-                    {/* Category Pill & Logo */}
-                    <div className="flex items-center gap-3">
-                      <div className="size-12 rounded-2xl border border-brand-200 bg-white p-2.5 shadow-xs flex items-center justify-center">
-                        <img src={currentTab.logo} alt={currentTab.name} className="size-full object-contain" />
+                    {/* Category Pill & Logo Header */}
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-3.5">
+                        <motion.div
+                          animate={{ rotate: [0, 5, -5, 0] }}
+                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                          className="size-14 rounded-2xl border-2 border-brand-300 bg-white p-2.5 shadow-md flex items-center justify-center"
+                        >
+                          <img src={currentTab.logo} alt={currentTab.name} className="size-full object-contain" />
+                        </motion.div>
+                        <div>
+                          <span className="font-mono text-[0.68rem] font-bold uppercase tracking-widest text-brand-700 bg-brand-50 px-2.5 py-1 rounded-full border border-brand-200/80">
+                            {currentTab.category}
+                          </span>
+                          <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-ink-950 mt-1">
+                            {currentTab.name}
+                          </h3>
+                        </div>
                       </div>
-                      <div>
-                        <span className="font-mono text-[0.68rem] font-bold uppercase tracking-widest text-brand-700">
-                          {currentTab.category}
-                        </span>
-                        <h3 className="font-display text-xl sm:text-2xl font-extrabold text-ink-950">
-                          {currentTab.name}
-                        </h3>
-                      </div>
+
+                      <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 px-3.5 py-1.5 font-mono text-xs font-bold text-emerald-900 shadow-2xs">
+                        <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                        Production Verified
+                      </span>
                     </div>
 
                     {/* Tagline & Description */}
-                    <h4 className="mt-5 font-display text-lg font-bold text-ink-900 leading-snug">
+                    <h4 className="mt-6 font-display text-lg sm:text-xl font-bold text-ink-900 leading-snug">
                       {currentTab.tagline}
                     </h4>
-                    <p className="mt-2.5 text-sm leading-relaxed text-ink-600 font-medium">
+                    <p className="mt-3 text-sm leading-relaxed text-ink-600 font-medium">
                       {currentTab.description}
                     </p>
 
-                    {/* Feature Points */}
-                    <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {/* Feature Points Grid */}
+                    <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       {currentTab.features.map((feat, i) => (
-                        <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm font-semibold text-ink-800">
+                        <motion.li
+                          key={i}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.1 }}
+                          className="flex items-start gap-2.5 rounded-xl border border-ink-100 bg-white/80 p-2.5 text-xs sm:text-sm font-bold text-ink-900 shadow-2xs"
+                        >
                           <CheckCircle2 className="size-4 text-brand-600 shrink-0 mt-0.5" />
                           <span>{feat}</span>
-                        </li>
+                        </motion.li>
                       ))}
                     </ul>
                   </div>
 
                   {/* Bottom Metric Badges */}
-                  <div className="mt-8 pt-6 border-t border-ink-100 grid grid-cols-3 gap-3">
+                  <div className="mt-8 pt-6 border-t border-brand-100 grid grid-cols-3 gap-3">
                     {currentTab.capabilities.map((cap, i) => (
-                      <div key={i} className="rounded-2xl border border-brand-200/80 bg-white p-3 shadow-2xs">
-                        <span className="block text-[0.65rem] font-bold uppercase tracking-wider text-ink-400 font-mono">
+                      <div key={i} className="rounded-2xl border border-brand-200/90 bg-white p-3.5 shadow-2xs text-center transition-all hover:scale-[1.03] hover:border-brand-400">
+                        <span className="block text-[0.65rem] font-extrabold uppercase tracking-wider text-ink-400 font-mono">
                           {cap.label}
                         </span>
-                        <span className="block font-display text-xs sm:text-sm font-extrabold text-brand-700 mt-0.5">
+                        <span className="block font-display text-sm sm:text-base font-extrabold text-brand-700 mt-1">
                           {cap.value}
                         </span>
                       </div>
@@ -305,41 +324,64 @@ export function TechStackPlayground() {
                   </div>
                 </div>
 
-                {/* Right Column: Typical Use Cases & CTA Card */}
-                <div className="lg:col-span-5 flex flex-col gap-5">
-                  <div className="rounded-2xl border border-ink-200/80 bg-white p-6 shadow-xs">
-                    <h4 className="font-mono text-[0.72rem] font-bold uppercase tracking-wider text-ink-500 mb-4 flex items-center gap-2">
-                      <currentTab.icon className="size-4 text-brand-600" /> Key Enterprise Use Cases
-                    </h4>
-                    <ul className="space-y-2.5">
-                      {currentTab.useCases.map((uc, i) => (
-                        <li
-                          key={i}
-                          className="flex items-center justify-between rounded-xl border border-ink-100 bg-ink-50/60 px-3.5 py-2.5 text-xs sm:text-sm font-bold text-ink-900 transition-colors hover:border-brand-200 hover:bg-brand-50/50"
-                        >
-                          <span>{uc}</span>
-                          <ArrowRight className="size-3.5 text-brand-600" />
-                        </li>
-                      ))}
-                    </ul>
+                {/* Right Column: Code Simulation Terminal & Use Cases */}
+                <div className="lg:col-span-5 flex flex-col justify-between gap-5">
+                  
+                  {/* Mock Terminal Card */}
+                  <div className="rounded-2xl border border-ink-800 bg-ink-950 p-4 text-white shadow-xl font-mono text-xs">
+                    <div className="flex items-center justify-between border-b border-ink-800 pb-2 mb-3">
+                      <div className="flex items-center gap-1.5">
+                        <span className="size-2.5 rounded-full bg-rose-500" />
+                        <span className="size-2.5 rounded-full bg-amber-500" />
+                        <span className="size-2.5 rounded-full bg-emerald-500" />
+                      </div>
+                      <span className="text-[0.65rem] text-ink-400 font-bold uppercase tracking-wider">
+                        technobren-architect.ts
+                      </span>
+                    </div>
+                    <div className="space-y-1.5 text-ink-300">
+                      <p><span className="text-rose-400">const</span> engine = <span className="text-emerald-400">new</span> TechnoBrenEngine({'{'}</p>
+                      <p className="pl-4">stack: <span className="text-amber-300">&quot;{currentTab.name}&quot;</span>,</p>
+                      <p className="pl-4">mode: <span className="text-amber-300">&quot;Enterprise Production&quot;</span>,</p>
+                      <p className="pl-4">latency: <span className="text-emerald-400">&quot;&lt; 25ms&quot;</span>,</p>
+                      <p className="pl-4">security: <span className="text-sky-300">&quot;ISO 27001 Certified&quot;</span></p>
+                      <p>{'}'});</p>
+                      <p className="text-emerald-400 pt-1">✔ Engine deployed to production cluster.</p>
+                    </div>
                   </div>
 
-                  {/* Consultation Card */}
-                  <div className="rounded-2xl border border-brand-300 bg-gradient-to-br from-brand-600 via-brand-700 to-brand-900 p-6 text-white shadow-md">
-                    <h4 className="font-display text-base font-extrabold">
-                      Need a project built with {currentTab.name}?
-                    </h4>
-                    <p className="mt-1.5 text-xs text-brand-100 leading-relaxed font-medium">
-                      Our senior tech architects can evaluate your existing codebase or plan your greenfield architecture.
-                    </p>
-                    <Button
-                      href="/contact"
-                      size="sm"
-                      className="mt-4 bg-white text-brand-900 hover:bg-brand-50 rounded-full font-bold shadow-sm"
-                    >
-                      Consult Our Engineers
-                    </Button>
+                  {/* Key Enterprise Use Cases */}
+                  <div className="rounded-2xl border border-ink-200/80 bg-white p-5 shadow-xs flex-1 flex flex-col justify-between">
+                    <div>
+                      <h4 className="font-mono text-[0.72rem] font-bold uppercase tracking-wider text-ink-500 mb-3 flex items-center gap-2">
+                        <currentTab.icon className="size-4 text-brand-600" /> Enterprise Applications Built
+                      </h4>
+                      <ul className="space-y-2">
+                        {currentTab.useCases.map((uc, i) => (
+                          <li
+                            key={i}
+                            className="flex items-center justify-between rounded-xl border border-ink-100 bg-ink-50/70 px-3.5 py-2 text-xs font-bold text-ink-900 transition-all hover:border-brand-300 hover:bg-brand-50/60"
+                          >
+                            <span>{uc}</span>
+                            <ArrowRight className="size-3.5 text-brand-600" />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Consultation Action */}
+                    <div className="mt-4 pt-3 border-t border-ink-100 flex items-center justify-between">
+                      <span className="text-xs font-bold text-ink-600">Want custom architecture?</span>
+                      <Button
+                        href="/contact"
+                        size="sm"
+                        className="rounded-full bg-brand-600 text-white hover:bg-brand-700 font-bold px-4 text-xs shadow-md shadow-brand-600/20"
+                      >
+                        Talk to Architect
+                      </Button>
+                    </div>
                   </div>
+
                 </div>
 
               </div>
