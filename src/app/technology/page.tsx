@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { techCategories, platformStrip } from "@/lib/site";
+import { getTechLogo } from "@/lib/techLogos";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -124,18 +125,29 @@ export default function TechnologyPage() {
                     </div>
 
                     <ul className="grid grid-cols-2 gap-2.5 p-6 sm:grid-cols-3 sm:p-8 xl:grid-cols-4">
-                      {c.items.map((item) => (
-                        <li
-                          key={item}
-                          className="group flex items-center gap-2.5 rounded-xl border border-ink-200 bg-white px-3.5 py-3 text-[0.85rem] font-medium text-ink-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800"
-                        >
-                          <span
-                            aria-hidden
-                            className="size-1.5 shrink-0 rounded-full bg-brand-400 transition-colors duration-300 group-hover:bg-brand-600"
-                          />
-                          <span className="truncate">{item}</span>
-                        </li>
-                      ))}
+                      {c.items.map((item) => {
+                        const logoUrl = getTechLogo(item);
+                        return (
+                          <li
+                            key={item}
+                            className="group flex items-center gap-2.5 rounded-xl border border-ink-200 bg-white px-3.5 py-3 text-[0.85rem] font-semibold text-ink-800 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:bg-brand-50/60 hover:text-brand-900 shadow-2xs"
+                          >
+                            {logoUrl ? (
+                              <img
+                                src={logoUrl}
+                                alt={item}
+                                className="size-4 shrink-0 object-contain transition-transform duration-300 group-hover:scale-110"
+                              />
+                            ) : (
+                              <span
+                                aria-hidden
+                                className="size-1.5 shrink-0 rounded-full bg-brand-400 transition-colors duration-300 group-hover:bg-brand-600"
+                              />
+                            )}
+                            <span className="truncate">{item}</span>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 </div>

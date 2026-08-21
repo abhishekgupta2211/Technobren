@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { techCategories } from "@/lib/site";
+import { getTechLogo } from "@/lib/techLogos";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -121,24 +122,34 @@ export function TechnologySection() {
                     {[...lane, ...lane].map(({ item, category }, i) => {
                       const dim = active !== null && active !== category;
                       const lit = active !== null && active === category;
+                      const logoUrl = getTechLogo(item);
+
                       return (
                         <span
                           key={`${item}-${i}`}
                           className={cn(
-                            "flex shrink-0 items-center gap-2.5 rounded-xl border bg-white px-4 py-2.5 text-[0.85rem] font-medium transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                            "flex shrink-0 items-center gap-2.5 rounded-xl border bg-white px-3.5 py-2.5 text-[0.85rem] font-semibold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-2xs hover:scale-105",
                             lit &&
-                              "border-brand-300 text-brand-800 shadow-[0_5px_14px_-10px_rgba(174,49,53,0.4)]",
+                              "border-brand-500 text-brand-900 bg-brand-50/60 shadow-[0_5px_14px_-10px_rgba(174,49,53,0.4)]",
                             dim && "border-ink-200/60 text-ink-500 opacity-40",
-                            !lit && !dim && "border-ink-200 text-ink-700",
+                            !lit && !dim && "border-ink-200 text-ink-800 hover:border-brand-300",
                           )}
                         >
-                          <span
-                            aria-hidden
-                            className={cn(
-                              "size-1.5 shrink-0 rounded-full transition-colors duration-500",
-                              lit ? "bg-brand-600" : "bg-brand-400",
-                            )}
-                          />
+                          {logoUrl ? (
+                            <img
+                              src={logoUrl}
+                              alt={item}
+                              className="size-4 shrink-0 object-contain"
+                            />
+                          ) : (
+                            <span
+                              aria-hidden
+                              className={cn(
+                                "size-1.5 shrink-0 rounded-full transition-colors duration-500",
+                                lit ? "bg-brand-600" : "bg-brand-400",
+                              )}
+                            />
+                          )}
                           {item}
                         </span>
                       );
