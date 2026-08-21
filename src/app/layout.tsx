@@ -49,8 +49,8 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "TechnoBren Infotech — Custom Software, ERP & AI Engineering",
-    template: "%s | TechnoBren Infotech",
+    default: "Technobren Infotech Private Limited — Custom Software, ERP & AI Engineering",
+    template: "%s | Technobren Infotech Private Limited",
   },
   description: site.description,
   applicationName: site.legalName,
