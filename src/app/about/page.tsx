@@ -11,6 +11,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { ChairmanSection } from "@/components/sections/ChairmanSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { OfficesSection } from "@/components/sections/OfficesSection";
+import { CTASection } from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -97,9 +98,6 @@ export default function AboutPage() {
       </section>
 
       <ChairmanSection />
-
-      {/* ---------- Enterprise Client Testimonials ---------- */}
-      <TestimonialsSection />
 
       {/* ---------- Core values ---------- */}
       <section className="relative overflow-x-clip border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
@@ -292,6 +290,12 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
+
+      {/* ---------- Enterprise Client Testimonials (Above Footer / CTA) ---------- */}
+      <TestimonialsSection />
+
+      {/* ---------- Call to action ---------- */}
+      <CTASection />
     </>
   );
 }
