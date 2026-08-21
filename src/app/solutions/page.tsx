@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/sections/PageHero";
+import { InteractiveArchitectureDiagram } from "@/components/sections/InteractiveArchitectureDiagram";
 import { DASHBOARDS } from "@/components/visuals/dashboard";
 
 export const metadata: Metadata = {
@@ -129,6 +130,9 @@ export default function SolutionsPage() {
           </ul>
         </Container>
       </section>
+
+      {/* ---------- Interactive Architecture Ecosystem Node Network ---------- */}
+      <InteractiveArchitectureDiagram />
 
       {/* ---------- Products ---------- */}
       <section className="border-t border-ink-100">
