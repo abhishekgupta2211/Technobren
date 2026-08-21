@@ -31,29 +31,28 @@ export async function POST(request: Request) {
     console.log("------------------------------------------");
 
     // SERVER-SIDE BACKGROUND WHATSAPP NOTIFICATION
-    // Uses WhatsApp Business Cloud API credentials from environment variables
     const recipientPhone = process.env.WHATSAPP_RECIPIENT_PHONE || "919369610213";
     const whatsappToken = process.env.WHATSAPP_ACCESS_TOKEN;
     const whatsappPhoneId = process.env.WHATSAPP_PHONE_NUMBER_ID;
+    const callmebotApiKey = process.env.CALLMEBOT_API_KEY;
 
-    if (whatsappToken && whatsappPhoneId) {
-      // Fire-and-forget background notification so client submission is never blocked
-      (async () => {
-        try {
-          const waUrl = `https://graph.facebook.com/v18.0/${whatsappPhoneId}/messages`;
-          const messageBody = `🔔 *New Website Enquiry*\n\n` +
-            `👤 *Name:* ${submission.name}\n` +
-            `📞 *Phone:* ${submission.mobile || "N/A"}\n` +
-            `📧 *Email:* ${submission.email}\n` +
-            `🏢 *Company:* ${submission.company || "N/A"}\n` +
-            `🛠️ *Service:* ${submission.service || "N/A"}\n` +
-            `💰 *Budget:* ${submission.budget || "N/A"}\n` +
-            `⏱️ *Timeline:* ${submission.timeline || "N/A"}\n` +
-            `📝 *Message:* ${submission.details}\n\n` +
-            `🌐 *Website:* Technobren Infotech\n` +
-            `📍 *Source:* Website Enquiry Form`;
+    // Fire-and-forget background notification
+    (async () => {
+      try {
+        const messageBody = `🔔 *New Website Enquiry*\n\n` +
+          `👤 *Name:* ${submission.name}\n` +
+          `📞 *Phone:* ${submission.mobile || "N/A"}\n` +
+          `📧 *Email:* ${submission.email}\n` +
+          `🏢 *Company:* ${submission.company || "N/A"}\n` +
+          `🛠️ *Service:* ${submission.service || "N/A"}\n` +
+          `💰 *Budget:* ${submission.budget || "N/A"}\n` +
+          `⏱️ *Timeline:* ${submission.timeline || "N/A"}\n` +
+          `📝 *Message:* ${submission.details}\n\n` +
+          `🌐 *Website:* Technobren Infotech`;
 
-          await fetch(waUrl, {
+        if (whatsappToken && whatsappPhoneId) {
+          // 1. WhatsApp Cloud API Official
+          await fetch(`https://graph.facebook.com/v18.0/${whatsappPhoneId}/messages`, {
             method: "POST",
             headers: {
               "Authorization": `Bearer ${whatsappToken}`,
@@ -67,16 +66,19 @@ export async function POST(request: Request) {
               text: { preview_url: false, body: messageBody },
             }),
           });
-          console.log("WhatsApp Cloud API notification sent successfully to owner");
-        } catch (waErr) {
-          console.error("WhatsApp Cloud API notification background error:", waErr);
+          console.log("WhatsApp Cloud API notification sent successfully");
+        } else if (callmebotApiKey) {
+          // 2. CallMeBot Free API
+          const cmbUrl = `https://api.callmebot.com/whatsapp.php?phone=+${recipientPhone}&text=${encodeURIComponent(messageBody)}&apikey=${callmebotApiKey}`;
+          await fetch(cmbUrl);
+          console.log("CallMeBot WhatsApp notification sent successfully");
+        } else {
+          console.log(`[WhatsApp Pending] Set CALLMEBOT_API_KEY or WHATSAPP_ACCESS_TOKEN env vars to receive background alerts to ${recipientPhone}`);
         }
-      })();
-    } else {
-      console.log(
-        `[WhatsApp Notification Pending] Set WHATSAPP_ACCESS_TOKEN & WHATSAPP_PHONE_NUMBER_ID in env vars to send live alerts to ${recipientPhone}`
-      );
-    }
+      } catch (waErr) {
+        console.error("Background WhatsApp Notification Error:", waErr);
+      }
+    })();
 
     return NextResponse.json({
       success: true,
