@@ -101,7 +101,7 @@ export const stats = [
     sub: "Businesses that trust our expertise",
   },
   {
-    value: 97,
+    value: 98,
     suffix: "%",
     label: "Satisfaction rate",
     sub: "Measured across delivered engagements",
