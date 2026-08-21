@@ -693,8 +693,9 @@ export function HireDeveloperForm() {
               )}
 
               {step < 4 ? (
-                <Button type="button" onClick={handleNext} size="md">
-                  Continue <ChevronRight className="size-4 ml-1" />
+                <Button type="button" onClick={handleNext} size="md" className="inline-flex items-center gap-1.5 px-6">
+                  <span>Continue</span>
+                  <ChevronRight className="size-4 shrink-0" aria-hidden />
                 </Button>
               ) : (
                 <Button
