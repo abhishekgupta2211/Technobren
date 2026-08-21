@@ -165,39 +165,6 @@ export function Footer() {
 
 
 
-        {/* ---------- Regional Offices & Global Currency Register ---------- */}
-        <div className="border-t border-ink-200 py-8">
-          <ColumnTitle>Global Presence &amp; Regional Currencies</ColumnTitle>
-          <div className="mt-5 grid gap-4 sm:grid-cols-3">
-            {offices.map((office) => (
-              <div
-                key={office.city}
-                className="flex items-start gap-3 rounded-2xl border border-ink-200/80 bg-white p-4 shadow-2xs transition-all duration-300 hover:border-brand-200 hover:shadow-xs"
-              >
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-base">
-                  <CountryMark country={office.country} />
-                </span>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-ink-950">{office.city}, {office.country}</span>
-                    {office.hq && (
-                      <span className="rounded-full bg-brand-600 px-2 py-0.5 font-mono text-[0.6rem] font-bold text-white uppercase tracking-wider">
-                        HQ
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-1 text-xs text-ink-500 leading-snug">
-                    {office.address}
-                  </p>
-                  <span className="mt-2 inline-block font-mono text-[0.68rem] font-bold text-brand-700">
-                    {office.country === "India" ? "Currency: INR (₹)" : office.country === "UAE" ? "Currency: AED (د.إ)" : "Currency: USD ($)"}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* ---------- Legal ---------- */}
         <div className="flex flex-col gap-4 border-t border-ink-200 py-7 text-[0.78rem] text-ink-500 lg:flex-row lg:items-center lg:justify-between">
           <p>{`© ${year} ${site.legalName}. All rights reserved.`}</p>
