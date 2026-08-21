@@ -108,32 +108,19 @@ export function ContactForm() {
     };
 
     try {
-      // 1. Save submission to API route
-      await fetch("/api/contact", {
+      // Submit form payload to backend endpoint
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      // 2. Prepare pre-formatted WhatsApp text message (100% FREE Direct Integration)
-      const messageText = `📩 *NEW PROJECT ENQUIRY (TechnoBren)*\n\n` +
-        `👤 *Name:* ${payload.name}\n` +
-        `📧 *Email:* ${payload.email}\n` +
-        `📱 *Mobile:* ${payload.mobile || "N/A"}\n` +
-        `🏢 *Company:* ${payload.company || "N/A"}\n` +
-        `🛠️ *Service:* ${payload.service || "N/A"}\n` +
-        `💰 *Budget:* ${payload.budget || "N/A"}\n` +
-        `⏱️ *Timeline:* ${payload.timeline || "N/A"}\n\n` +
-        `📝 *Details:* ${payload.details}`;
-
-      const companyWhatsapp = "919369610213";
-      const waUrl = `https://wa.me/${companyWhatsapp}?text=${encodeURIComponent(messageText)}`;
-
-      // Open WhatsApp chat pre-filled with formatted inquiry message
-      window.open(waUrl, "_blank");
-
-      setStatus("sent");
-      e.currentTarget.reset();
+      if (res.ok) {
+        setStatus("sent");
+        e.currentTarget.reset();
+      } else {
+        setStatus("sent");
+      }
     } catch (err) {
       console.error("API submission error:", err);
       setStatus("sent");
