@@ -4,259 +4,219 @@ import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Container } from "@/components/ui/Container";
 
-// Neural Network Slides data matching Stripe reference images
-const ARCH_SLIDES = [
-  {
-    id: 0,
-    heading: "Connect to existing systems.",
-    subHeading:
-      "Orchestrate enterprise data across ERPs, booking systems, and legacy infrastructure using custom APIs.",
-    activeNodes: ["CRM", "Subscriptions", "Booking system", "SDK", "Event Destinations"],
-    leftAppIcons: [
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/slack/slack-original.svg", name: "Slack" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg", name: "Jira" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg", name: "Postman" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/trello/trello-plain.svg", name: "Trello" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", name: "GitHub" },
-    ],
-    rightCloudIcon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-  },
-  {
-    id: 1,
-    heading: "Automate custom workflows.",
-    subHeading:
-      "Trigger event destinations, real-time data pipelines, and third-party integrations seamlessly.",
-    activeNodes: ["CRM", "Booking system", "SDK", "Event Destinations", "Data Pipeline"],
-    leftAppIcons: [
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hubspot/hubspot-original.svg", name: "Hubspot" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", name: "Figma" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg", name: "Google" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/salesforce/salesforce-original.svg", name: "Salesforce" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redhat/redhat-original.svg", name: "RedHat" },
-    ],
-    rightCloudIcon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
-  },
-  {
-    id: 2,
-    heading: "Scale enterprise data & analytics.",
-    subHeading:
-      "Stream multi-channel data to Snowflake, BigQuery, and custom AI machine learning models.",
-    activeNodes: ["ERP", "CRM", "Subscriptions", "Legacy billing", "Booking system"],
-    leftAppIcons: [
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/salesforce/salesforce-original.svg", name: "Salesforce" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg", name: "Oracle" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", name: "Python" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg", name: "Azure" },
-      { logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg", name: "AWS" },
-    ],
-    rightCloudIcon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-  },
+const NEURAL_NODES = [
+  // Top Layer
+  { id: "erp", label: "Enterprise ERP", icon: "🏢", desc: "Custom Inventory & Financial Engine" },
+  { id: "billing", label: "Subscriptions & Billing", icon: "💳", desc: "Automated Recurring Billing System" },
+  { id: "booking", label: "Booking System", icon: "📅", desc: "Resource Allocation & Scheduling" },
+  
+  // Left Side
+  { id: "mobile", label: "Mobile Apps (iOS/Android)", icon: "📱", desc: "React Native & Flutter Native Apps" },
+  { id: "web", label: "Web Portal & Marketplace", icon: "🌐", desc: "High-speed Web Applications & APIs" },
+
+  // Right Side
+  { id: "ai", label: "AI & Data Pipeline", icon: "🤖", desc: "LLM, Predictive Analytics & Machine Learning" },
+  { id: "cloud", label: "Cloud & DevOps (AWS/Azure)", icon: "☁️", desc: "99.99% SLA Uptime Auto-scaling Clusters" },
+
+  // Bottom Layer
+  { id: "db", label: "Real-time Database", icon: "🗄️", desc: "Distributed MySQL & MongoDB Sync" },
+  { id: "payments", label: "Payment Gateways (Stripe/Razorpay)", icon: "🛡️", desc: "PCI-DSS Compliant Multi-currency Checkout" },
 ];
 
 export function InteractiveArchitectureDiagram() {
   const reduce = useReducedMotion();
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [activeNodeId, setActiveNodeId] = useState("erp");
 
-  // Auto transition loop every 4 seconds
+  // Auto animation cycle between neural nodes
   useEffect(() => {
     if (reduce) return;
     const interval = setInterval(() => {
-      setActiveSlideIndex((prev) => (prev + 1) % ARCH_SLIDES.length);
-    }, 4000);
+      setActiveNodeId((prev) => {
+        const idx = NEURAL_NODES.findIndex((n) => n.id === prev);
+        return NEURAL_NODES[(idx + 1) % NEURAL_NODES.length].id;
+      });
+    }, 3000);
     return () => clearInterval(interval);
   }, [reduce]);
 
-  const currentSlide = ARCH_SLIDES[activeSlideIndex];
+  const activeNode = NEURAL_NODES.find((n) => n.id === activeNodeId) || NEURAL_NODES[0];
 
   return (
     <section className="relative overflow-hidden bg-white text-ink-950 py-16 sm:py-24 border-t border-ink-100">
       <Container size="wide" className="relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        {/* Clean Center Section Heading */}
+        <div className="max-w-2xl mx-auto text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1 text-xs font-semibold text-brand-700">
+            <span className="size-2 rounded-full bg-brand-600 animate-ping" />
+            Neural Architecture Network
+          </span>
+
+          <h2 className="mt-4 font-display text-3xl font-extrabold sm:text-4xl lg:text-5xl text-ink-950 tracking-tight leading-tight">
+            Interconnected <span className="text-brand-700">System Ecosystem</span>
+          </h2>
           
-          {/* LEFT SIDE: Heading, Description & Slide Dots */}
-          <div className="lg:col-span-5 space-y-6">
-            <motion.div
-              key={currentSlide.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1 text-xs font-semibold text-brand-700">
-                <span className="size-2 rounded-full bg-brand-600 animate-ping" />
-                Enterprise Integration Engine
+          <p className="mt-3 text-sm sm:text-base text-ink-600 leading-relaxed">
+            Point at any system node to see how TechnoBren’s central core engine orchestrates data across your enterprise.
+          </p>
+        </div>
+
+        {/* ---------- CENTERED NEURAL NETWORK DIAGRAM WITH TECHNOBREN LOGO IN CENTER ---------- */}
+        <div className="mt-14 relative max-w-5xl mx-auto min-h-[500px] sm:min-h-[560px] flex items-center justify-center p-4">
+          
+          {/* Animated Connecting Neural Beams SVG (All lines originate from Center Hub 50% 50%) */}
+          <svg className="pointer-events-none absolute inset-0 size-full z-0" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="neuralBeamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#ae3135" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#e11d48" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#ae3135" stopOpacity="0.8" />
+              </linearGradient>
+            </defs>
+
+            {/* Neural Lines from Center Hub (50% 50%) to surrounding nodes */}
+            <line x1="50%" y1="50%" x2="20%" y2="16%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            <line x1="50%" y1="50%" x2="50%" y2="14%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            <line x1="50%" y1="50%" x2="80%" y2="16%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+
+            <line x1="50%" y1="50%" x2="15%" y2="50%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            <line x1="50%" y1="50%" x2="85%" y2="50%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+
+            <line x1="50%" y1="50%" x2="25%" y2="84%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+            <line x1="50%" y1="50%" x2="75%" y2="84%" stroke="url(#neuralBeamGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+          </svg>
+
+          {/* 🌟 CENTER CORE HUB: REAL TECHNOBREN LOGO & BRANDMARK 🌟 */}
+          <motion.div
+            animate={reduce ? false : { scale: [1, 1.05, 1], boxShadow: ["0 0 20px rgba(174,49,53,0.3)", "0 0 45px rgba(174,49,53,0.6)", "0 0 20px rgba(174,49,53,0.3)"] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 cursor-pointer"
+          >
+            <div className="flex flex-col items-center justify-center rounded-3xl border-2 border-brand-500 bg-white p-5 sm:p-6 shadow-2xl transition-all duration-300 hover:scale-105">
+              <img
+                src="/brand/technobren-logo.png"
+                alt="TechnoBren Infotech Logo"
+                className="h-9 sm:h-12 w-auto object-contain"
+              />
+              <span className="mt-2 text-[0.65rem] font-mono font-bold uppercase tracking-widest text-brand-700">
+                Core Neural Hub
               </span>
-
-              <h2 className="mt-4 font-display text-3xl font-extrabold sm:text-4xl lg:text-5xl text-ink-950 tracking-tight leading-[1.15]">
-                {currentSlide.heading}{" "}
-                <span className="text-brand-700 font-semibold block mt-1">
-                  {currentSlide.subHeading.split(".")[0]}.
-                </span>
-              </h2>
-              
-              <p className="mt-4 text-sm sm:text-base text-ink-600 leading-relaxed">
-                {currentSlide.subHeading}
-              </p>
-            </motion.div>
-
-            {/* Slide Indicator Dots */}
-            <div className="flex items-center gap-2 pt-2">
-              {ARCH_SLIDES.map((s, idx) => (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => setActiveSlideIndex(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    activeSlideIndex === idx ? "w-8 bg-brand-600" : "w-2.5 bg-ink-200 hover:bg-brand-300"
-                  }`}
-                  aria-label={`Slide ${idx + 1}`}
-                />
-              ))}
             </div>
+          </motion.div>
+
+          {/* TOP NODES */}
+          <div className="absolute top-[8%] left-0 right-0 z-20 flex justify-around px-4">
+            {[NEURAL_NODES[0], NEURAL_NODES[1], NEURAL_NODES[2]].map((node) => {
+              const isActive = activeNodeId === node.id;
+              return (
+                <button
+                  key={node.id}
+                  type="button"
+                  onClick={() => setActiveNodeId(node.id)}
+                  onMouseEnter={() => setActiveNodeId(node.id)}
+                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-sm ${
+                    isActive
+                      ? "border-brand-500 bg-brand-600 text-white shadow-md shadow-brand-500/30 scale-105"
+                      : "border-ink-200 bg-white text-ink-800 hover:border-brand-300"
+                  }`}
+                >
+                  <span className="text-base">{node.icon}</span>
+                  <span className="hidden sm:inline">{node.label}</span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* RIGHT SIDE: Full Interconnected Neural Network Diagram Grid */}
-          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[460px] sm:min-h-[500px]">
-            
-            {/* SVG Connecting Neural Lines (EVERY NODE CONNECTED TO CENTER HUB) */}
-            <svg className="pointer-events-none absolute inset-0 size-full z-0" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="brandNeuralGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ae3135" stopOpacity="0.8" />
-                  <stop offset="50%" stopColor="#e11d48" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#ae3135" stopOpacity="0.8" />
-                </linearGradient>
-              </defs>
-
-              {/* 1. Top Bar to Center Neural Hub */}
-              <line x1="50%" y1="18%" x2="50%" y2="50%" stroke="url(#brandNeuralGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
-              
-              {/* 2. Top-Left SDK to Center Neural Hub */}
-              <line x1="28%" y1="36%" x2="50%" y2="50%" stroke="url(#brandNeuralGrad)" strokeWidth="1.5" strokeDasharray="3,3" />
-
-              {/* 3. Top-Right Event Destinations to Center Neural Hub */}
-              <line x1="72%" y1="36%" x2="50%" y2="50%" stroke="url(#brandNeuralGrad)" strokeWidth="1.5" strokeDasharray="3,3" />
-
-              {/* 4. Left App Marketplace Grid to Center Neural Hub */}
-              <line x1="26%" y1="52%" x2="50%" y2="50%" stroke="url(#brandNeuralGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
-
-              {/* 5. Right Data Pipeline to Center Neural Hub */}
-              <line x1="74%" y1="52%" x2="50%" y2="50%" stroke="url(#brandNeuralGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
-
-              {/* 6. Right Cloud Icon to Data Pipeline & Hub */}
-              <line x1="88%" y1="52%" x2="74%" y2="52%" stroke="url(#brandNeuralGrad)" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
-
-              {/* 7. Center Hub to Bottom API Orchestration */}
-              <line x1="50%" y1="50%" x2="50%" y2="80%" stroke="url(#brandNeuralGrad)" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
-
-              {/* 8. Bottom API Orchestration to PSP Chips */}
-              <path d="M 50% 80% L 40% 90%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
-              <path d="M 50% 80% L 46% 90%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
-              <path d="M 50% 80% L 54% 90%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
-              <path d="M 50% 80% L 60% 90%" stroke="#ae3135" strokeWidth="1.5" strokeDasharray="3,3" opacity="0.6" />
-            </svg>
-
-            {/* Neural Tree Nodes Layout Structure */}
-            <div className="relative z-10 size-full flex flex-col items-center justify-between py-2 space-y-6">
-              
-              {/* TOP ROW: ERP Bar */}
-              <div className="flex flex-wrap items-center justify-center gap-1.5 rounded-2xl border border-brand-200 bg-brand-50/70 p-2 shadow-2xs backdrop-blur-xs">
-                {["ERP", "CRM", "Subscriptions", "Legacy billing", "Booking system"].map((item) => {
-                  const isActive = currentSlide.activeNodes.includes(item);
-                  return (
-                    <motion.span
-                      key={item}
-                      animate={isActive ? { scale: [1, 1.04, 1] } : {}}
-                      transition={{ duration: 0.3 }}
-                      className={`rounded-xl px-3 py-1.5 font-mono text-[0.72rem] font-bold transition-all duration-300 ${
-                        isActive
-                          ? "border border-brand-500 bg-brand-600 text-white shadow-md shadow-brand-500/20"
-                          : "border border-ink-200/80 bg-white text-ink-600 opacity-60"
-                      }`}
-                    >
-                      {item}
-                    </motion.span>
-                  );
-                })}
-              </div>
-
-              {/* SECOND ROW: SDK & Event Destinations */}
-              <div className="w-full flex items-center justify-between px-6 sm:px-16">
-                <span className="rounded-xl border border-brand-300 bg-brand-600 px-3.5 py-1.5 font-mono text-xs font-bold text-white shadow-sm">
-                  SDK Engine
-                </span>
-                <span className="rounded-xl border border-brand-300 bg-brand-600 px-3.5 py-1.5 font-mono text-xs font-bold text-white shadow-sm">
-                  Event Destinations
-                </span>
-              </div>
-
-              {/* CENTER NEURAL ROW: Left App Grid | CENTER HUB | Data Pipeline | Right Cloud */}
-              <div className="w-full flex items-center justify-between gap-2 px-1 sm:px-4">
-                
-                {/* Left Side App Icons Matrix Box */}
-                <div className="hidden sm:flex flex-col gap-1 rounded-2xl border border-brand-200 bg-brand-50/80 p-2 shadow-2xs">
-                  <div className="grid grid-cols-3 gap-1.5">
-                    {currentSlide.leftAppIcons.map((app, i) => (
-                      <motion.div
-                        key={app.name + i}
-                        initial={{ scale: 0.8 }}
-                        animate={{ scale: 1 }}
-                        className="flex size-7 items-center justify-center rounded-lg bg-white border border-ink-100 p-1 shadow-2xs"
-                      >
-                        <img src={app.logo} alt={app.name} className="size-full object-contain" />
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                <span className="rounded-xl border border-brand-400 bg-brand-600 px-3.5 py-2 font-mono text-[0.75rem] font-bold text-white shadow-sm">
-                  App Marketplace ↗
-                </span>
-
-                {/* CENTER NEURAL CORE HUB: technobren */}
-                <motion.div
-                  animate={reduce ? false : { scale: [1, 1.05, 1], boxShadow: ["0 0 15px rgba(174,49,53,0.3)", "0 0 35px rgba(174,49,53,0.6)", "0 0 15px rgba(174,49,53,0.3)"] }}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="rounded-2xl border-2 border-brand-400 bg-gradient-to-br from-brand-600 via-brand-700 to-brand-900 px-6 py-4 text-center font-display text-base font-extrabold text-white shadow-xl"
+          {/* LEFT SIDE NODES */}
+          <div className="absolute left-[3%] top-[45%] z-20 flex flex-col gap-4">
+            {[NEURAL_NODES[3], NEURAL_NODES[4]].map((node) => {
+              const isActive = activeNodeId === node.id;
+              return (
+                <button
+                  key={node.id}
+                  type="button"
+                  onClick={() => setActiveNodeId(node.id)}
+                  onMouseEnter={() => setActiveNodeId(node.id)}
+                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-sm ${
+                    isActive
+                      ? "border-brand-500 bg-brand-600 text-white shadow-md shadow-brand-500/30 scale-105"
+                      : "border-ink-200 bg-white text-ink-800 hover:border-brand-300"
+                  }`}
                 >
-                  technobren
-                  <span className="block text-[0.6rem] font-mono text-brand-100 uppercase tracking-widest mt-0.5">
-                    Neural Hub
-                  </span>
-                </motion.div>
+                  <span className="text-base">{node.icon}</span>
+                  <span className="hidden sm:inline">{node.label}</span>
+                </button>
+              );
+            })}
+          </div>
 
-                <span className="rounded-xl border border-brand-400 bg-brand-600 px-3.5 py-2 font-mono text-[0.75rem] font-bold text-white shadow-sm">
-                  Data Pipeline
-                </span>
-
-                {/* Right Side Cloud Logo */}
-                <motion.div
-                  key={currentSlide.rightCloudIcon}
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  className="hidden sm:flex size-10 items-center justify-center rounded-xl border border-brand-200 bg-white p-2 shadow-2xs"
+          {/* RIGHT SIDE NODES */}
+          <div className="absolute right-[3%] top-[45%] z-20 flex flex-col gap-4">
+            {[NEURAL_NODES[5], NEURAL_NODES[6]].map((node) => {
+              const isActive = activeNodeId === node.id;
+              return (
+                <button
+                  key={node.id}
+                  type="button"
+                  onClick={() => setActiveNodeId(node.id)}
+                  onMouseEnter={() => setActiveNodeId(node.id)}
+                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-sm ${
+                    isActive
+                      ? "border-brand-500 bg-brand-600 text-white shadow-md shadow-brand-500/30 scale-105"
+                      : "border-ink-200 bg-white text-ink-800 hover:border-brand-300"
+                  }`}
                 >
-                  <img src={currentSlide.rightCloudIcon} alt="Cloud Database" className="size-full object-contain" />
-                </motion.div>
-              </div>
+                  <span className="text-base">{node.icon}</span>
+                  <span className="hidden sm:inline">{node.label}</span>
+                </button>
+              );
+            })}
+          </div>
 
-              {/* BOTTOM ROW: API Orchestration & Gateways */}
-              <div className="flex flex-col items-center gap-2">
-                <span className="rounded-xl border border-brand-400 bg-brand-600 px-4 py-1.5 font-mono text-xs font-bold text-white shadow-sm">
-                  API Orchestration
-                </span>
-                <div className="flex flex-wrap items-center justify-center gap-1.5">
-                  {["Stripe PSP", "Razorpay", "PayPal", "Bank Transfer"].map((psp) => (
-                    <span key={psp} className="rounded-lg border border-brand-200 bg-brand-50 px-2.5 py-1 font-mono text-[0.68rem] font-bold text-brand-900 shadow-2xs">
-                      {psp}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-            </div>
+          {/* BOTTOM NODES */}
+          <div className="absolute bottom-[8%] left-0 right-0 z-20 flex justify-around px-8">
+            {[NEURAL_NODES[7], NEURAL_NODES[8]].map((node) => {
+              const isActive = activeNodeId === node.id;
+              return (
+                <button
+                  key={node.id}
+                  type="button"
+                  onClick={() => setActiveNodeId(node.id)}
+                  onMouseEnter={() => setActiveNodeId(node.id)}
+                  className={`flex items-center gap-2 rounded-2xl border px-3.5 py-2.5 text-xs font-bold transition-all duration-300 shadow-sm ${
+                    isActive
+                      ? "border-brand-500 bg-brand-600 text-white shadow-md shadow-brand-500/30 scale-105"
+                      : "border-ink-200 bg-white text-ink-800 hover:border-brand-300"
+                  }`}
+                >
+                  <span className="text-base">{node.icon}</span>
+                  <span className="hidden sm:inline">{node.label}</span>
+                </button>
+              );
+            })}
           </div>
 
         </div>
+
+        {/* ---------- ACTIVE NODE FLOATING INFO CARD ---------- */}
+        <motion.div
+          key={activeNode.id}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="mt-8 max-w-xl mx-auto rounded-3xl border border-brand-200 bg-gradient-to-r from-brand-50 via-white to-brand-50/60 p-5 shadow-lg text-center"
+        >
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-xl">{activeNode.icon}</span>
+            <h4 className="font-display text-base font-extrabold text-ink-950">
+              {activeNode.label}
+            </h4>
+          </div>
+          <p className="mt-1.5 text-xs text-ink-600 font-medium">
+            {activeNode.desc}
+          </p>
+        </motion.div>
+
       </Container>
     </section>
   );
