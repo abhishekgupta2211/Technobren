@@ -23,13 +23,23 @@ export default function AdminPage() {
 
   const fetchEnquiries = async () => {
     setLoading(true);
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 4000);
+
     try {
-      const res = await fetch("/api/contact", { cache: "no-store" });
-      if (!res.ok) throw new Error("Failed to fetch");
-      const data = await res.json();
-      setSubmissions(data.submissions || []);
+      const res = await fetch("/api/contact", {
+        cache: "no-store",
+        signal: controller.signal,
+      });
+      clearTimeout(timer);
+      if (res.ok) {
+        const data = await res.json();
+        setSubmissions(Array.isArray(data.submissions) ? data.submissions : []);
+      } else {
+        setSubmissions([]);
+      }
     } catch (err) {
-      console.error(err);
+      console.error("Dashboard fetch error:", err);
       setSubmissions([]);
     } finally {
       setLoading(false);
