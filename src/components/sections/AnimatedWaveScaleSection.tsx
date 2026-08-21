@@ -149,7 +149,7 @@ export function AnimatedWaveScaleSection() {
                 <Server className="size-4 text-brand-400" />
               </div>
               <p className="mt-3 font-display text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-200 to-rose-300 sm:text-5xl tracking-tight">
-                500m+
+                25k+
               </p>
               <p className="mt-1.5 text-xs text-brand-200/80 font-medium">
                 API requests processed per day with 99.99% SLA uptime
@@ -166,7 +166,7 @@ export function AnimatedWaveScaleSection() {
                 <Zap className="size-4 text-rose-400" />
               </div>
               <p className="mt-3 font-display text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-rose-200 to-brand-300 sm:text-5xl tracking-tight">
-                10k+
+                2k+
               </p>
               <p className="mt-1.5 text-xs text-rose-200/80 font-medium">
                 Simultaneous requests per second under peak load
@@ -183,7 +183,7 @@ export function AnimatedWaveScaleSection() {
                 <ShieldCheck className="size-4 text-emerald-400" />
               </div>
               <p className="mt-3 font-display text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-200 to-rose-300 sm:text-5xl tracking-tight">
-                150k+
+                10k+
               </p>
               <p className="mt-1.5 text-xs text-brand-200/80 font-medium">
                 Secured transactions per minute with instant data sync
