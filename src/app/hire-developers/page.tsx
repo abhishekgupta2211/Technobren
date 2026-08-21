@@ -378,35 +378,44 @@ export default function HireDevelopersPage() {
       </section>
 
       {/* 05 — PREMIUM BOTTOM CTA */}
-      <section className="border-t border-ink-100 bg-white py-16 sm:py-20">
+      <section className="border-t border-ink-100 bg-white py-16 sm:py-24">
         <Container size="wide">
-          <div className="relative overflow-hidden rounded-3xl border border-brand-200 bg-gradient-to-r from-brand-900 via-brand-800 to-brand-950 p-8 sm:p-14 text-white shadow-xl">
+          <div className="relative overflow-hidden rounded-3xl border border-brand-200 bg-gradient-to-br from-brand-950 via-brand-900 to-ink-950 p-8 sm:p-14 lg:p-16 text-white shadow-2xl text-center">
+            {/* Background Orbs */}
             <div
               aria-hidden
-              className="pointer-events-none absolute -right-20 -top-20 size-80 rounded-full bg-brand-500/20 blur-3xl"
+              className="pointer-events-none absolute -right-20 -top-20 size-96 rounded-full bg-brand-600/30 blur-3xl"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -left-20 -bottom-20 size-96 rounded-full bg-amber-500/10 blur-3xl"
             />
 
-            <div className="relative max-w-2xl">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 font-mono text-xs font-semibold text-brand-200 backdrop-blur-xs">
-                <Star className="size-3 text-amber-300 fill-amber-300" /> Ready to Scale Your Engineering Team?
+            <div className="relative max-w-3xl mx-auto flex flex-col items-center">
+              <span className="inline-flex items-center gap-2 rounded-full border border-brand-400/30 bg-brand-500/20 px-4 py-1.5 font-mono text-xs font-semibold text-brand-200 backdrop-blur-xs">
+                <Star className="size-3.5 text-amber-400 fill-amber-400" /> Ready to Scale Your Engineering Capacity?
               </span>
 
-              <h2 className="mt-4 font-display text-2xl font-bold sm:text-4xl leading-tight">
-                Get Pre-Vetted Developers Onboarded in 48 Hours.
+              <h2 className="mt-6 font-display text-2xl font-extrabold sm:text-4xl lg:text-5xl leading-tight">
+                Get Pre-Vetted Developers Onboarded <span className="text-brand-300">in 48 Hours.</span>
               </h2>
-              
-              <p className="mt-3 text-sm text-brand-100/90 leading-relaxed">
-                Connect with our technical account director to discuss team composition, time zones, and custom skill requirements.
+
+              <p className="mt-4 text-sm sm:text-base text-brand-100/90 leading-relaxed max-w-xl">
+                Connect with our technical account director to discuss team composition, tech stacks, time zones, and custom hiring requirements.
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Button href="#request-form" variant="primary" size="lg" arrow className="bg-white text-brand-950 hover:bg-brand-50">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                <Button href="#request-form" variant="primary" size="lg" arrow className="bg-white text-brand-950 font-bold hover:bg-brand-50 hover:text-brand-900 shadow-lg">
                   Request Developers Now
                 </Button>
-                <Button href="/contact" variant="secondary" size="lg" className="border-white/20 text-white hover:bg-white/10">
+                <Button href="/contact" variant="outlineDark" size="lg">
                   Speak to Account Manager
                 </Button>
               </div>
+
+              <p className="mt-8 text-xs text-brand-200/80 font-medium">
+                ⚡ 7-Day Risk-Free Evaluation Period &bull; Strict NDA &bull; Zero Administrative Overhead
+              </p>
             </div>
           </div>
         </Container>
