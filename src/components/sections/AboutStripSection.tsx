@@ -1,6 +1,7 @@
 import { Globe2, Building2, Users2 } from "lucide-react";
 import { offices } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
+import { CountryMark } from "@/components/ui/CountryMark";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -93,9 +94,7 @@ export function AboutStripSection() {
                     key={o.city}
                     className="group flex items-start gap-4 px-6 py-3.5 transition-colors duration-300 hover:bg-brand-50/30"
                   >
-                    <span className="mt-0.5 text-lg leading-none" aria-hidden>
-                      {o.flag}
-                    </span>
+                    <CountryMark country={o.country} className="mt-0.5" />
                     <div className="min-w-0 flex-1">
                       <p className="flex items-center gap-2 text-[0.92rem] font-semibold text-ink-950">
                         {o.city}

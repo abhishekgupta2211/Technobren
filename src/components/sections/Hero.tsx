@@ -30,7 +30,7 @@ function Headline() {
   let index = 0;
 
   return (
-    <h1 className="font-display text-[2.65rem] leading-[0.99] text-ink-950 xs:text-[3.1rem] sm:text-[4rem] lg:text-[4.3rem] xl:text-[4.9rem]">
+    <h1 className="font-display text-[2.5rem] leading-[1.0] text-ink-950 xs:text-[2.9rem] sm:text-[3.6rem] lg:text-[3.9rem] xl:text-[4.4rem]">
       {lines.map((line, li) => (
         <span key={li} className="block overflow-hidden pb-[0.09em]">
           {line.map((word) => {
@@ -111,7 +111,7 @@ export function Hero() {
       <Container size="wide" className="relative">
         <div className="grid items-center gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-8 xl:gap-12">
           {/* ---------- Copy ---------- */}
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <Headline />
 
             <motion.p

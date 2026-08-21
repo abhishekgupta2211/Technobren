@@ -46,6 +46,31 @@ export default function MethodologyPage() {
         title="From first conversation to"
         accent="long-term support."
         description="A delivery process built to remove surprises. You see progress every cycle, you approve the product before it is built, and you own everything we ship."
+        aside={
+          <div className="rounded-3xl border border-ink-200 bg-white p-6 shadow-(--shadow-card)">
+            <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-500">
+              The stages
+            </p>
+            <ol className="mt-5 space-y-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200">
+              {processSteps.map((step) => (
+                <li
+                  key={step.id}
+                  className="flex items-center gap-3.5 bg-white px-4 py-3"
+                >
+                  <span className="font-mono text-[0.78rem] text-brand-700">
+                    {step.id}
+                  </span>
+                  <span className="text-[0.88rem] font-medium text-ink-800">
+                    {step.title}
+                  </span>
+                  <span className="ml-auto font-mono text-[0.72rem] text-ink-500">
+                    {step.deliverables.length}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        }
       >
         <div className="mt-9 flex flex-wrap gap-3">
           <Button href="/contact" size="lg" arrow>
@@ -84,7 +109,7 @@ export default function MethodologyPage() {
       </section>
 
       {/* ---------- Stages ---------- */}
-      <section className="border-t border-ink-100 py-14 sm:py-18">
+      <section className="border-t border-ink-100 py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="The stages"

@@ -31,6 +31,28 @@ export default function TechnologyPage() {
         title="Building world-class solutions on a"
         accent="proven stack."
         description="As a leading app solutions provider, we design, develop and deploy enterprise-grade applications swiftly and efficiently — choosing the technology that fits the problem, not the trend."
+        aside={
+          <div className="rounded-3xl border border-ink-200 bg-white p-6 shadow-(--shadow-card)">
+            <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-500">
+              The stack
+            </p>
+            <ul className="mt-5 space-y-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200">
+              {techCategories.map((c) => (
+                <li
+                  key={c.name}
+                  className="flex items-center justify-between bg-white px-4 py-3"
+                >
+                  <span className="text-[0.88rem] font-medium text-ink-800">
+                    {c.name}
+                  </span>
+                  <span className="font-mono text-[0.78rem] text-brand-700">
+                    {c.items.length}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        }
       >
         <div className="mt-9 flex flex-wrap items-center gap-3">
           <Button href="/contact" size="lg" arrow>
@@ -62,7 +84,7 @@ export default function TechnologyPage() {
       </div>
 
       {/* ---------- Categories ---------- */}
-      <section className="py-14 sm:py-18">
+      <section className="py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="The stack"
@@ -79,7 +101,7 @@ export default function TechnologyPage() {
               <Reveal key={c.name} delay={i % 3}>
                 <div
                   id={slug(c.name)}
-                  className="scroll-mt-24 overflow-hidden rounded-2xl border border-ink-200 bg-white transition-colors duration-500 hover:border-brand-200"
+                  className="scroll-mt-24 overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-(--shadow-card) transition-colors duration-500 hover:border-brand-200"
                 >
                   <div className="grid lg:grid-cols-[18rem_1fr]">
                     <div className="relative border-b border-ink-100 bg-[var(--canvas-subtle)] p-6 sm:p-7 lg:border-b-0 lg:border-r">

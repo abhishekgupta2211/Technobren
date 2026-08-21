@@ -16,6 +16,7 @@ export function PageHero({
   title,
   accent,
   description,
+  aside,
   children,
 }: {
   eyebrow: string;
@@ -23,6 +24,8 @@ export function PageHero({
   /** Trailing words rendered in the brand gradient. */
   accent?: string;
   description: string;
+  /** Right-hand column for the opening screen — a stat rail, a key visual. */
+  aside?: React.ReactNode;
   children?: React.ReactNode;
 }) {
   const reduce = useReducedMotion();
@@ -65,29 +68,41 @@ export function PageHero({
           </ol>
         </motion.nav>
 
-        <motion.div {...rise(0.06)}>
-          <span className="inline-flex items-center gap-2.5 font-mono text-[0.68rem] font-medium uppercase tracking-[0.18em] text-brand-700">
-            <span aria-hidden className="h-px w-6 bg-brand-300" />
-            {eyebrow}
-          </span>
-        </motion.div>
-
-        <motion.h1
-          {...rise(0.14)}
-          className="mt-6 max-w-4xl font-display text-[2.5rem] leading-[1.02] text-ink-950 sm:text-[3.4rem] lg:text-[4.1rem]"
+        <div
+          className={
+            aside
+              ? "grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12"
+              : ""
+          }
         >
-          {title}
-          {accent && <span className="text-gradient-brand"> {accent}</span>}
-        </motion.h1>
+          <div>
+            <motion.div {...rise(0.06)}>
+              <span className="inline-flex items-center gap-2.5 font-mono text-[0.68rem] font-medium uppercase tracking-[0.18em] text-brand-700">
+                <span aria-hidden className="h-px w-6 bg-brand-300" />
+                {eyebrow}
+              </span>
+            </motion.div>
 
-        <motion.p
-          {...rise(0.24)}
-          className="mt-6 max-w-2xl text-pretty text-[1.05rem] leading-[1.7] text-ink-600"
-        >
-          {description}
-        </motion.p>
+            <motion.h1
+              {...rise(0.14)}
+              className="mt-6 max-w-4xl font-display text-[2.4rem] leading-[1.03] text-ink-950 sm:text-[3.1rem] lg:text-[3.7rem]"
+            >
+              {title}
+              {accent && <span className="text-gradient-brand"> {accent}</span>}
+            </motion.h1>
 
-        {children && <motion.div {...rise(0.34)}>{children}</motion.div>}
+            <motion.p
+              {...rise(0.24)}
+              className="mt-6 max-w-2xl text-pretty text-[1.05rem] leading-[1.7] text-ink-600"
+            >
+              {description}
+            </motion.p>
+
+            {children && <motion.div {...rise(0.34)}>{children}</motion.div>}
+          </div>
+
+          {aside && <motion.div {...rise(0.3)}>{aside}</motion.div>}
+        </div>
       </Container>
     </section>
   );

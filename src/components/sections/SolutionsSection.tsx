@@ -46,7 +46,7 @@ export function SolutionsSection() {
           description="Tailored platforms that keep organisations agile and responsive — enhancing performance, reducing cost and automating the work that slows teams down."
         />
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-8">
+        <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,18.5rem)_1fr] lg:gap-8">
           {/* ---- Selector rail ---- */}
           <Reveal className="min-w-0">
             <ul className="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -89,7 +89,7 @@ export function SolutionsSection() {
                       <span className="min-w-0">
                         <span
                           className={cn(
-                            "block whitespace-nowrap text-[0.92rem] font-semibold transition-colors lg:whitespace-normal",
+                            "block whitespace-nowrap text-[0.92rem] font-semibold transition-colors",
                             selected ? "text-ink-950" : "text-ink-700",
                           )}
                         >

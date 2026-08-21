@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, ShieldCheck } from "lucide-react";
 import { contact, offices, site } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -45,6 +45,42 @@ export default function ContactPage() {
         title="Start your journey"
         accent="with us."
         description="One of our team will reach out to set up a call when it works best for you. It's a simple way for us to understand what you're looking for and explore how we can help — real conversations, fresh ideas, and building something great together."
+        aside={
+          <div className="rounded-3xl border border-ink-200 bg-white p-6 shadow-(--shadow-card)">
+            <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-500">
+              Reach us directly
+            </p>
+            <a
+              href={`mailto:${contact.primaryEmail}`}
+              className="group mt-5 flex items-center gap-3 rounded-xl border border-ink-200 px-4 py-3 transition-colors duration-300 hover:border-brand-200 hover:bg-brand-50/50"
+            >
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
+                <Mail className="size-4" aria-hidden />
+              </span>
+              <span className="truncate text-[0.88rem] font-medium text-ink-900">
+                {contact.primaryEmail}
+              </span>
+            </a>
+            <a
+              href={`tel:${contact.primaryPhone.replace(/\s/g, "")}`}
+              className="group mt-2 flex items-center gap-3 rounded-xl border border-ink-200 px-4 py-3 transition-colors duration-300 hover:border-brand-200 hover:bg-brand-50/50"
+            >
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
+                <Phone className="size-4" aria-hidden />
+              </span>
+              <span className="truncate text-[0.88rem] font-medium text-ink-900">
+                {contact.primaryPhone}
+              </span>
+            </a>
+            <p className="mt-5 flex items-start gap-2 text-pretty text-[0.83rem] leading-relaxed text-ink-600">
+              <ShieldCheck
+                className="mt-0.5 size-4 shrink-0 text-brand-600"
+                aria-hidden
+              />
+              Every enquiry is covered by an NDA. First 7 days on us.
+            </p>
+          </div>
+        }
       />
 
       <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-12 sm:py-14 lg:py-16">
@@ -56,7 +92,7 @@ export default function ContactPage() {
 
             <div className="space-y-4">
               <Reveal delay={1}>
-                <div className="rounded-2xl border border-ink-200 bg-white p-6 sm:p-7">
+                <div className="rounded-2xl border border-ink-200 bg-white shadow-(--shadow-card) p-6 sm:p-7">
                   <h3 className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-ink-500">
                     Direct contact
                   </h3>
@@ -100,7 +136,7 @@ export default function ContactPage() {
               </Reveal>
 
               <Reveal delay={2}>
-                <div className="overflow-hidden rounded-2xl border border-ink-200 bg-white">
+                <div className="overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-(--shadow-card)">
                   <div className="flex items-center justify-between border-b border-ink-200 bg-ink-50/60 px-6 py-4">
                     <h3 className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-ink-500">
                       Our offices

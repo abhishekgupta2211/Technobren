@@ -41,6 +41,24 @@ export default function WorkPage() {
         title="Platforms we've designed,"
         accent="built and deployed."
         description="Production systems running real operations — from enterprise resource planning through to offline-capable field sales tooling used away from the office."
+        aside={
+          <div className="rounded-3xl border border-ink-200 bg-white p-6 shadow-(--shadow-card)">
+            <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-500">
+              Delivery record
+            </p>
+            <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200">
+              {stats.map((s) => (
+                <div key={s.label} className="bg-white px-4 py-4">
+                  <dt className="font-display text-[1.7rem] leading-none text-brand-700">
+                    {s.value}
+                    {s.suffix}
+                  </dt>
+                  <dd className="mt-1.5 text-[0.8rem] text-ink-600">{s.label}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        }
       >
         <div className="mt-9 flex flex-wrap gap-3">
           <Button href="/contact" size="lg" arrow>
@@ -187,7 +205,7 @@ export default function WorkPage() {
       </section>
 
       {/* ---------- How these get built ---------- */}
-      <section className="border-b border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18">
+      <section className="border-b border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <div className="grid gap-9 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
             <SectionHeading
@@ -226,7 +244,7 @@ export default function WorkPage() {
       </section>
 
       {/* ---------- Sectors + honesty note ---------- */}
-      <section className="py-14 sm:py-18">
+      <section className="py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             align="center"

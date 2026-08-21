@@ -42,23 +42,21 @@ export function TechnologySection() {
       />
 
       <Container size="wide" className="relative">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading
-            eyebrow="Technology expertise"
-            title={
-              <>
-                Building world-class solutions on a{" "}
-                <span className="text-brand-700">proven stack</span>
-              </>
-            }
-            description="We design, develop and deploy enterprise-grade applications using the languages, frameworks and infrastructure best suited to the problem — not to fashion."
-          />
-          <Reveal delay={2} className="shrink-0">
+        <SectionHeading
+          eyebrow="Technology expertise"
+          title={
+            <>
+              Building world-class solutions on a{" "}
+              <span className="text-brand-700">proven stack</span>
+            </>
+          }
+          description="We design, develop and deploy enterprise-grade applications using the languages, frameworks and infrastructure best suited to the problem — not to fashion."
+          aside={
             <Button href="/technology" variant="secondary" arrow>
               Full technology stack
             </Button>
-          </Reveal>
-        </div>
+          }
+        />
 
         {/* ---- Discipline legend ---- */}
         <Reveal delay={1} className="mt-9">
@@ -79,7 +77,7 @@ export function TechnologySection() {
                   onClick={() => setActive(on ? null : c.name)}
                   aria-pressed={on}
                   className={cn(
-                    "group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[0.83rem] font-medium transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                    "group inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-[0.83rem] font-medium transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
                     on
                       ? "-translate-y-0.5 border-brand-600 bg-brand-600 text-white shadow-[0_6px_16px_-9px_rgba(174,49,53,0.45)]"
                       : "border-ink-200 bg-white text-ink-700 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700",

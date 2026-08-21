@@ -2,31 +2,11 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { Check } from "lucide-react";
+import { hireRoles } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-
-const ROLES = [
-  "ReactJS Developers",
-  "NodeJS Developers",
-  "VueJS Developers",
-  "AngularJS Developers",
-  "PHP Developers",
-  "Laravel Developers",
-  "Magento Developers",
-  "WordPress Developers",
-  "Android Developers",
-  "iOS Developers",
-  "Flutter Developers",
-  "React Native Developers",
-  "Python Developers",
-  "Java Developers",
-  "ASP.NET Developers",
-  "Shopify Developers",
-  "AI & ML Developers",
-  "UI/UX Designers",
-];
 
 const POINTS = [
   "Dedicated or fixed time & cost engagements",
@@ -95,12 +75,12 @@ export function HireTeamSection() {
                   Roles you can hire
                 </h3>
                 <span className="font-mono text-[0.68rem] text-ink-600">
-                  {ROLES.length}+
+                  {hireRoles.length}+
                 </span>
               </div>
 
               <ul className="mt-5 flex flex-wrap gap-2">
-                {ROLES.map((role, i) => (
+                {hireRoles.map((role, i) => (
                   <motion.li
                     key={role}
                     initial={reduce ? false : { opacity: 0, scale: 0.94 }}
@@ -111,7 +91,7 @@ export function HireTeamSection() {
                       delay: i * 0.025,
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    className="cursor-default rounded-lg border border-ink-200 bg-white px-3 py-2 text-[0.8rem] font-medium text-ink-600"
+                    className="rounded-lg border border-ink-200 bg-white px-3 py-2 text-[0.8rem] font-medium text-ink-600 transition-colors duration-300 hover:border-brand-300 hover:text-brand-700"
                   >
                     {role}
                   </motion.li>

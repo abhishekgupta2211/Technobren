@@ -91,7 +91,7 @@ export function WhySection() {
                         </h3>
                         <span
                           aria-hidden
-                          className="ml-auto font-mono text-[0.72rem] text-ink-200 transition-colors duration-500 group-hover:text-brand-300"
+                          className="ml-auto font-mono text-[0.72rem] text-ink-400 transition-colors duration-500 group-hover:text-brand-500"
                         >
                           {String(i + 1).padStart(2, "0")}
                         </span>

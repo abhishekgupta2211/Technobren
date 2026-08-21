@@ -30,6 +30,30 @@ export default function SolutionsPage() {
         title="Focused IT solutions"
         accent="& services."
         description={solutionsIntro.body}
+        aside={
+          <div className="rounded-3xl border border-ink-200 bg-white p-6 shadow-(--shadow-card)">
+            <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-500">
+              Products
+            </p>
+            <ul className="mt-5 space-y-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200">
+              {solutions.map((s) => (
+                <li key={s.slug} className="flex items-center gap-3 bg-white px-4 py-3">
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                    <Icon name={s.icon} className="size-4" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block truncate text-[0.88rem] font-medium text-ink-900">
+                      {s.name}
+                    </span>
+                    <span className="block truncate text-[0.75rem] text-ink-500">
+                      {s.category}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        }
       >
         <div className="mt-9 flex flex-wrap gap-3">
           <Button href="/contact" size="lg" arrow>
@@ -210,7 +234,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* ---------- RockEye ERP ---------- */}
-      <section className="relative overflow-x-clip border-b border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18">
+      <section className="relative overflow-x-clip border-b border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
         <div
           aria-hidden
           className="pointer-events-none absolute -right-[10%] top-0 size-[36rem] rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.09),transparent_66%)] blur-3xl"
@@ -278,7 +302,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* ---------- Cross-link to the portfolio ---------- */}
-      <section className="py-14 sm:py-18">
+      <section className="py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <Reveal>
             <div className="flex flex-col items-start gap-5 rounded-3xl border border-ink-200 bg-white p-7 shadow-(--shadow-card) sm:flex-row sm:items-center sm:justify-between sm:p-9">

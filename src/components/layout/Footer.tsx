@@ -11,6 +11,7 @@ import {
   socials,
 } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
+import { CountryMark } from "@/components/ui/CountryMark";
 import { Logo } from "./Logo";
 
 /**
@@ -61,7 +62,7 @@ function Chip({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
       href={href}
-      className="rounded-full border border-ink-200 bg-white px-3 py-1.5 text-[0.78rem] font-medium text-ink-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700"
+      className="rounded-full border border-ink-200 bg-white px-3 py-2 text-[0.78rem] font-medium text-ink-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700"
     >
       {children}
     </Link>
@@ -117,7 +118,7 @@ export function Footer() {
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-white px-3.5 py-2 text-[0.78rem] font-medium text-ink-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700"
+                    className="group inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-white px-3 py-2 text-[0.78rem] font-medium text-ink-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700"
                   >
                     {s.label}
                     <ArrowUpRight
@@ -219,9 +220,7 @@ export function Footer() {
                 className="group rounded-2xl border border-ink-200 bg-white p-4 shadow-(--shadow-card) transition-all duration-300 hover:-translate-y-1 hover:border-brand-200"
               >
                 <p className="flex items-center gap-2 text-[0.88rem] font-semibold text-ink-950">
-                  <span className="text-base leading-none" aria-hidden>
-                    {o.flag}
-                  </span>
+                  <CountryMark country={o.country} />
                   {o.city}
                   {o.hq && (
                     <span className="rounded border border-brand-200 bg-brand-50 px-1.5 py-px font-mono text-[0.58rem] uppercase tracking-wider text-brand-700">

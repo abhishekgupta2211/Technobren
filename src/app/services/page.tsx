@@ -31,6 +31,42 @@ export default function ServicesPage() {
         title="You envision,"
         accent="we deliver."
         description="TechnoBren is a team of skilled, dedicated professionals committed to helping you and your product grow, achieve success and reach new heights. These are the practices we run end to end."
+        aside={
+          <div className="rounded-3xl border border-ink-200 bg-white p-6 shadow-(--shadow-card)">
+            <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-500">
+              At a glance
+            </p>
+            <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200">
+              <div className="bg-white px-4 py-4">
+                <dt className="font-display text-[1.7rem] leading-none text-brand-700">
+                  {services.length}
+                </dt>
+                <dd className="mt-1.5 text-[0.8rem] text-ink-600">Core practices</dd>
+              </div>
+              <div className="bg-white px-4 py-4">
+                <dt className="font-display text-[1.7rem] leading-none text-brand-700">
+                  {services.reduce((n, s) => n + s.capabilities.length, 0)}
+                </dt>
+                <dd className="mt-1.5 text-[0.8rem] text-ink-600">Capabilities</dd>
+              </div>
+              <div className="bg-white px-4 py-4">
+                <dt className="font-display text-[1.7rem] leading-none text-brand-700">
+                  {secondaryServices.length}
+                </dt>
+                <dd className="mt-1.5 text-[0.8rem] text-ink-600">Supporting areas</dd>
+              </div>
+              <div className="bg-white px-4 py-4">
+                <dt className="font-display text-[1.7rem] leading-none text-brand-700">
+                  7
+                </dt>
+                <dd className="mt-1.5 text-[0.8rem] text-ink-600">Days free trial</dd>
+              </div>
+            </dl>
+            <p className="mt-5 text-pretty text-[0.83rem] leading-relaxed text-ink-600">
+              Every engagement is covered by an NDA before anything is shared.
+            </p>
+          </div>
+        }
       >
         <div className="mt-9 flex flex-wrap gap-3">
           <Button href="/contact" size="lg" arrow>

@@ -22,11 +22,11 @@ const CODES: Record<string, string> = {
   Melbourne: "MEL",
 };
 
-const VB = { w: 440, h: 132 };
+const VB = { w: 440, h: 140 };
 const GUTTER = 56; // room for the outermost label at either end
 const BASE_Y = 104;
 /** Gentle alternating lift so the row reads as a route, not a bar chart. */
-const LIFT = [30, 14, 26, 10];
+const LIFT = [34, 16, 30, 12];
 
 function code(city: string) {
   return CODES[city] ?? city.slice(0, 3).toUpperCase();
@@ -133,7 +133,7 @@ export function GlobalReach({ className }: { className?: string }) {
               y={n.y - 19}
               textAnchor="middle"
               className="fill-ink-600 font-mono"
-              fontSize="8.5"
+              fontSize="12"
               letterSpacing="1.1"
             >
               {n.code}
@@ -143,7 +143,7 @@ export function GlobalReach({ className }: { className?: string }) {
               y={BASE_Y + 20}
               textAnchor="middle"
               className="fill-ink-500"
-              fontSize="9.5"
+              fontSize="13"
             >
               {n.city}
             </text>

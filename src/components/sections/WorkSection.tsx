@@ -20,23 +20,21 @@ export function WorkSection() {
       className="relative overflow-x-clip border-t border-ink-100 py-14 sm:py-18 lg:py-22"
     >
       <Container size="wide">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading
-            eyebrow="Our work"
-            title={
-              <>
-                Platforms we&rsquo;ve designed,{" "}
-                <span className="text-brand-700">built and deployed</span>
-              </>
-            }
-            description="Production systems running real operations — from enterprise resource planning to offline-capable field sales tooling."
-          />
-          <Reveal delay={2} className="shrink-0">
+        <SectionHeading
+          eyebrow="Our work"
+          title={
+            <>
+              Platforms we&rsquo;ve designed,{" "}
+              <span className="text-brand-700">built and deployed</span>
+            </>
+          }
+          description="Production systems running real operations — from enterprise resource planning to offline-capable field sales tooling."
+          aside={
             <Button href="/work" variant="secondary" arrow>
               View our work
             </Button>
-          </Reveal>
-        </div>
+          }
+        />
 
         <div className="mt-10 grid gap-5 lg:grid-cols-6">
           {solutions.map((s, i) => {

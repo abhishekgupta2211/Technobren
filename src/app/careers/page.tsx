@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Info, Mail } from "lucide-react";
 import { coreValues, offices, contact, techCategories } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
+import { CountryMark } from "@/components/ui/CountryMark";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -27,6 +28,29 @@ export default function CareersPage() {
         title="Our team lives, breathes"
         accent="and dreams technology."
         description="Visionaries, dreamers, specialists and perfectionists. Our strength lies in the diversity, dedication and expertise we bring to every project — and we're always interested in people who feel the same way."
+        aside={
+          <div className="rounded-3xl border border-ink-200 bg-white p-6 shadow-(--shadow-card)">
+            <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-500">
+              Where you could work
+            </p>
+            <ul className="mt-5 space-y-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200">
+              {offices.map((o) => (
+                <li key={o.city} className="flex items-center gap-3 bg-white px-4 py-3">
+                  <CountryMark country={o.country} />
+                  <span className="text-[0.88rem] font-medium text-ink-900">
+                    {o.city}
+                  </span>
+                  <span className="ml-auto text-[0.78rem] text-ink-500">
+                    {o.country}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-pretty text-[0.83rem] leading-relaxed text-ink-600">
+              We operate 24/7 across {offices.length} offices in three countries.
+            </p>
+          </div>
+        }
       >
         <div className="mt-9 flex flex-wrap gap-3">
           <Button
@@ -43,7 +67,7 @@ export default function CareersPage() {
       </PageHero>
 
       {/* ---------- Openings ---------- */}
-      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18">
+      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="Open roles"
@@ -56,7 +80,7 @@ export default function CareersPage() {
           />
 
           <Reveal delay={2}>
-            <div className="mt-10 flex flex-col gap-5 rounded-2xl border border-ink-200 bg-white p-7 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+            <div className="mt-10 flex flex-col gap-5 rounded-2xl border border-ink-200 bg-white shadow-(--shadow-card) p-7 sm:flex-row sm:items-center sm:justify-between sm:p-8">
               <div className="flex items-start gap-3.5">
                 <Info className="mt-0.5 size-5 shrink-0 text-brand-600" aria-hidden />
                 <p className="max-w-xl text-pretty text-[0.94rem] leading-relaxed text-ink-600">
@@ -77,7 +101,7 @@ export default function CareersPage() {
       </section>
 
       {/* ---------- Disciplines ---------- */}
-      <section className="border-t border-ink-100 py-14 sm:py-18">
+      <section className="border-t border-ink-100 py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="Disciplines"
@@ -94,7 +118,7 @@ export default function CareersPage() {
               <Reveal
                 key={c.name}
                 delay={i % 3}
-                className="rounded-2xl border border-ink-200 bg-white p-6 transition-colors duration-500 hover:border-brand-200"
+                className="rounded-2xl border border-ink-200 bg-white shadow-(--shadow-card) p-6 transition-colors duration-500 hover:border-brand-200"
               >
                 <h3 className="font-display text-[1.1rem] text-ink-950">{c.name}</h3>
                 <p className="mt-2 text-[0.86rem] leading-relaxed text-ink-500">
@@ -122,7 +146,7 @@ export default function CareersPage() {
       </section>
 
       {/* ---------- Values + locations ---------- */}
-      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18">
+      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <div className="grid gap-12 lg:grid-cols-[1fr_0.8fr] lg:gap-16">
             <div>
@@ -151,7 +175,7 @@ export default function CareersPage() {
             </div>
 
             <Reveal delay={2}>
-              <div className="overflow-hidden rounded-2xl border border-ink-200 bg-white lg:sticky lg:top-28">
+              <div className="overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-(--shadow-card) lg:sticky lg:top-28">
                 <div className="border-b border-ink-200 bg-ink-50/60 px-6 py-4">
                   <h3 className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-ink-500">
                     Where you could work
@@ -160,9 +184,7 @@ export default function CareersPage() {
                 <ul className="divide-y divide-ink-100">
                   {offices.map((o) => (
                     <li key={o.city} className="flex items-center gap-3.5 px-6 py-4">
-                      <span className="text-lg leading-none" aria-hidden>
-                        {o.flag}
-                      </span>
+                      <CountryMark country={o.country} />
                       <div>
                         <p className="text-[0.9rem] font-semibold text-ink-950">
                           {o.city}

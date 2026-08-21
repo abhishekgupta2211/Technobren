@@ -18,7 +18,7 @@ export function MobileMenuButton({ open, setOpen }: Props) {
       aria-expanded={open}
       aria-controls="mobile-menu"
       onClick={() => setOpen(!open)}
-      className="relative flex size-10 items-center justify-center rounded-full border border-ink-200 bg-ink-50 transition-colors duration-300 hover:border-ink-300 hover:bg-ink-100 lg:hidden"
+      className="relative flex size-11 items-center justify-center rounded-full border border-ink-200 bg-ink-50 transition-colors duration-300 hover:border-ink-300 hover:bg-ink-100 lg:hidden"
     >
       <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
       <span className="flex h-3.5 w-[18px] flex-col justify-between">

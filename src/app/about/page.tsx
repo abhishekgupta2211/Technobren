@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { coreValues, leadership, stats, offices, differentiators } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
+import { CountryMark } from "@/components/ui/CountryMark";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { Counter } from "@/components/ui/Counter";
@@ -30,6 +31,24 @@ export default function AboutPage() {
         title="The leading on-demand"
         accent="app solution provider."
         description="Our company is more than just a business; it is a testament to our unwavering commitment to excellence, innovation and integrity. As a unified global entity, we are dedicated to empowering our clients to innovate and thrive by delivering top-notch, customised solutions."
+        aside={
+          <div className="rounded-3xl border border-ink-200 bg-white p-6 shadow-(--shadow-card)">
+            <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-500">
+              Milestones
+            </p>
+            <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200">
+              {stats.map((s) => (
+                <div key={s.label} className="bg-white px-4 py-4">
+                  <dt className="font-display text-[1.7rem] leading-none text-brand-700">
+                    {s.value}
+                    {s.suffix}
+                  </dt>
+                  <dd className="mt-1.5 text-[0.8rem] text-ink-600">{s.label}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        }
       >
         <div className="mt-9 flex flex-wrap gap-3">
           <Button href="/work" size="lg" arrow>
@@ -42,7 +61,7 @@ export default function AboutPage() {
       </PageHero>
 
       {/* ---------- Milestones ---------- */}
-      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18">
+      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="Milestones"
@@ -158,7 +177,7 @@ export default function AboutPage() {
       </section>
 
       {/* ---------- Leadership ---------- */}
-      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18">
+      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="Our team"
@@ -204,7 +223,7 @@ export default function AboutPage() {
       </section>
 
       {/* ---------- Why + offices ---------- */}
-      <section className="border-t border-ink-100 py-14 sm:py-18">
+      <section className="border-t border-ink-100 py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <div className="grid gap-12 lg:grid-cols-[1fr_0.85fr] lg:gap-16">
             <div>
@@ -231,7 +250,7 @@ export default function AboutPage() {
             </div>
 
             <Reveal delay={2}>
-              <div className="overflow-hidden rounded-2xl border border-ink-200 bg-white lg:sticky lg:top-28">
+              <div className="overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-(--shadow-card) lg:sticky lg:top-28">
                 <div className="flex items-center justify-between border-b border-ink-200 bg-ink-50/60 px-6 py-4">
                   <h3 className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-ink-500">
                     Global presence
@@ -243,9 +262,7 @@ export default function AboutPage() {
                 <ul className="divide-y divide-ink-100">
                   {offices.map((o) => (
                     <li key={o.city} className="flex items-start gap-4 px-6 py-4">
-                      <span className="mt-0.5 text-lg leading-none" aria-hidden>
-                        {o.flag}
-                      </span>
+                      <CountryMark country={o.country} className="mt-0.5" />
                       <div className="min-w-0 flex-1">
                         <p className="flex items-center gap-2 text-[0.92rem] font-semibold text-ink-950">
                           {o.city}

@@ -63,7 +63,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         </p>
 
         <ul className="mt-5 flex flex-1 flex-wrap content-start gap-1.5">
-          {service.capabilities.slice(0, 3).map((c) => (
+          {service.capabilities.slice(0, 2).map((c) => (
             <li
               key={c}
               className="rounded-lg border border-ink-200 bg-[var(--canvas-subtle)] px-2.5 py-1.5 text-[0.73rem] font-medium text-ink-700 transition-colors duration-500 group-hover:border-brand-200 group-hover:bg-brand-50 group-hover:text-brand-800"
@@ -72,7 +72,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
             </li>
           ))}
           <li className="rounded-lg border border-dashed border-ink-200 px-2.5 py-1.5 text-[0.73rem] font-medium text-ink-500">
-            +{service.capabilities.length - 3}
+            +{service.capabilities.length - 2} more
           </li>
         </ul>
       </div>
@@ -105,34 +105,32 @@ export function ServicesSection() {
       />
 
       <Container size="wide" className="relative">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading
-            eyebrow="What we do"
-            title={
-              <>
-                A comprehensive suite of{" "}
-                <span className="text-brand-700">software engineering</span> services
-              </>
-            }
-            description="We help startups, SMEs and enterprises harness technology to drive transformation — modernising platforms and processes to unlock growth."
-          />
-          <Reveal delay={2} className="shrink-0">
+        <SectionHeading
+          eyebrow="What we do"
+          title={
+            <>
+              A comprehensive suite of{" "}
+              <span className="text-brand-700">software engineering</span> services
+            </>
+          }
+          description="We help startups, SMEs and enterprises harness technology to drive transformation — modernising platforms and processes to unlock growth."
+          aside={
             <Button href="/services" variant="secondary" arrow>
               See all services
             </Button>
-          </Reveal>
-        </div>
+          }
+        />
       </Container>
 
       {/* ---- Continuous lane ---- */}
       <Reveal delay={1} className="relative mt-10">
-        <div className="marquee-host mask-edges flex overflow-hidden py-2 motion-reduce:overflow-x-auto motion-reduce:[scrollbar-width:none]">
+        <div className="marquee-host mask-edges flex overflow-hidden py-2 max-sm:snap-x max-sm:snap-mandatory max-sm:overflow-x-auto max-sm:[scrollbar-width:none] motion-reduce:overflow-x-auto motion-reduce:[scrollbar-width:none] max-sm:[&::-webkit-scrollbar]:hidden">
           <ul
-            className="animate-marquee flex shrink-0 items-stretch gap-6 px-3 motion-reduce:animate-none"
+            className="animate-marquee flex shrink-0 items-stretch gap-5 px-5 max-sm:animate-none sm:gap-6 sm:px-3 motion-reduce:animate-none"
             style={{ ["--marquee-duration" as string]: "56s" }}
           >
             {[...services, ...services].map((s, i) => (
-              <li key={`${s.slug}-${i}`} className="flex">
+              <li key={`${s.slug}-${i}`} className="flex snap-start">
                 <ServiceCard service={s} index={i % services.length} />
               </li>
             ))}
@@ -141,7 +139,7 @@ export function ServicesSection() {
 
         <Container size="wide">
           <p className="mt-6 text-center font-mono text-[0.68rem] uppercase tracking-[0.18em] text-ink-500">
-            Hover to pause · {services.length} practices
+            {services.length} practices · hover to pause
           </p>
         </Container>
       </Reveal>

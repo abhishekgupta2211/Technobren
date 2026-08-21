@@ -102,7 +102,7 @@ export function OrbitSystem() {
   return (
     <div className="w-full">
       <div
-        className="relative mx-auto aspect-square w-full max-w-[18rem] sm:max-w-[26rem] lg:max-w-[33rem]"
+        className="relative mx-auto aspect-square w-full max-w-[12rem] sm:max-w-[26rem] lg:max-w-[33rem]"
         aria-hidden
       >
         {/* Soft brand light behind the core */}
@@ -220,7 +220,7 @@ export function OrbitSystem() {
               preload
               className="h-7 w-auto object-contain sm:h-9"
             />
-            <p className="mt-2.5 border-t border-ink-100 pt-2 text-center font-mono text-[0.55rem] uppercase tracking-[0.16em] text-ink-500">
+            <p className="mt-2.5 hidden border-t border-ink-100 pt-2 text-center font-mono text-[0.55rem] uppercase tracking-[0.16em] text-ink-500 sm:block">
               Engineering Core
             </p>
           </div>
@@ -228,7 +228,7 @@ export function OrbitSystem() {
       </div>
 
       {/* Small screens: same capabilities, laid out to be read rather than orbited */}
-      <ul className="mt-8 grid grid-cols-3 gap-2 sm:hidden" aria-hidden>
+      <ul className="mt-7 grid grid-cols-2 gap-2.5 xs:grid-cols-3 sm:hidden" aria-hidden>
         {[...OUTER, ...INNER].map((n) => (
           <li
             key={n.label}
@@ -237,7 +237,7 @@ export function OrbitSystem() {
             <span className="flex size-7 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
               <n.icon className="size-3.5" aria-hidden />
             </span>
-            <span className="text-center text-[0.68rem] font-semibold leading-tight tracking-tight text-ink-800">
+            <span className="text-center text-[0.78rem] font-semibold leading-tight tracking-tight text-ink-800">
               {n.label}
             </span>
           </li>

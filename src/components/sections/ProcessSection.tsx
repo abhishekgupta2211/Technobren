@@ -69,7 +69,7 @@ export function ProcessSection() {
               description="A methodology built to remove surprises. You see progress every cycle, and you own everything we build."
             />
 
-            <Reveal delay={3}>
+            <Reveal delay={3} className="hidden lg:block">
               <div className="mt-9 overflow-hidden rounded-3xl border border-ink-200/80 bg-[var(--canvas-subtle)] shadow-(--shadow-card)">
                 <div className="flex items-center gap-6 p-6 sm:p-7">
                   {/* Progress dial — the logo's arc, closing as you descend */}
@@ -108,7 +108,7 @@ export function ProcessSection() {
                     </svg>
 
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <AnimatePresence mode="wait">
+                      <AnimatePresence initial={false}>
                         <motion.span
                           key={active.id}
                           initial={reduce ? false : { opacity: 0, y: 8 }}
@@ -130,7 +130,7 @@ export function ProcessSection() {
                     <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-brand-700">
                       Current stage
                     </p>
-                    <AnimatePresence mode="wait">
+                    <AnimatePresence initial={false}>
                       <motion.h3
                         key={active.title}
                         initial={reduce ? false : { opacity: 0, y: 8 }}
@@ -160,7 +160,7 @@ export function ProcessSection() {
                       />
                       <span
                         className={cn(
-                          "mt-2 block truncate text-center font-mono text-[0.58rem] uppercase tracking-wider transition-colors duration-500",
+                          "mt-2 block truncate text-center font-mono text-[0.68rem] transition-colors duration-500",
                           i === activeIndex ? "text-brand-700" : "text-ink-500",
                         )}
                       >
