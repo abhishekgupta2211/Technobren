@@ -14,7 +14,7 @@ export const site = {
   url: "https://technobren.com",
   tagline: "Infotech Private Limited",
   description:
-    "TechnoBren Infotech builds custom software, enterprise ERP, mobile apps and AI-driven systems for businesses across India, the UAE and the USA.",
+    "TechnoBren Infotech builds custom software, enterprise ERP, mobile apps and AI-driven systems for businesses across India, the UAE and Uganda.",
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -45,29 +45,31 @@ export type Office = {
 
 export const offices: Office[] = [
   {
-    city: "Lucknow",
-    country: "India",
-    flag: "🇮🇳",
-    address: "B-116, Vibhuti Khand, Gomti Nagar, Lucknow 226010, Uttar Pradesh",
-    hq: true,
-  },
-  {
     city: "Jaunpur",
     country: "India",
     flag: "🇮🇳",
     address: "5th Floor, City Tower, Wazidpur, Jaunpur, Uttar Pradesh",
+    hq: true,
+  },
+  {
+    city: "Ahmedabad",
+    country: "India",
+    flag: "🇮🇳",
+    address:
+      "C-404, Radhe Heights, Near Hathijan Circle, Hathijan, Ahmedabad, Gujarat, India",
   },
   {
     city: "Dubai",
     country: "UAE",
     flag: "🇦🇪",
-    address: "604, Westburry Office Towers, Marasi Dr, Business Bay, Dubai",
+    address:
+      "604, Westburry Office Towers, Marasi Dr, Business Bay, Dubai, UAE",
   },
   {
-    city: "Beverly Hills",
-    country: "USA",
-    flag: "🇺🇸",
-    address: "499 N. Canon Drive, Suite 215, Beverly Hills, CA 90210",
+    city: "Uganda",
+    country: "Uganda",
+    flag: "🇺🇬",
+    address: "499, N. Canon Drive, Suite 215, Beverly Hills CA 90210 USA",
   },
 ];
 
@@ -108,7 +110,7 @@ export const stats = [
     value: 4,
     suffix: "",
     label: "Global offices",
-    sub: "India, the UAE and the USA",
+    sub: "India, the UAE and Uganda",
   },
 ];
 

@@ -25,7 +25,7 @@ export function AboutStripSection() {
                   <span className="text-brand-700">global footprint</span>
                 </>
               }
-              description="TechnoBren is an offshore software development company based in India, delivering web design, development and enterprise solutions. With a presence across India, the UAE and the USA, we are trusted by clients worldwide."
+              description="TechnoBren is an offshore software development company based in India, delivering web design, development and enterprise solutions. With a presence across India, the UAE and Uganda, we are trusted by clients worldwide."
             />
 
             <Reveal delay={3}>

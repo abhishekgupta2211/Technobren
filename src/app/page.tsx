@@ -14,7 +14,7 @@ import { CTASection } from "@/components/sections/CTASection";
 export const metadata: Metadata = {
   title: "TechnoBren Infotech — Custom Software, ERP & AI Engineering",
   description:
-    "TechnoBren Infotech builds custom software, enterprise ERP, mobile apps and AI-driven systems for businesses across India, the UAE and the USA.",
+    "TechnoBren Infotech builds custom software, enterprise ERP, mobile apps and AI-driven systems for businesses across India, the UAE and Uganda.",
   alternates: { canonical: "/" },
 };
 

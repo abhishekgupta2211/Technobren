@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     "AI and machine learning",
     "business intelligence",
     "offshore development team",
-    "software company Lucknow",
+    "software company Jaunpur",
     "TechnoBren Infotech",
   ],
   authors: [{ name: site.legalName, url: site.url }],

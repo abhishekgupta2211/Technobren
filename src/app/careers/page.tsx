@@ -11,7 +11,7 @@ import { PageHero } from "@/components/sections/PageHero";
 export const metadata: Metadata = {
   title: "Careers",
   description:
-    "Join TechnoBren Infotech. We hire engineers, designers and analysts across our offices in India, the UAE and the USA.",
+    "Join TechnoBren Infotech. We hire engineers, designers and analysts across our offices in India, the UAE and Uganda.",
   alternates: { canonical: "/careers" },
   openGraph: {
     title: "Careers | TechnoBren Infotech",

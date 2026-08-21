@@ -9,7 +9,7 @@ import { ContactForm } from "@/components/sections/ContactForm";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Start a project with TechnoBren Infotech. Offices in Lucknow, Jaunpur, Dubai and Beverly Hills. All enquiries covered by NDA.",
+    "Start a project with TechnoBren Infotech. Offices in Jaunpur (HQ), Ahmedabad, Dubai and Uganda. All enquiries covered by NDA.",
   alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact | TechnoBren Infotech",

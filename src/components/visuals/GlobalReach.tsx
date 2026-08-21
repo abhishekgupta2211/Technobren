@@ -13,13 +13,10 @@ import { offices } from "@/lib/site";
  */
 
 const CODES: Record<string, string> = {
-  Lucknow: "LKO",
   Jaunpur: "JNP",
   Ahmedabad: "AMD",
-  Indore: "IDR",
   Dubai: "DXB",
-  "Beverly Hills": "LAX",
-  Melbourne: "MEL",
+  Uganda: "UGA",
 };
 
 const VB = { w: 440, h: 140 };
