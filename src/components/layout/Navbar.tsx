@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { navigation, contact } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { RegionSwitcher } from "@/components/ui/RegionSwitcher";
 import { Logo } from "./Logo";
 import { MobileMenuButton, MobileMenuSheet } from "./MobileNav";
 import { cn } from "@/lib/utils";
@@ -135,10 +136,12 @@ export function Navbar() {
           </ul>
 
           {/* ---------- Right actions ---------- */}
-          <div className="flex shrink-0 items-center gap-2.5">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
+            <RegionSwitcher />
+
             <a
               href={`mailto:${contact.primaryEmail}`}
-              className="hidden rounded-full px-3.5 py-2 text-[0.82rem] font-medium text-ink-600 transition-colors duration-300 hover:text-brand-700 2xl:block"
+              className="hidden rounded-full px-3 py-1.5 text-[0.82rem] font-medium text-ink-600 transition-colors duration-300 hover:text-brand-700 2xl:block"
             >
               {contact.primaryEmail}
             </a>
