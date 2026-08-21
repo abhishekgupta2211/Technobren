@@ -91,9 +91,10 @@ export function ContactForm() {
    */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formElement = e.currentTarget;
     setStatus("sending");
 
-    const data = new FormData(e.currentTarget);
+    const data = new FormData(formElement);
     const get = (k: string) => String(data.get(k) ?? "").trim();
 
     const payload = {
@@ -117,7 +118,7 @@ export function ContactForm() {
 
       if (res.ok) {
         setStatus("sent");
-        e.currentTarget.reset();
+        formElement.reset();
       } else {
         setStatus("sent");
       }
