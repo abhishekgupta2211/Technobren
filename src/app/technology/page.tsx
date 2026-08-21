@@ -6,6 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/sections/PageHero";
+import { TechStackPlayground } from "@/components/sections/TechStackPlayground";
 
 export const metadata: Metadata = {
   title: "Technology",
@@ -83,6 +84,9 @@ export default function TechnologyPage() {
           )}
         </div>
       </div>
+
+      {/* ---------- Interactive Tech Stack Playground ---------- */}
+      <TechStackPlayground />
 
       {/* ---------- Categories ---------- */}
       <section className="py-14 sm:py-18 lg:py-22">
