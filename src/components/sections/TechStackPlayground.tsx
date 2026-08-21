@@ -311,10 +311,10 @@ export function TechStackPlayground() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTabId(tab.id)}
-                className={`relative flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-xs font-bold transition-all duration-300 text-center border ${
+                className={`relative flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-xs transition-all duration-300 text-center border ${
                   isActive
-                    ? "border-brand-600 bg-brand-600 text-white shadow-sm font-extrabold"
-                    : "border-ink-200/90 bg-white text-ink-700 hover:border-brand-400 hover:bg-brand-50/60 hover:text-brand-900 font-semibold"
+                    ? "border-brand-500 bg-brand-50/90 text-brand-950 font-extrabold shadow-2xs"
+                    : "border-ink-200/90 bg-white text-ink-700 hover:border-brand-300 hover:bg-brand-50/50 hover:text-ink-950 font-medium"
                 }`}
               >
                 <img src={tab.logo} alt={tab.name} className="size-4 shrink-0 object-contain" />
