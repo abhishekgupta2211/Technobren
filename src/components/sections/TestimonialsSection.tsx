@@ -142,56 +142,57 @@ export function TestimonialsSection() {
           </div>
         </div>
 
-        {/* ---------- Featured Featured Card Carousel ---------- */}
+        {/* ---------- Featured Card Carousel & Side List ---------- */}
         <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Main Active Testimonial Card */}
           <Reveal className="lg:col-span-8">
-            <div className="relative h-full flex flex-col justify-between rounded-3xl border border-brand-200/90 bg-white p-7 sm:p-9 shadow-xl transition-all">
+            <div className="relative h-full flex flex-col justify-between rounded-3xl border-2 border-brand-500/80 bg-gradient-to-br from-white via-white to-brand-50/40 p-7 sm:p-10 shadow-2xl shadow-brand-600/10 transition-all duration-300">
               
-              {/* Quote Mark Icon */}
-              <Quote className="size-10 text-brand-500/20 absolute top-6 right-6" />
+              {/* Quote Mark Watermark */}
+              <Quote className="size-14 text-brand-500/15 absolute top-6 right-8 pointer-events-none" />
 
               <div>
                 {/* Rating Stars & Location Badge */}
                 <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1.5 bg-amber-50 px-3 py-1 rounded-full border border-amber-200/70">
                     {Array.from({ length: current.rating }).map((_, i) => (
                       <Star key={i} className="size-4 fill-amber-400 text-amber-400" />
                     ))}
+                    <span className="text-xs font-bold text-amber-900 ml-1">5.0</span>
                   </div>
 
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-ink-50 px-3 py-1 font-mono text-xs font-semibold text-ink-700">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50/90 px-3.5 py-1.5 font-mono text-xs font-bold text-brand-900 shadow-2xs">
                     <CountryMark country={current.country} />
                     {current.location}, {current.country}
                   </span>
                 </div>
 
                 {/* Quote Text */}
-                <p className="mt-6 text-pretty font-display text-lg sm:text-xl lg:text-2xl text-ink-950 leading-relaxed font-medium">
+                <p className="mt-7 text-pretty font-display text-xl sm:text-2xl lg:text-3xl text-ink-950 leading-relaxed font-bold tracking-tight">
                   &ldquo;{current.quote}&rdquo;
                 </p>
               </div>
 
               {/* Author Info & Verified Impact Pill */}
-              <div className="mt-8 pt-6 border-t border-ink-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div className="flex items-center gap-3.5">
+              <div className="mt-8 pt-6 border-t border-brand-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="flex items-center gap-4">
                   <img
                     src={current.avatar}
                     alt={current.name}
-                    className="size-12 rounded-full object-cover border-2 border-brand-200 shadow-sm"
+                    className="size-14 rounded-full object-cover border-2 border-brand-500 shadow-md"
                   />
                   <div>
-                    <h4 className="font-display text-base font-extrabold text-ink-950 leading-tight">
+                    <h4 className="font-display text-lg font-extrabold text-ink-950 leading-tight">
                       {current.name}
                     </h4>
-                    <p className="text-xs text-ink-500 font-medium">
-                      {current.role} &bull; <span className="font-semibold text-ink-800">{current.company}</span>
+                    <p className="text-xs text-ink-600 font-medium mt-0.5">
+                      {current.role} &bull; <span className="font-bold text-ink-900">{current.company}</span>
                     </p>
                   </div>
                 </div>
 
-                <div className="inline-flex items-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50/80 px-3.5 py-2 text-xs font-semibold text-emerald-900 shadow-2xs">
+                <div className="inline-flex items-center gap-2 rounded-2xl border border-emerald-300 bg-emerald-50 px-4 py-2 text-xs font-bold text-emerald-900 shadow-xs">
                   <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
                   <span>{current.result}</span>
                 </div>
@@ -201,7 +202,7 @@ export function TestimonialsSection() {
           </Reveal>
 
           {/* Side Stack / Quick Select list */}
-          <div className="lg:col-span-4 flex flex-col gap-3">
+          <div className="lg:col-span-4 flex flex-col gap-3.5">
             {TESTIMONIALS.map((t, idx) => {
               const isSelected = idx === activeIndex;
               return (
@@ -209,31 +210,34 @@ export function TestimonialsSection() {
                   key={t.id}
                   type="button"
                   onClick={() => setActiveIndex(idx)}
-                  className={`w-full flex items-start gap-3.5 rounded-2xl border p-4 text-left transition-all duration-300 ${
+                  className={`w-full flex items-center justify-between gap-3.5 rounded-2xl border p-4 text-left transition-all duration-300 ${
                     isSelected
-                      ? "border-brand-500 bg-white shadow-md ring-2 ring-brand-400/20"
-                      : "border-ink-200/80 bg-white/70 hover:bg-white hover:border-brand-200"
+                      ? "border-2 border-brand-500 bg-gradient-to-r from-brand-50/90 via-white to-white shadow-xl shadow-brand-500/10 scale-[1.02] ring-2 ring-brand-400/20"
+                      : "border-ink-200/80 bg-white/90 text-ink-800 hover:bg-white hover:border-brand-300 hover:shadow-md"
                   }`}
                 >
-                  <img
-                    src={t.avatar}
-                    alt={t.name}
-                    className="size-10 rounded-full object-cover border border-ink-200 shrink-0 mt-0.5"
-                  />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <h4 className="text-xs font-bold text-ink-950 truncate">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <img
+                      src={t.avatar}
+                      alt={t.name}
+                      className={`size-11 rounded-full object-cover shrink-0 ${isSelected ? "border-2 border-brand-500" : "border border-ink-200"}`}
+                    />
+                    <div className="min-w-0">
+                      <h4 className="text-xs font-extrabold text-ink-950 truncate">
                         {t.name}
                       </h4>
-                      <CountryMark country={t.country} />
+                      <p className="text-[0.72rem] text-ink-500 font-medium truncate mt-0.5">
+                        {t.company}
+                      </p>
+                      <p className="text-[0.68rem] text-brand-700 font-mono font-bold truncate mt-1">
+                        {t.project}
+                      </p>
                     </div>
-                    <p className="text-[0.72rem] text-ink-500 font-medium truncate mt-0.5">
-                      {t.company}
-                    </p>
-                    <p className="text-[0.68rem] text-brand-700 font-mono font-semibold truncate mt-1">
-                      {t.project}
-                    </p>
                   </div>
+
+                  <span className="shrink-0 rounded-lg border border-ink-200 bg-ink-50 px-2 py-1 font-mono text-[0.68rem] font-bold text-ink-700">
+                    <CountryMark country={t.country} />
+                  </span>
                 </button>
               );
             })}
