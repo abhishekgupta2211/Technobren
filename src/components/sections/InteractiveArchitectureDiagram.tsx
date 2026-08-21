@@ -158,30 +158,29 @@ export function InteractiveArchitectureDiagram() {
   const ActiveIcon = activeNode.icon;
 
   return (
-    <section className="relative overflow-hidden bg-white text-ink-950 pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-24 border-t border-ink-100">
-      <Container size="wide" className="relative">
+    <section className="relative overflow-hidden bg-white text-ink-950 pt-24 sm:pt-28 pb-6 sm:pb-8 border-t border-ink-100 min-h-[calc(100vh-80px)] flex flex-col justify-between">
+      <Container size="wide" className="relative flex-1 flex flex-col justify-between">
         
-        {/* Section Header Matching Screenshot Exactly */}
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-1.5 text-xs font-semibold text-brand-700 shadow-2xs">
-            <span className="flex size-4 items-center justify-center rounded-full bg-brand-600 text-white text-[0.6rem] font-bold">
+        {/* Compact Section Header */}
+        <div className="max-w-2xl mx-auto text-center shrink-0">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-[0.72rem] font-semibold text-brand-700 shadow-2xs">
+            <span className="flex size-3.5 items-center justify-center rounded-full bg-brand-600 text-white text-[0.55rem] font-bold">
               ☸
             </span>
             <span>Neural Architecture Network</span>
           </div>
 
-          <h2 className="mt-4 font-display text-3xl font-extrabold sm:text-4xl lg:text-5xl text-ink-950 tracking-tight leading-tight">
-            Interconnected <br />
-            <span className="text-brand-700">System Ecosystem</span>
+          <h2 className="mt-2 font-display text-2xl font-extrabold sm:text-3xl lg:text-4xl text-ink-950 tracking-tight leading-tight">
+            Interconnected <span className="text-brand-700">System Ecosystem</span>
           </h2>
           
-          <p className="mt-3 text-sm sm:text-base text-ink-500 font-medium leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-1 text-xs sm:text-sm text-ink-500 font-medium leading-normal max-w-xl mx-auto">
             Point at any system node to see how TechnoBren’s central core engine orchestrates data across your enterprise.
           </p>
         </div>
 
-        {/* ---------- EXACT DIAGRAM NETWORK NODE CANVAS MATCHING SCREENSHOT ---------- */}
-        <div className="mt-12 relative max-w-6xl mx-auto min-h-[520px] sm:min-h-[560px] flex items-center justify-center p-2 sm:p-6">
+        {/* ---------- EXACT DIAGRAM NETWORK NODE CANVAS FIT IN SINGLE VIEW ---------- */}
+        <div className="relative max-w-5xl mx-auto size-full min-h-[380px] sm:min-h-[420px] my-2 flex items-center justify-center p-1 sm:p-4 shrink-0">
           
           {/* Animated Connecting Right-Angle & Curved Neural Lines SVG */}
           <svg className="pointer-events-none absolute inset-0 size-full z-0" xmlns="http://www.w3.org/2000/svg">
@@ -193,47 +192,41 @@ export function InteractiveArchitectureDiagram() {
             </defs>
 
             {/* Neural Dotted Orthogonal Connectors to Center Ring */}
-            {/* Top Node */}
-            <path d="M 50% 50% L 50% 17%" stroke="url(#dottedLineGrad)" strokeWidth="1.8" strokeDasharray="3,3" fill="none" />
-            {/* Top Left Node */}
-            <path d="M 50% 50% Q 34% 34% 28% 18%" stroke="url(#dottedLineGrad)" strokeWidth="1.8" strokeDasharray="3,3" fill="none" />
-            {/* Top Right Node */}
-            <path d="M 50% 50% Q 66% 34% 72% 18%" stroke="url(#dottedLineGrad)" strokeWidth="1.8" strokeDasharray="3,3" fill="none" />
+            <path d="M 50% 50% L 50% 16%" stroke="url(#dottedLineGrad)" strokeWidth="1.6" strokeDasharray="3,3" fill="none" />
+            <path d="M 50% 50% Q 34% 34% 28% 18%" stroke="url(#dottedLineGrad)" strokeWidth="1.6" strokeDasharray="3,3" fill="none" />
+            <path d="M 50% 50% Q 66% 34% 72% 18%" stroke="url(#dottedLineGrad)" strokeWidth="1.6" strokeDasharray="3,3" fill="none" />
 
-            {/* Mid Left Nodes */}
-            <path d="M 50% 50% H 24% V 42%" stroke="url(#dottedLineGrad)" strokeWidth="1.8" strokeDasharray="3,3" fill="none" />
-            <path d="M 50% 50% H 24% V 58%" stroke="url(#dottedLineGrad)" strokeWidth="1.8" strokeDasharray="3,3" fill="none" />
+            <path d="M 50% 50% H 24% V 42%" stroke="url(#dottedLineGrad)" strokeWidth="1.6" strokeDasharray="3,3" fill="none" />
+            <path d="M 50% 50% H 24% V 58%" stroke="url(#dottedLineGrad)" strokeWidth="1.6" strokeDasharray="3,3" fill="none" />
 
-            {/* Mid Right Nodes */}
-            <path d="M 50% 50% H 76% V 42%" stroke="url(#dottedLineGrad)" strokeWidth="1.8" strokeDasharray="3,3" fill="none" />
-            <path d="M 50% 50% H 76% V 58%" stroke="url(#dottedLineGrad)" strokeWidth="1.8" strokeDasharray="3,3" fill="none" />
+            <path d="M 50% 50% H 76% V 42%" stroke="url(#dottedLineGrad)" strokeWidth="1.6" strokeDasharray="3,3" fill="none" />
+            <path d="M 50% 50% H 76% V 58%" stroke="url(#dottedLineGrad)" strokeWidth="1.6" strokeDasharray="3,3" fill="none" />
 
-            {/* Bottom Left & Right Nodes */}
-            <path d="M 50% 50% Q 38% 68% 34% 82%" stroke="url(#dottedLineGrad)" strokeWidth="1.8" strokeDasharray="3,3" fill="none" />
-            <path d="M 50% 50% Q 62% 68% 66% 82%" stroke="url(#dottedLineGrad)" strokeWidth="1.8" strokeDasharray="3,3" fill="none" />
+            <path d="M 50% 50% Q 38% 68% 34% 82%" stroke="url(#dottedLineGrad)" strokeWidth="1.6" strokeDasharray="3,3" fill="none" />
+            <path d="M 50% 50% Q 62% 68% 66% 82%" stroke="url(#dottedLineGrad)" strokeWidth="1.6" strokeDasharray="3,3" fill="none" />
           </svg>
 
           {/* 🌟 CENTER HUB: MULTI-LAYERED GLOWING CONCENTRIC CIRCLE WITH TECHNOBREN LOGO 🌟 */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center pointer-events-auto">
             
             {/* Outer Concentric Light Ring */}
-            <div className="size-48 sm:size-56 rounded-full border border-brand-200/50 bg-gradient-to-br from-brand-50/40 via-white to-rose-50/30 p-4 shadow-xl flex items-center justify-center">
+            <div className="size-36 sm:size-44 rounded-full border border-brand-200/50 bg-gradient-to-br from-brand-50/40 via-white to-rose-50/30 p-2.5 shadow-lg flex items-center justify-center">
               
               {/* Inner Concentric Glow Ring */}
-              <div className="size-36 sm:size-44 rounded-full border-2 border-brand-300/60 bg-white p-3 shadow-inner flex items-center justify-center">
+              <div className="size-28 sm:size-34 rounded-full border-2 border-brand-300/60 bg-white p-2 shadow-inner flex items-center justify-center">
                 
                 {/* Center White Circle Container */}
                 <motion.div
-                  animate={reduce ? false : { scale: [1, 1.05, 1], boxShadow: ["0 0 15px rgba(174,49,53,0.2)", "0 0 30px rgba(174,49,53,0.4)", "0 0 15px rgba(174,49,53,0.2)"] }}
+                  animate={reduce ? false : { scale: [1, 1.04, 1], boxShadow: ["0 0 12px rgba(174,49,53,0.2)", "0 0 25px rgba(174,49,53,0.4)", "0 0 12px rgba(174,49,53,0.2)"] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="size-28 sm:size-32 rounded-full border-2 border-brand-500 bg-white p-3 flex flex-col items-center justify-center text-center shadow-lg overflow-hidden"
+                  className="size-20 sm:size-24 rounded-full border-2 border-brand-500 bg-white p-2 flex flex-col items-center justify-center text-center shadow-md overflow-hidden"
                 >
                   <img
                     src="/brand/technobren-logo.png"
                     alt="TechnoBren Infotech Logo"
-                    className="h-7 sm:h-9 w-auto object-contain max-w-[95%]"
+                    className="h-5 sm:h-7 w-auto object-contain max-w-[95%]"
                   />
-                  <span className="mt-1 text-[0.48rem] sm:text-[0.52rem] font-bold text-ink-500 uppercase tracking-widest leading-none">
+                  <span className="mt-0.5 text-[0.42rem] sm:text-[0.45rem] font-bold text-ink-500 uppercase tracking-widest leading-none">
                     INFOTECH PVT. LTD.
                   </span>
                 </motion.div>
@@ -243,91 +236,91 @@ export function InteractiveArchitectureDiagram() {
           </div>
 
           {/* NODE 1: TOP CENTER - Subscriptions & Billing */}
-          <div className="absolute top-[3%] left-1/2 -translate-x-1/2 z-20">
+          <div className="absolute top-[2%] left-1/2 -translate-x-1/2 z-20">
             {renderNodeCard(SYSTEM_NODES[0])}
           </div>
 
           {/* NODE 2: TOP LEFT - Enterprise ERP */}
-          <div className="absolute top-[8%] left-[2%] sm:left-[8%] z-20">
+          <div className="absolute top-[6%] left-[1%] sm:left-[6%] z-20">
             {renderNodeCard(SYSTEM_NODES[1])}
           </div>
 
           {/* NODE 3: TOP RIGHT - Booking System */}
-          <div className="absolute top-[8%] right-[2%] sm:right-[8%] z-20">
+          <div className="absolute top-[6%] right-[1%] sm:right-[6%] z-20">
             {renderNodeCard(SYSTEM_NODES[2])}
           </div>
 
           {/* NODE 4: MID LEFT TOP - Mobile Apps */}
-          <div className="absolute top-[34%] left-[0%] sm:left-[3%] z-20">
+          <div className="absolute top-[34%] left-[0%] sm:left-[2%] z-20">
             {renderNodeCard(SYSTEM_NODES[3])}
           </div>
 
           {/* NODE 5: MID LEFT BOTTOM - Web Portal */}
-          <div className="absolute top-[52%] left-[0%] sm:left-[3%] z-20">
+          <div className="absolute top-[54%] left-[0%] sm:left-[2%] z-20">
             {renderNodeCard(SYSTEM_NODES[4])}
           </div>
 
           {/* NODE 6: MID RIGHT TOP - AI & Data Pipeline */}
-          <div className="absolute top-[34%] right-[0%] sm:right-[3%] z-20">
+          <div className="absolute top-[34%] right-[0%] sm:right-[2%] z-20">
             {renderNodeCard(SYSTEM_NODES[5])}
           </div>
 
           {/* NODE 7: MID RIGHT BOTTOM - Cloud & DevOps */}
-          <div className="absolute top-[52%] right-[0%] sm:right-[3%] z-20">
+          <div className="absolute top-[54%] right-[0%] sm:right-[2%] z-20">
             {renderNodeCard(SYSTEM_NODES[6])}
           </div>
 
           {/* NODE 8: BOTTOM LEFT - Real-time Database */}
-          <div className="absolute bottom-[4%] left-[8%] sm:left-[18%] z-20">
+          <div className="absolute bottom-[2%] left-[6%] sm:left-[16%] z-20">
             {renderNodeCard(SYSTEM_NODES[7])}
           </div>
 
           {/* NODE 9: BOTTOM RIGHT - Payment Gateways */}
-          <div className="absolute bottom-[4%] right-[8%] sm:right-[18%] z-20">
+          <div className="absolute bottom-[2%] right-[6%] sm:right-[16%] z-20">
             {renderNodeCard(SYSTEM_NODES[8])}
           </div>
 
         </div>
 
-        {/* ---------- EXACT BOTTOM FEATURE BAR MATCHING SCREENSHOT ---------- */}
+        {/* ---------- EXACT BOTTOM FEATURE BAR MATCHING SCREENSHOT (COMPACT) ---------- */}
         <motion.div
           key={activeNode.id}
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-          className="mt-6 max-w-5xl mx-auto rounded-3xl border border-brand-200/80 bg-gradient-to-r from-rose-50/60 via-white to-brand-50/50 p-4 sm:p-5 shadow-lg backdrop-blur-md"
+          transition={{ duration: 0.3 }}
+          className="max-w-4xl mx-auto rounded-2xl border border-brand-200/80 bg-gradient-to-r from-rose-50/60 via-white to-brand-50/50 p-3 sm:p-3.5 shadow-md backdrop-blur-md shrink-0"
         >
-          <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
             
             {/* Main Active Node Title Box (Left) */}
-            <div className="sm:col-span-4 flex items-center gap-3.5 border-b sm:border-b-0 sm:border-r border-brand-200/60 pb-3 sm:pb-0 sm:pr-4">
-              <span className="flex size-11 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-brand-600 to-rose-600 text-white shadow-md shadow-brand-500/25">
-                <ActiveIcon className="size-5" />
+            <div className="sm:col-span-4 flex items-center gap-3 border-b sm:border-b-0 sm:border-r border-brand-200/60 pb-2 sm:pb-0 sm:pr-3">
+              <span className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 via-brand-600 to-rose-600 text-white shadow-xs">
+                <ActiveIcon className="size-4" />
               </span>
               <div>
-                <h4 className="font-display text-base font-extrabold text-ink-950">
+                <h4 className="font-display text-sm font-extrabold text-ink-950 leading-tight">
                   {activeNode.label}
                 </h4>
-                <p className="text-xs text-ink-500 font-medium truncate max-w-[200px]">
+                <p className="text-[0.68rem] text-ink-500 font-medium truncate max-w-[180px]">
                   {activeNode.subText}
                 </p>
               </div>
             </div>
 
             {/* 4 Feature Badges (Right) */}
-            <div className="sm:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="sm:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-2">
               {activeNode.features.map((feat) => {
                 const FeatIcon = feat.icon;
                 return (
-                  <div key={feat.title} className="flex items-start gap-2.5">
-                    <span className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700 border border-brand-200/60 mt-0.5">
-                      <FeatIcon className="size-3.5" />
+                  <div key={feat.title} className="flex items-start gap-2">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700 border border-brand-200/60 mt-0.5">
+                      <FeatIcon className="size-3" />
                     </span>
                     <div>
-                      <h5 className="text-xs font-bold text-ink-900 leading-tight">
+                      <h5 className="text-[0.72rem] font-bold text-ink-900 leading-tight">
                         {feat.title}
                       </h5>
-                      <p className="text-[0.7rem] text-ink-500 leading-snug mt-0.5">
+                      <p className="text-[0.65rem] text-ink-500 leading-tight mt-0.5 truncate max-w-[110px]">
                         {feat.desc}
                       </p>
                     </div>
@@ -343,7 +336,7 @@ export function InteractiveArchitectureDiagram() {
     </section>
   );
 
-  // Helper render function for each node card matching Screenshot
+  // Helper render function for each node card (Compact Fit)
   function renderNodeCard(node: SystemNode) {
     const isActive = activeNodeId === node.id;
     const NodeIcon = node.icon;
@@ -353,20 +346,20 @@ export function InteractiveArchitectureDiagram() {
         type="button"
         onClick={() => setActiveNodeId(node.id)}
         onMouseEnter={() => setActiveNodeId(node.id)}
-        className={`flex items-center gap-3 rounded-2xl border p-2.5 sm:px-4 sm:py-3 text-left transition-all duration-300 backdrop-blur-md max-w-[260px] sm:max-w-[280px] ${
+        className={`flex items-center gap-2.5 rounded-xl border p-2 sm:px-3 sm:py-2 text-left transition-all duration-300 backdrop-blur-md max-w-[210px] sm:max-w-[230px] ${
           isActive
-            ? "border-brand-400 bg-white shadow-xl shadow-brand-500/15 ring-2 ring-brand-400/40 scale-105"
-            : "border-ink-200/80 bg-white/90 text-ink-900 hover:border-brand-300 hover:shadow-md"
+            ? "border-brand-400 bg-white shadow-lg shadow-brand-500/15 ring-2 ring-brand-400/30 scale-105"
+            : "border-ink-200/80 bg-white/90 text-ink-900 hover:border-brand-300 hover:shadow-xs"
         }`}
       >
-        <span className={`flex size-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-brand-600 text-white" : "bg-brand-50 text-brand-700"}`}>
-          <NodeIcon className="size-4" />
+        <span className={`flex size-7 shrink-0 items-center justify-center rounded-lg transition-colors ${isActive ? "bg-brand-600 text-white" : "bg-brand-50 text-brand-700"}`}>
+          <NodeIcon className="size-3.5" />
         </span>
         <div className="min-w-0">
-          <h4 className="text-xs font-bold text-ink-950 truncate">
+          <h4 className="text-[0.72rem] font-bold text-ink-950 truncate leading-tight">
             {node.label}
           </h4>
-          <p className="text-[0.68rem] text-ink-500 font-medium truncate mt-0.5">
+          <p className="text-[0.62rem] text-ink-500 font-medium truncate mt-0.5">
             {node.subText}
           </p>
         </div>
