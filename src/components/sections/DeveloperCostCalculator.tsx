@@ -232,68 +232,68 @@ export function DeveloperCostCalculator() {
           </div>
         </div>
 
-        {/* Right Live Estimate Output Card */}
+        {/* Right Live Estimate Output Card — Clean Soft Theme */}
         <motion.div
           key={`${selectedTech}-${selectedExp}-${selectedTeam}-${engagementType}`}
           initial={reduce ? false : { scale: 0.97, opacity: 0.8 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.25 }}
-          className="relative flex flex-col justify-between overflow-hidden rounded-3xl border border-brand-300 bg-gradient-to-br from-brand-950 via-brand-900 to-ink-950 p-6 text-white shadow-2xl"
+          className="relative flex flex-col justify-between overflow-hidden rounded-3xl border border-brand-200 bg-gradient-to-br from-brand-50 via-white to-brand-100/60 p-6 text-ink-950 shadow-lg"
         >
           {/* Subtle Ambient Background Orb */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -bottom-10 -right-10 size-48 rounded-full bg-brand-500/20 blur-2xl"
+            className="pointer-events-none absolute -bottom-10 -right-10 size-48 rounded-full bg-brand-500/10 blur-2xl"
           />
 
           <div className="relative">
-            <div className="flex items-center justify-between border-b border-brand-800/80 pb-3">
-              <span className="font-mono text-[0.68rem] font-bold text-brand-300 uppercase tracking-widest">
+            <div className="flex items-center justify-between border-b border-brand-200/80 pb-3">
+              <span className="font-mono text-[0.68rem] font-bold text-brand-800 uppercase tracking-widest">
                 Estimated Monthly Budget
               </span>
-              <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 px-2.5 py-0.5 text-[0.65rem] font-bold text-emerald-400">
-                <span className="size-1.5 rounded-full bg-emerald-400 animate-ping" /> Live Estimate
+              <span className="flex items-center gap-1.5 rounded-full bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 text-[0.65rem] font-bold text-emerald-800">
+                <span className="size-1.5 rounded-full bg-emerald-500 animate-ping" /> Live Estimate
               </span>
             </div>
 
             <div className="mt-6 text-center">
-              <p className="text-xs text-brand-200 font-mono">
+              <p className="text-xs text-brand-800 font-mono font-medium">
                 {selectedTech} &bull; {expData.label}
               </p>
-              <div className="mt-3 font-display text-3xl font-extrabold sm:text-4xl text-white tracking-tight">
+              <div className="mt-3 font-display text-3xl font-extrabold sm:text-4xl text-brand-900 tracking-tight">
                 {formattedMin} – {formattedMax}
-                <span className="text-xs font-medium text-brand-300 block mt-1">/ month total</span>
+                <span className="text-xs font-semibold text-ink-600 block mt-1">/ month total</span>
               </div>
             </div>
 
-            <div className="mt-6 space-y-2.5 border-t border-brand-800/80 pt-4 text-xs text-brand-100">
+            <div className="mt-6 space-y-2.5 border-t border-brand-200/80 pt-4 text-xs text-ink-700">
               <div className="flex items-center justify-between">
-                <span className="text-brand-300">Team Composition:</span>
-                <span className="font-semibold text-white">{teamData.label}</span>
+                <span className="text-ink-600">Team Composition:</span>
+                <span className="font-bold text-ink-900">{teamData.label}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-brand-300">Work Hours:</span>
-                <span className="font-semibold text-white">{engagementType === "full" ? "160h / Month" : "80h / Month"}</span>
+                <span className="text-ink-600">Work Hours:</span>
+                <span className="font-bold text-ink-900">{engagementType === "full" ? "160h / Month" : "80h / Month"}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-brand-300">Trial Period:</span>
-                <span className="font-bold text-emerald-400">7 Days Risk-Free</span>
+                <span className="text-ink-600">Trial Period:</span>
+                <span className="font-bold text-emerald-700">7 Days Risk-Free</span>
               </div>
             </div>
           </div>
 
-          <div className="relative mt-8 pt-4 border-t border-brand-800/80">
+          <div className="relative mt-8 pt-4 border-t border-brand-200/80">
             <Button
               type="button"
               onClick={scrollToForm}
               size="lg"
               variant="primary"
               arrow
-              className="w-full bg-white text-brand-950 hover:bg-brand-50 hover:text-brand-900 font-bold justify-center shadow-lg"
+              className="w-full bg-brand-600 text-white hover:bg-brand-700 font-bold justify-center shadow-md"
             >
               Get Full Quote &amp; Shortlist
             </Button>
-            <p className="mt-2.5 text-center text-[0.7rem] text-brand-300 font-medium">
+            <p className="mt-2.5 text-center text-[0.72rem] text-brand-800 font-medium">
               ⚡ Receive vetted candidate profiles within 24–48 hours
             </p>
           </div>
