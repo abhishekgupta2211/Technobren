@@ -6,6 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { HireDeveloperForm } from "@/components/sections/HireDeveloperForm";
+import { DeveloperCostCalculator } from "@/components/sections/DeveloperCostCalculator";
 import { hireRoles, techCategories } from "@/lib/site";
 import {
   UserCheck,
@@ -352,6 +353,25 @@ export default function HireDevelopersPage() {
                 </div>
               </Reveal>
             ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* 03.5 — INTERACTIVE COST CALCULATOR SECTION */}
+      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-16 sm:py-24">
+        <Container size="wide">
+          <SectionHeading
+            eyebrow="Instant Budget Estimator"
+            title={
+              <>
+                Calculate Your <span className="text-brand-700">Developer Hiring Cost</span>
+              </>
+            }
+            description="Select your required technologies, experience level, and team size to view instant transparent monthly estimates."
+          />
+
+          <div className="mt-12 max-w-5xl mx-auto">
+            <DeveloperCostCalculator />
           </div>
         </Container>
       </section>
