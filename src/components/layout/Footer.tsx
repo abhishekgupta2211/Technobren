@@ -163,51 +163,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* ---------- Wide rails: the long lists, laid out across ---------- */}
-        <div className="grid gap-8 border-t border-ink-200 py-10 lg:grid-cols-2 lg:gap-12">
-          <nav aria-label="Hire developers">
-            <div className="flex items-center justify-between">
-              <ColumnTitle>Hire developers</ColumnTitle>
-              <Link
-                href="/contact"
-                className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-brand-700 transition-colors duration-300 hover:text-brand-800"
-              >
-                Hire a team
-              </Link>
-            </div>
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {hireRoles.map((r) => (
-                <li key={r}>
-                  <Chip href="/contact">{r.replace(" Developers", "")}</Chip>
-                </li>
-              ))}
-            </ul>
-          </nav>
 
-          <nav aria-label="Technology">
-            <div className="flex items-center justify-between">
-              <ColumnTitle>Technology</ColumnTitle>
-              <Link
-                href="/technology"
-                className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-brand-700 transition-colors duration-300 hover:text-brand-800"
-              >
-                Full stack
-              </Link>
-            </div>
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {techCategories.map((t) => (
-                <li key={t.name}>
-                  <Chip
-                    href={`/technology#${t.name.toLowerCase().replace(/[^a-z]+/g, "-")}`}
-                  >
-                    {t.name}
-                    <span className="ml-1.5 text-ink-400">{t.items.length}</span>
-                  </Chip>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
 
         {/* ---------- Legal ---------- */}
         <div className="flex flex-col gap-4 border-t border-ink-200 py-7 text-[0.78rem] text-ink-500 lg:flex-row lg:items-center lg:justify-between">
