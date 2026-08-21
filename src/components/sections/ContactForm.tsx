@@ -126,7 +126,7 @@ export function ContactForm() {
         `⏱️ *Timeline:* ${payload.timeline || "N/A"}\n\n` +
         `📝 *Details:* ${payload.details}`;
 
-      const companyWhatsapp = "919305365576";
+      const companyWhatsapp = "919369610213";
       const waUrl = `https://wa.me/${companyWhatsapp}?text=${encodeURIComponent(messageText)}`;
 
       // Open WhatsApp chat pre-filled with formatted inquiry message
