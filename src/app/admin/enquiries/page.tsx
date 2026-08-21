@@ -24,11 +24,13 @@ export default function AdminPage() {
   const fetchEnquiries = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/contact");
+      const res = await fetch("/api/contact", { cache: "no-store" });
+      if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
       setSubmissions(data.submissions || []);
     } catch (err) {
       console.error(err);
+      setSubmissions([]);
     } finally {
       setLoading(false);
     }

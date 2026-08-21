@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 // Simple in-memory fallback store for demo/dev persistence
 const localSubmissions: any[] = [];
 
