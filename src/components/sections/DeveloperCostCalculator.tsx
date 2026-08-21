@@ -15,15 +15,47 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
-const TECH_RATES: Record<string, { base: number; multiplier: number; icon: string }> = {
-  "React / Next.js": { base: 1800, multiplier: 1.0, icon: "⚛️" },
-  "Node.js / Express": { base: 1900, multiplier: 1.0, icon: "🟢" },
-  "Flutter / Mobile": { base: 2000, multiplier: 1.1, icon: "📱" },
-  "Python / AI / ML": { base: 2200, multiplier: 1.25, icon: "🐍" },
-  ".NET / C#": { base: 2100, multiplier: 1.15, icon: "🔷" },
-  "PHP / Laravel": { base: 1500, multiplier: 0.9, icon: "🔴" },
-  "UI/UX Design": { base: 1600, multiplier: 0.95, icon: "🎨" },
-  "QA & Automation": { base: 1400, multiplier: 0.85, icon: "⚙️" },
+const TECH_RATES: Record<string, { base: number; multiplier: number; logo: string }> = {
+  "React / Next.js": {
+    base: 1800,
+    multiplier: 1.0,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  },
+  "Node.js / Express": {
+    base: 1900,
+    multiplier: 1.0,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+  },
+  "Flutter / Mobile": {
+    base: 2000,
+    multiplier: 1.1,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
+  },
+  "Python / AI / ML": {
+    base: 2200,
+    multiplier: 1.25,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  },
+  ".NET / C#": {
+    base: 2100,
+    multiplier: 1.15,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg",
+  },
+  "PHP / Laravel": {
+    base: 1500,
+    multiplier: 0.9,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
+  },
+  "UI/UX Design": {
+    base: 1600,
+    multiplier: 0.95,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+  },
+  "QA & Automation": {
+    base: 1400,
+    multiplier: 0.85,
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg",
+  },
 };
 
 const EXPERIENCES = [
@@ -123,7 +155,11 @@ export function DeveloperCostCalculator() {
                         : "border-ink-200 bg-white text-ink-800 hover:border-brand-300 hover:bg-brand-50/40"
                     }`}
                   >
-                    <span className="text-base">{info.icon}</span>
+                    <img
+                      src={info.logo}
+                      alt={tech}
+                      className={`size-4 shrink-0 object-contain ${active ? "brightness-0 invert" : ""}`}
+                    />
                     <span className="truncate">{tech.split(" / ")[0]}</span>
                   </button>
                 );
