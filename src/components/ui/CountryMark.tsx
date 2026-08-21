@@ -8,12 +8,12 @@ import { cn } from "@/lib/utils";
  * renders the ISO code as a deliberate chip instead, so it looks the same
  * everywhere.
  */
-const FLAGS: Record<string, string> = {
-  India: "🇮🇳",
-  UAE: "🇦🇪",
-  Uganda: "🇺🇬",
-  USA: "🇺🇸",
-  Australia: "🇦🇺",
+const FLAG_SVGS: Record<string, string> = {
+  India: "https://flagcdn.com/w40/in.png",
+  UAE: "https://flagcdn.com/w40/ae.png",
+  Uganda: "https://flagcdn.com/w40/ug.png",
+  USA: "https://flagcdn.com/w40/us.png",
+  Australia: "https://flagcdn.com/w40/au.png",
 };
 
 const CODES: Record<string, string> = {
@@ -31,19 +31,25 @@ export function CountryMark({
   country: string;
   className?: string;
 }) {
-  const flag = FLAGS[country] ?? "🌐";
+  const flagUrl = FLAG_SVGS[country];
   const code = CODES[country] ?? country.slice(0, 2).toUpperCase();
 
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50/60 px-2 py-0.5 font-mono text-[0.72rem] font-medium text-ink-700",
+        "inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50/70 px-2 py-1 font-mono text-[0.72rem] font-medium text-ink-800 shadow-2xs",
         className,
       )}
     >
-      <span className="text-[1.05rem] leading-none" role="img" aria-label={country}>
-        {flag}
-      </span>
+      {flagUrl ? (
+        <img
+          src={flagUrl}
+          alt={`${country} flag`}
+          className="h-3.5 w-5 rounded-xs object-cover"
+        />
+      ) : (
+        <span className="text-[0.85rem]">🌐</span>
+      )}
       <span>{code}</span>
     </span>
   );
