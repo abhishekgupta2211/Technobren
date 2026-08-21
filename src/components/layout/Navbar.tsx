@@ -51,19 +51,28 @@ export function Navbar() {
       )}
     >
       <Container size="wide">
-        <nav
+        <motion.nav
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           aria-label="Main"
           className={cn(
             "relative z-50 flex items-center justify-between gap-4 rounded-full border py-2 pl-4 pr-2 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:pl-5",
             scrolled || mobileOpen
-              ? "border-ink-200/70 bg-white/[0.92] shadow-[0_6px_22px_-14px_rgba(16,15,20,0.18)] backdrop-blur-xl backdrop-saturate-150"
-              : "border-ink-200/60 bg-white/80 shadow-[0_1px_2px_rgba(16,15,20,0.03),0_8px_22px_-18px_rgba(16,15,20,0.2)] backdrop-blur-xl",
+              ? "border-ink-200/80 bg-white/[0.94] shadow-[0_10px_30px_-10px_rgba(174,49,53,0.12),0_4px_16px_-4px_rgba(16,15,20,0.12)] backdrop-blur-xl backdrop-saturate-150"
+              : "border-ink-200/60 bg-white/85 shadow-[0_2px_15px_-4px_rgba(16,15,20,0.06),0_12px_28px_-15px_rgba(174,49,53,0.08)] backdrop-blur-xl",
           )}
         >
-          <Logo preload className="relative z-[60] shrink-0" />
+          {/* Subtle animated background gradient glow line */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-8 -bottom-px h-px bg-gradient-to-r from-transparent via-brand-500/40 to-transparent transition-opacity duration-500"
+          />
 
-          {/* ---------- Desktop nav ---------- */}
-          <ul className="hidden items-center gap-0.5 lg:flex">
+          <Logo preload className="relative z-[60] shrink-0 transition-transform duration-300 hover:scale-[1.02]" />
+
+          {/* ---------- Desktop nav with animated floating pill ---------- */}
+          <ul className="hidden items-center gap-1 lg:flex">
             {navigation.map((item) => {
               const active = isActive(item.href);
               return (
@@ -72,23 +81,25 @@ export function Navbar() {
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "relative block rounded-full px-3.5 py-2 text-[0.86rem] font-medium transition-colors duration-300",
-                      active ? "text-brand-700" : "text-ink-600 hover:text-ink-950",
+                      "relative block rounded-full px-4 py-2 text-[0.86rem] font-medium transition-all duration-300",
+                      active
+                        ? "text-brand-700 font-semibold"
+                        : "text-ink-600 hover:text-ink-950",
                     )}
                   >
-                    {item.label}
                     {active && (
                       <motion.span
-                        layoutId="nav-active"
+                        layoutId="nav-active-pill"
                         aria-hidden
                         transition={
                           reduce
                             ? { duration: 0 }
-                            : { duration: 0.45, ease: [0.16, 1, 0.3, 1] }
+                            : { type: "spring", stiffness: 380, damping: 30 }
                         }
-                        className="absolute bottom-0.5 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-brand-600"
+                        className="absolute inset-0 z-0 rounded-full border border-brand-200/80 bg-gradient-to-b from-brand-50/80 to-brand-100/40 shadow-xs"
                       />
                     )}
+                    <span className="relative z-10">{item.label}</span>
                   </Link>
                 </li>
               );
@@ -96,10 +107,10 @@ export function Navbar() {
           </ul>
 
           {/* ---------- Right actions ---------- */}
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2.5">
             <a
               href={`mailto:${contact.primaryEmail}`}
-              className="hidden rounded-full px-3 py-2 text-[0.82rem] font-medium text-ink-500 transition-colors duration-300 hover:text-brand-700 2xl:block"
+              className="hidden rounded-full px-3.5 py-2 text-[0.82rem] font-medium text-ink-600 transition-colors duration-300 hover:text-brand-700 2xl:block"
             >
               {contact.primaryEmail}
             </a>
@@ -107,13 +118,13 @@ export function Navbar() {
               href="/contact"
               size="sm"
               arrow
-              className="hidden rounded-full px-5 sm:inline-flex"
+              className="hidden rounded-full px-5 shadow-md shadow-brand-600/15 transition-all duration-300 hover:shadow-lg hover:shadow-brand-600/25 hover:-translate-y-0.5 sm:inline-flex"
             >
               Start a Project
             </Button>
             <MobileMenuButton open={mobileOpen} setOpen={setMobileOpen} />
           </div>
-        </nav>
+        </motion.nav>
       </Container>
 
       <MobileMenuSheet open={mobileOpen} setOpen={setMobileOpen} />
