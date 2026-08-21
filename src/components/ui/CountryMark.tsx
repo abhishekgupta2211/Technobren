@@ -8,6 +8,14 @@ import { cn } from "@/lib/utils";
  * renders the ISO code as a deliberate chip instead, so it looks the same
  * everywhere.
  */
+const FLAGS: Record<string, string> = {
+  India: "🇮🇳",
+  UAE: "🇦🇪",
+  Uganda: "🇺🇬",
+  USA: "🇺🇸",
+  Australia: "🇦🇺",
+};
+
 const CODES: Record<string, string> = {
   India: "IN",
   UAE: "AE",
@@ -23,16 +31,20 @@ export function CountryMark({
   country: string;
   className?: string;
 }) {
+  const flag = FLAGS[country] ?? "🌐";
   const code = CODES[country] ?? country.slice(0, 2).toUpperCase();
+
   return (
     <span
-      aria-hidden
       className={cn(
-        "inline-flex h-[1.15rem] shrink-0 items-center rounded border border-ink-200 bg-white px-1.5 font-mono text-[0.6rem] font-medium tracking-wider text-ink-600",
+        "inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50/60 px-2 py-0.5 font-mono text-[0.72rem] font-medium text-ink-700",
         className,
       )}
     >
-      {code}
+      <span className="text-[1.05rem] leading-none" role="img" aria-label={country}>
+        {flag}
+      </span>
+      <span>{code}</span>
     </span>
   );
 }
