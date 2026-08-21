@@ -212,8 +212,8 @@ export function TechStackPlayground() {
           />
         </div>
 
-        {/* ---------- Interactive Glowing Tab Navigation Bar ---------- */}
-        <div className="mt-10 flex flex-wrap items-center gap-3 border-b border-ink-200/80 pb-5 overflow-x-auto no-scrollbar">
+        {/* ---------- Single-Line 6-Grid Tab Bar (All 6 Tabs in 1 Line) ---------- */}
+        <div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5">
           {TECH_TABS.map((tab) => {
             const isActive = tab.id === activeTabId;
             return (
@@ -221,58 +221,46 @@ export function TechStackPlayground() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTabId(tab.id)}
-                className={`relative flex items-center gap-3 rounded-2xl px-5 py-3.5 text-xs sm:text-sm font-extrabold transition-all duration-300 shrink-0 ${
+                className={`relative flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-xs font-bold transition-all duration-200 text-center ${
                   isActive
-                    ? "border-2 border-brand-500 bg-gradient-to-r from-brand-50 via-white to-brand-50/50 text-brand-950 shadow-xl shadow-brand-500/15 scale-[1.03] ring-4 ring-brand-400/15"
-                    : "border border-ink-200/80 bg-white/90 text-ink-700 hover:border-brand-300 hover:bg-brand-50/40 hover:text-ink-950 hover:shadow-md"
+                    ? "border-2 border-brand-600 bg-brand-600 text-white shadow-md"
+                    : "border border-ink-200/80 bg-white text-ink-700 hover:border-brand-300 hover:bg-brand-50/50 hover:text-ink-950"
                 }`}
               >
-                <div className={`flex size-7 items-center justify-center rounded-xl transition-all ${isActive ? "bg-brand-600 p-1 shadow-sm" : "bg-ink-100 p-1"}`}>
-                  <img src={tab.logo} alt={tab.name} className="size-full object-contain" />
-                </div>
-                <span>{tab.name}</span>
-                {isActive && (
-                  <motion.div
-                    layoutId="tech-tab-active-indicator"
-                    className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-12 h-1.5 rounded-t-full bg-gradient-to-r from-brand-600 via-rose-600 to-brand-600 shadow-md shadow-brand-600/50"
-                  />
-                )}
+                <img src={tab.logo} alt={tab.name} className="size-4 shrink-0 object-contain" />
+                <span className="truncate">{tab.name}</span>
               </button>
             );
           })}
         </div>
 
-        {/* ---------- Active Tech Card Display with Interactive Code & Live Metrics ---------- */}
-        <div className="mt-8">
+        {/* ---------- Compact Clean Active Tech Card ---------- */}
+        <div className="mt-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentTab.id}
-              initial={{ opacity: 0, scale: 0.98, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.98, y: -20 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="relative overflow-hidden rounded-3xl border-2 border-brand-500/70 bg-gradient-to-br from-white via-white to-brand-50/30 p-7 sm:p-10 shadow-2xl shadow-brand-600/10"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+              className="relative overflow-hidden rounded-2xl border border-ink-200/90 bg-white p-6 sm:p-7 shadow-lg"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 
                 {/* Left Column: Tech Overview & Capabilities */}
                 <div className="lg:col-span-7 flex flex-col justify-between">
                   <div>
                     {/* Category Pill & Logo Header */}
                     <div className="flex items-center justify-between gap-4">
-                      <div className="flex items-center gap-3.5">
-                        <motion.div
-                          animate={{ rotate: [0, 5, -5, 0] }}
-                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                          className="size-14 rounded-2xl border-2 border-brand-300 bg-white p-2.5 shadow-md flex items-center justify-center"
-                        >
+                      <div className="flex items-center gap-3">
+                        <div className="size-11 rounded-xl border border-brand-200 bg-white p-2 shadow-2xs flex items-center justify-center shrink-0">
                           <img src={currentTab.logo} alt={currentTab.name} className="size-full object-contain" />
-                        </motion.div>
+                        </div>
                         <div>
-                          <span className="font-mono text-[0.68rem] font-bold uppercase tracking-widest text-brand-700 bg-brand-50 px-2.5 py-1 rounded-full border border-brand-200/80">
+                          <span className="font-mono text-[0.68rem] font-bold uppercase tracking-widest text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded-full border border-brand-200/80">
                             {currentTab.category}
                           </span>
-                          <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-ink-950 mt-1">
+                          <h3 className="font-display text-xl sm:text-2xl font-extrabold text-ink-950 mt-0.5">
                             {currentTab.name}
                           </h3>
                         </div>
