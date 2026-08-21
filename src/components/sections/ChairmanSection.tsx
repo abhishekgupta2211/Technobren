@@ -23,8 +23,8 @@ export function ChairmanSection() {
       <Container size="wide" className="relative">
         <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           {/* ---------- Portrait ---------- */}
-          <Reveal className="mx-auto w-full max-w-[19rem] lg:mx-0 lg:max-w-none">
-            <div className="group relative aspect-[3/4] w-full">
+          <Reveal className="mx-auto w-full max-w-[20rem] lg:mx-0 lg:max-w-[22rem]">
+            <div className="group relative aspect-[4/4.5] w-full">
               {/* the logo's arc, sweeping behind the frame */}
               <svg
                 aria-hidden
