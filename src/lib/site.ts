@@ -992,6 +992,44 @@ export const clients: Client[] = [
 ];
 
 /* ------------------------------------------------------------------ */
+/* REVIEWS                                                              */
+/*                                                                      */
+/* EMPTY ON PURPOSE. The section renders nothing while this array is     */
+/* empty, so the site never shows a review nobody actually wrote.        */
+/*                                                                      */
+/* To publish real ones, add an entry per review. Everything is optional */
+/* except name, rating and body — a review with no company or country     */
+/* still renders correctly.                                              */
+/*                                                                      */
+/*   {                                                                   */
+/*     name: "Full name",                                                */
+/*     role: "Head of Supply Chain",        // optional                  */
+/*     company: "Company Ltd",              // optional                  */
+/*     country: "UAE",                      // optional, matches CountryMark */
+/*     rating: 5,                           // 1-5                       */
+/*     source: "Google",                    // where it was left         */
+/*     date: "March 2026",                  // optional                  */
+/*     body: "What they actually wrote.",                                */
+/*   }                                                                   */
+/*                                                                      */
+/* Only publish reviews the reviewer left publicly or agreed to have      */
+/* quoted — see REDESIGN-NOTES.md §5.7.                                  */
+/* ------------------------------------------------------------------ */
+
+export type Review = {
+  name: string;
+  role?: string;
+  company?: string;
+  country?: string;
+  rating: 1 | 2 | 3 | 4 | 5;
+  source?: string;
+  date?: string;
+  body: string;
+};
+
+export const reviews: Review[] = [];
+
+/* ------------------------------------------------------------------ */
 /* FAQ                                                                  */
 /* Every answer restates something already established elsewhere on the  */
 /* site — the NDA assurances, the six delivery stages, the engagement     */

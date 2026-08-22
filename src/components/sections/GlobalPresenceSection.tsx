@@ -33,17 +33,21 @@ export function GlobalPresenceSection() {
               </p>
             </Reveal>
             <Reveal delay={1}>
+              {/* Pays off the live clocks below rather than making an
+                  unfalsifiable claim about vision — the point is that the
+                  working day never actually closes. */}
               <h2 className="mt-5 max-w-xl font-display text-[2.1rem] leading-[1.02] text-ink-950 sm:text-[2.7rem]">
-                One team,{" "}
-                <span className="text-brand-700">{countries} time zones</span>.
+                {countries} countries.{" "}
+                <span className="text-brand-700">One working day.</span>
               </h2>
             </Reveal>
           </div>
 
           <Reveal delay={2}>
             <p className="max-w-sm text-pretty text-[0.94rem] leading-relaxed text-ink-600">
-              {offices.map((o) => o.city).join(" · ")}. Select an office to see where
-              it sits and what we run from it.
+              {offices.length} offices, {countries} countries, and enough overlap
+              that work does not wait overnight. Pick one to see its local time
+              and where it sits.
             </p>
           </Reveal>
         </div>

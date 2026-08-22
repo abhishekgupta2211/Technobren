@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { coreValues, leadership, stats, offices, differentiators } from "@/lib/site";
+import { coreValues, leadership, stats, differentiators } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
-import { CountryMark } from "@/components/ui/CountryMark";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { Counter } from "@/components/ui/Counter";
@@ -35,24 +34,6 @@ export default function AboutPage() {
         title="The leading on-demand"
         accent="app solution provider."
         description="Our company is more than just a business; it is a testament to our unwavering commitment to excellence, innovation and integrity. As a unified global entity, we are dedicated to empowering our clients to innovate and thrive by delivering top-notch, customised solutions."
-        aside={
-          <div className="rounded-3xl border border-ink-200 bg-white p-6 shadow-(--shadow-card)">
-            <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-500">
-              Milestones
-            </p>
-            <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200">
-              {stats.map((s) => (
-                <div key={s.label} className="bg-white px-4 py-4">
-                  <dt className="font-display text-[1.7rem] leading-none text-brand-700">
-                    {s.value}
-                    {s.suffix}
-                  </dt>
-                  <dd className="mt-1.5 text-[0.8rem] text-ink-600">{s.label}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        }
       >
         <div className="mt-9 flex flex-wrap gap-3">
           <Button href="/work" size="lg" arrow>
@@ -228,73 +209,82 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* ---------- Why + offices ---------- */}
-      <section id="offices" className="scroll-mt-24 border-t border-ink-100 py-14 sm:py-18 lg:py-22">
-        <Container size="wide">
-          <div className="grid gap-12 lg:grid-cols-[1fr_0.85fr] lg:gap-16">
-            <div>
-              <SectionHeading
-                eyebrow="Why TechnoBren"
-                title="We promise. We deliver."
-                description="Got an idea? Partner with us and watch it come to life — we go the extra mile for every project we undertake."
-              />
-              <ul className="mt-10 grid gap-x-8 gap-y-7 sm:grid-cols-2">
-                {differentiators.map((d, i) => (
-                  <Reveal as="li" key={d.title} delay={i % 2}>
-                    <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800 text-white shadow-[0_6px_16px_-8px_rgba(174,49,53,0.42)]">
-                      <Icon name={d.icon} className="size-5" />
-                    </span>
-                    <h3 className="mt-4 font-display text-[1.02rem] text-ink-950">
-                      {d.title}
-                    </h3>
-                    <p className="mt-2 text-pretty text-[0.87rem] leading-relaxed text-ink-600">
-                      {d.description}
-                    </p>
-                  </Reveal>
-                ))}
-              </ul>
-            </div>
+      {/* ---------- Why TechnoBren ---------- */}
+      {/* The office register used to sit beside this as a sticky panel. It now
+          has a whole map section of its own below, so this band gets the full
+          width instead of repeating it. */}
+      <section className="relative overflow-x-clip border-t border-ink-100 py-14 sm:py-18 lg:py-22">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-[8%] top-1/4 size-[34rem] rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.07),transparent_66%)] blur-3xl"
+        />
+        <Container size="wide" className="relative">
+          <SectionHeading
+            align="center"
+            eyebrow="Why TechnoBren"
+            title={
+              <>
+                We promise. <span className="text-brand-700">We deliver.</span>
+              </>
+            }
+            description="Got an idea? Partner with us and watch it come to life — we go the extra mile for every project we undertake."
+            className="mx-auto"
+          />
 
-            <Reveal delay={2}>
-              <div className="overflow-hidden rounded-2xl border border-ink-200 bg-white shadow-(--shadow-card) lg:sticky lg:top-28">
-                <div className="flex items-center justify-between border-b border-ink-200 bg-ink-50/60 px-6 py-4">
-                  <h3 className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-ink-500">
-                    Global presence
-                  </h3>
-                  <span className="font-mono text-[0.68rem] text-ink-600">
-                    {offices.length} offices
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {differentiators.map((d, i) => (
+              <Reveal
+                as="li"
+                key={d.title}
+                delay={i % 3}
+                className="group relative flex flex-col overflow-hidden rounded-3xl border border-ink-200/80 bg-white p-7 shadow-(--shadow-card) transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:border-brand-200 hover:shadow-(--shadow-card-hover)"
+              >
+                {/* the logo's arc, sweeping in behind the card on hover */}
+                <svg
+                  aria-hidden
+                  viewBox="0 0 200 200"
+                  fill="none"
+                  className="pointer-events-none absolute -right-14 -top-16 size-48 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                >
+                  <path
+                    d="M8 168C8 80 80 8 168 8"
+                    stroke="#ae3135"
+                    strokeOpacity="0.16"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <circle cx="168" cy="8" r="4" fill="#ae3135" fillOpacity="0.4" />
+                </svg>
+
+                <div className="relative flex items-start justify-between gap-4">
+                  {/* Tile fills from the bottom, matching the nav panel and the
+                      industry cards. */}
+                  <span className="relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-brand-200/60 bg-brand-50 text-brand-700 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-brand-500 group-hover:text-white group-hover:shadow-[0_8px_18px_-8px_rgba(174,49,53,0.6)]">
+                    <span
+                      aria-hidden
+                      className="absolute inset-0 origin-bottom scale-y-0 bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-y-100"
+                    />
+                    <Icon name={d.icon} className="relative size-5" />
+                  </span>
+                  <span className="font-mono text-[0.7rem] text-ink-300 transition-colors duration-500 group-hover:text-brand-300">
+                    {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <ul className="divide-y divide-ink-100">
-                  {offices.map((o) => (
-                    <li key={o.city} className="flex items-start gap-4 px-6 py-4">
-                      <CountryMark country={o.country} className="mt-0.5" />
-                      <div className="min-w-0 flex-1">
-                        <p className="flex items-center gap-2 text-[0.92rem] font-semibold text-ink-950">
-                          {o.city}
-                          {o.city !== o.country && (
-                            <span className="text-[0.78rem] font-normal text-ink-600">
-                              {o.country}
-                            </span>
-                          )}
-                          {o.hq && (
-                            <span className="rounded border border-brand-200 bg-brand-50 px-1.5 py-px font-mono text-[0.6rem] uppercase tracking-wider text-brand-700">
-                              HQ
-                            </span>
-                          )}
-                        </p>
-                        {o.address && (
-                          <p className="mt-1 text-pretty text-[0.82rem] leading-relaxed text-ink-500">
-                            {o.address}
-                          </p>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          </div>
+
+                <h3 className="relative mt-5 font-display text-[1.08rem] leading-snug text-ink-950 transition-colors duration-300 group-hover:text-brand-800">
+                  {d.title}
+                </h3>
+                <p className="relative mt-2.5 flex-1 text-pretty text-[0.88rem] leading-relaxed text-ink-600">
+                  {d.description}
+                </p>
+
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand-600 to-brand-400 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
+                />
+              </Reveal>
+            ))}
+          </ul>
         </Container>
       </section>
 

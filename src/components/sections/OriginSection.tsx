@@ -5,7 +5,6 @@ import {
   solutions,
   processSteps,
   leadership,
-  stats,
 } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -43,24 +42,18 @@ const PILLARS = [
 export function OriginSection() {
   const countries = new Set(offices.map((o) => o.country)).size;
 
-  const stat = (label: string) => stats.find((s) => s.label === label);
-  const projects = stat("Projects delivered");
-  const team = stat("People on the team");
-
   /**
    * Only open-ended figures carry a "+". Offices and countries are exact
    * counts — an earlier version appended it to all three, which claimed more
    * offices and more countries than there are.
    */
+  // The Milestones band further down this page already counts projects,
+  // clients, satisfaction and headcount. These are the ones that belong to the
+  // founding story instead, so the page never states the same figure twice.
   const FACTS = [
     { value: origin.yearsInBusiness, suffix: "+", label: "Years building" },
-    { value: team?.value ?? 0, suffix: team?.suffix ?? "", label: "People" },
     { value: offices.length, suffix: "", label: "Offices" },
-    {
-      value: projects?.value ?? 0,
-      suffix: projects?.suffix ?? "",
-      label: "Projects delivered",
-    },
+    { value: countries, suffix: "", label: "Countries" },
   ];
 
   return (
@@ -141,7 +134,7 @@ export function OriginSection() {
 
         {/* ---- Counted, not claimed ---- */}
         <Reveal delay={3}>
-          <dl className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200 shadow-(--shadow-card) lg:grid-cols-4">
+          <dl className="mt-12 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200 shadow-(--shadow-card)">
             {FACTS.map((f) => (
               <div key={f.label} className="bg-white px-6 py-6">
                 <dt className="font-display text-[2.1rem] leading-none text-brand-700">

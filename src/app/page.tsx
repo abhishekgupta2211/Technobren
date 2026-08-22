@@ -10,7 +10,8 @@ import { WhySection } from "@/components/sections/WhySection";
 import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { AnimatedWaveScaleSection } from "@/components/sections/AnimatedWaveScaleSection";
-import { ReachSection } from "@/components/sections/ReachSection";
+import { CredentialsSection } from "@/components/sections/CredentialsSection";
+import { ReviewsSection } from "@/components/sections/ReviewsSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { CTASection } from "@/components/sections/CTASection";
 
@@ -36,8 +37,9 @@ export default function HomePage() {
       <WorkSection />
       {/* 06 — Who we built it for */}
       <ClientsSection />
-      {/* 07 — Reach */}
-      <ReachSection />
+      {/* 07 — Checkable proof, and real reviews once there are any */}
+      <CredentialsSection />
+      <ReviewsSection />
       {/* 08 — Differentiators */}
       <WhySection />
       {/* 09 — Industries */}

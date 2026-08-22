@@ -202,6 +202,56 @@ body {
   will-change: transform;
 }
 
+/* Industry card artwork. Each motif animates a different property, so the six
+   cards read as six different operations rather than one effect repeated. */
+@keyframes track-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-64px);
+  }
+}
+@keyframes trace-draw {
+  0% {
+    stroke-dashoffset: 260;
+  }
+  55%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes cell-blink {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes lift-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+.anim-track {
+  animation: track-slide 3.2s linear infinite;
+}
+.anim-trace {
+  animation: trace-draw 4s var(--ease-out-expo) infinite;
+}
+.anim-cell {
+  animation: cell-blink 2.6s ease-in-out infinite;
+}
+.anim-bob {
+  animation: lift-bob 3.4s ease-in-out infinite;
+}
+
 /* Orbit — the logo arc motif */
 @keyframes orbit-spin {
   from {

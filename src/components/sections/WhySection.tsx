@@ -1,8 +1,7 @@
-import { differentiators, stats } from "@/lib/site";
+import { differentiators } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { Counter } from "@/components/ui/Counter";
 import { Icon } from "@/components/ui/Icon";
 import { Button } from "@/components/ui/Button";
 
@@ -37,28 +36,8 @@ export function WhySection() {
               description="We promise. We deliver. Got an idea? Partner with us and watch it come to life — we go the extra mile for every project we undertake."
             />
 
-            <Reveal delay={3}>
-              <dl className="mt-9 space-y-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200">
-                {stats.map((s) => (
-                  <div
-                    key={s.label}
-                    className="flex items-baseline gap-5 bg-white px-5 py-4 transition-colors duration-500 hover:bg-brand-50/40"
-                  >
-                    <dt className="w-[4.5rem] shrink-0 font-display text-[1.9rem] leading-none text-brand-700">
-                      <Counter value={s.value} suffix={s.suffix} />
-                    </dt>
-                    <dd className="min-w-0">
-                      <span className="block text-[0.9rem] font-semibold text-ink-950">
-                        {s.label}
-                      </span>
-                      <span className="mt-0.5 block text-[0.79rem] leading-snug text-ink-600">
-                        {s.sub}
-                      </span>
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </Reveal>
+            {/* The delivery figures live in the hero on this page; repeating
+                them here said the same thing twice on one screen. */}
 
             <Reveal delay={4}>
               <div className="mt-7 flex flex-wrap items-center gap-3">
