@@ -45,6 +45,9 @@ export type Office = {
   city: string;
   country: string;
   flag: string;
+  /** Decimal degrees, used to place the pin on the world map. */
+  lat: number;
+  lon: number;
   /**
    * Optional: an office is listed as soon as the presence is confirmed, but the
    * street address only appears once it has actually been supplied. Publishing a
@@ -59,6 +62,8 @@ export const offices: Office[] = [
     city: "Jaunpur",
     country: "India",
     flag: "🇮🇳",
+    lat: 25.75,
+    lon: 82.68,
     address: "5th Floor, City Tower, Wazidpur, Jaunpur, Uttar Pradesh",
     hq: true,
   },
@@ -66,6 +71,8 @@ export const offices: Office[] = [
     city: "Ahmedabad",
     country: "India",
     flag: "🇮🇳",
+    lat: 23.02,
+    lon: 72.57,
     address:
       "C-404, Radhe Heights, Near Hathijan Circle, Hathijan, Ahmedabad, Gujarat, India",
   },
@@ -73,6 +80,8 @@ export const offices: Office[] = [
     city: "Dubai",
     country: "UAE",
     flag: "🇦🇪",
+    lat: 25.2,
+    lon: 55.27,
     address:
       "604, Westburry Office Towers, Marasi Dr, Business Bay, Dubai, UAE",
   },
@@ -80,6 +89,10 @@ export const offices: Office[] = [
     city: "Uganda",
     country: "Uganda",
     flag: "🇺🇬",
+    // Country centroid, not a city: the local address is still outstanding, so
+    // the pin marks the country rather than implying a specific office.
+    lat: 1.37,
+    lon: 32.29,
     // TODO(client): supply the Kampala street address. The value that was here —
     // "499, N. Canon Drive, Suite 215, Beverly Hills CA 90210 USA" — is a
     // Beverly Hills, California address and was never a Uganda one.

@@ -9,6 +9,7 @@ import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/sections/PageHero";
 import { OriginSection } from "@/components/sections/OriginSection";
+import { GlobalPresenceSection } from "@/components/sections/GlobalPresenceSection";
 import { ChairmanSection } from "@/components/sections/ChairmanSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { CTASection } from "@/components/sections/CTASection";
@@ -296,6 +297,8 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
+
+      <GlobalPresenceSection />
 
       {/* ---------- Enterprise Client Testimonials (Above Footer / CTA) ---------- */}
       <TestimonialsSection />
