@@ -1,17 +1,7 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, ArrowUpRight, ArrowUp } from "lucide-react";
-import {
-  site,
-  contact,
-  services,
-  solutions,
-  techCategories,
-  hireRoles,
-  offices,
-  socials,
-} from "@/lib/site";
+import { Mail, Phone, ArrowUpRight, ArrowUp } from "lucide-react";
+import { site, contact, services, solutions, hireRoles, socials } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
-import { CountryMark } from "@/components/ui/CountryMark";
 import { Logo } from "./Logo";
 
 /**
@@ -20,9 +10,9 @@ import { Logo } from "./Logo";
  * Light, so it sits with the rest of the page rather than fighting it — which
  * also puts the logo on the white ground its artwork was drawn for.
  *
- * Four bands, each using the full width rather than stacking narrow columns:
- * brand + three link columns, a wide chip rail for the long lists (hiring and
- * the stack), the office register, then the legal line.
+ * Two bands: brand + four link columns (Company, Services, Solutions and the
+ * hiring rail), then the legal line. Offices are not repeated here — they have
+ * a full register on /about, /contact and /careers.
  */
 
 const COMPANY = [
@@ -57,17 +47,23 @@ function ColumnTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** A compact pill used by the wide hiring / technology rail. */
+/** A compact pill used by the hiring rail. */
 function Chip({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
       href={href}
-      className="rounded-full border border-ink-200 bg-white px-3 py-2 text-[0.78rem] font-medium text-ink-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700"
+      className="inline-block rounded-full border border-ink-200 bg-white px-2.5 py-1.5 text-[0.75rem] font-medium text-ink-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700"
     >
       {children}
     </Link>
   );
 }
+
+/**
+ * "ReactJS Developers" → "ReactJS". The column heading already says what these
+ * are, so repeating the word on all eighteen chips only costs width.
+ */
+const shortRole = (role: string) => role.replace(/ (App )?Developers$/, "");
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -175,23 +171,29 @@ export function Footer() {
               </nav>
             ))}
 
-            {/* 4th Column: Global Offices */}
-            <div>
-              <ColumnTitle>Global Presence</ColumnTitle>
-              <ul className="mt-5 space-y-3.5">
-                {offices.map((off) => (
-                  <li key={off.city + off.country} className="text-[0.85rem]">
-                    <div className="flex items-center gap-2 font-bold text-ink-950">
-                      <span className="text-sm shrink-0">{off.flag}</span>
-                      <span>{off.city}, {off.country}</span>
-                    </div>
-                    <span className="block text-[0.72rem] leading-snug text-ink-500 font-medium mt-0.5">
-                      {off.address}
-                    </span>
+            {/* 4th column: the hiring rail */}
+            <nav aria-label="Hire Developers">
+              <ColumnTitle>Hire Developers</ColumnTitle>
+              <ul className="mt-5 flex flex-wrap gap-1.5">
+                {hireRoles.map((role) => (
+                  <li key={role}>
+                    <Chip href="/hire-developers">{shortRole(role)}</Chip>
                   </li>
                 ))}
               </ul>
-            </div>
+              <Link
+                href="/hire-developers#request-form"
+                className="group mt-4 inline-flex items-center gap-1.5 text-[0.82rem] font-semibold text-brand-700 transition-colors duration-300 hover:text-brand-800"
+              >
+                <span className="border-b border-transparent transition-colors duration-300 group-hover:border-brand-300">
+                  Request developers
+                </span>
+                <ArrowUpRight
+                  aria-hidden
+                  className="size-3.5 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </Link>
+            </nav>
           </div>
         </div>
 
