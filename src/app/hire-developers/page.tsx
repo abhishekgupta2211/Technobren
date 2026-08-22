@@ -272,7 +272,7 @@ export default function HireDevelopersPage() {
       </section>
 
       {/* 02 — WHY HIRE FROM US (ANIMATED CARDS) */}
-      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-16 sm:py-24">
+      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="Why TechnoBren"
@@ -314,7 +314,7 @@ export default function HireDevelopersPage() {
       </section>
 
       {/* 03 — HOW IT WORKS (STEP BY STEP WORKFLOW) */}
-      <section id="how-it-works" className="border-t border-ink-100 bg-white py-16 sm:py-24">
+      <section id="how-it-works" className="border-t border-ink-100 bg-white py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="4-Step Hiring Flow"
@@ -358,7 +358,7 @@ export default function HireDevelopersPage() {
       </section>
 
       {/* 03.5 — INTERACTIVE COST CALCULATOR SECTION */}
-      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-16 sm:py-24">
+      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="Instant Budget Estimator"
@@ -377,7 +377,7 @@ export default function HireDevelopersPage() {
       </section>
 
       {/* 04 — DEVELOPER REQUIREMENT FORM */}
-      <section id="request-form" className="border-t border-ink-100 bg-gradient-to-b from-[var(--canvas-subtle)] to-white py-16 sm:py-24">
+      <section id="request-form" className="border-t border-ink-100 bg-gradient-to-b from-[var(--canvas-subtle)] to-white py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <div className="max-w-4xl mx-auto">
             <SectionHeading
@@ -398,7 +398,7 @@ export default function HireDevelopersPage() {
       </section>
 
       {/* 05 — PREMIUM BOTTOM CTA (CLEAN LIGHT BRAND THEME) */}
-      <section className="border-t border-ink-100 bg-white py-16 sm:py-24">
+      <section className="border-t border-ink-100 bg-white py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <div className="relative overflow-hidden rounded-3xl border border-brand-200 bg-gradient-to-br from-brand-50 via-white to-brand-100/70 p-8 sm:p-14 lg:p-16 text-ink-950 shadow-xl text-center">
             {/* Ambient Soft Glow Orbs */}
