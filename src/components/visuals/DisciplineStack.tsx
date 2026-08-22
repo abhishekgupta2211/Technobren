@@ -12,12 +12,12 @@ import { cn } from "@/lib/utils";
  * in Z. Vector, so it stays crisp at any size, and it genuinely parallaxes
  * rather than being an isometric drawing.
  *
- * Every plate turns on its own axis rather than the stack turning as a block:
- * seven durations that share no common multiple, each starting from a
- * different angle, so the corners drift in and out of alignment and the shape
- * never repeats. Bob lives on an outer element, and depth on a wrapper inside
- * each plate — translation and rotation on one element would overwrite each
- * other, which is a mistake already made once on the office map.
+ * Every plate turns on its own axis rather than the stack turning as a block,
+ * all at the same speed but each a second behind the one below — so the stack
+ * holds a steady helix rather than the corners wandering apart. Bob lives on an
+ * outer element, and depth on a wrapper inside each plate: translation and
+ * rotation on one element would overwrite each other, which is a mistake
+ * already made once on the office map.
  *
  * The labels are a flat legend rather than being pinned to the plates. Anchored
  * in 3D they came out skewed, collided with each other, and — once the stack
@@ -28,11 +28,16 @@ import { cn } from "@/lib/utils";
 const GAP = 30;
 
 /**
- * Seconds per revolution, one per plate. Deliberately co-prime-ish: no two
- * share a factor, so the stack takes many minutes to return to any pose it has
- * held before. Negative delays start each plate part-way round.
+ * One revolution, shared by every plate, with each starting exactly a second
+ * behind the one below it.
+ *
+ * Matched speeds and a fixed offset is what makes this read as a single object
+ * twisting — the stack holds a constant helix instead of the corners wandering
+ * apart, which is what unequal periods produced. At 24s a second of lag is 15
+ * degrees, so the twist is visible without the plates ever looking scattered.
  */
-const SPIN = [23, 29, 37, 31, 43, 26, 34];
+const SPIN_SECONDS = 24;
+const LAG_SECONDS = 1;
 
 export function DisciplineStack({ className }: { className?: string }) {
   const reduce = useReducedMotion();
@@ -88,8 +93,8 @@ export function DisciplineStack({ className }: { className?: string }) {
                   <div
                     className={cn("absolute inset-0", !reduce && "animate-plate-spin")}
                     style={{
-                      ["--plate-duration" as string]: `${SPIN[i % SPIN.length]}s`,
-                      ["--plate-delay" as string]: `-${i * 3.5}s`,
+                      ["--plate-duration" as string]: `${SPIN_SECONDS}s`,
+                      ["--plate-delay" as string]: `-${i * LAG_SECONDS}s`,
                       // Pauses the whole stack while a plate is being read.
                       animationPlayState: active !== null ? "paused" : undefined,
                     }}

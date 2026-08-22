@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { coreValues, leadership, stats, differentiators, chairmanMessage } from "@/lib/site";
-import { cn } from "@/lib/utils";
+import {
+  coreValues,
+  leadership,
+  stats,
+  differentiators,
+  offices,
+} from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -28,6 +32,22 @@ export const metadata: Metadata = {
     url: "/about",
   },
 };
+
+/**
+ * The chairman leads the section directly above this one, so he is left out of
+ * the grid rather than appearing twice on the same page.
+ */
+const team = leadership.slice(1);
+
+/** Real company copy, not an invented motto. */
+const philosophy = coreValues.find((v) => v.title === "Leadership By Example");
+
+const officeCount = offices.length;
+
+const teamSize = (() => {
+  const t = stats.find((x) => x.label === "People on the team");
+  return t ? `${t.value}${t.suffix}` : "our engineers";
+})();
 
 export default function AboutPage() {
   return (
@@ -168,11 +188,15 @@ export default function AboutPage() {
       </section>
 
       {/* ---------- Leadership ---------- */}
-      {/* Only the founder has a portrait (public/team/founder.jpg) — see
-          REDESIGN-NOTES §5.9. Rather than pad the row with stock faces, his
-          card leads at double width with the real photograph and the opening
-          line of his message, and the rest carry a designed monogram. Supply
-          the remaining portraits and they drop straight in. */}
+      {/* The chairman is not in this grid: his portrait and message already
+          have a section of their own directly above, and repeating him here
+          just made the same face appear twice on one page.
+
+          Portraits sit as bare tiles with the name beneath rather than inside
+          bordered cards — an editorial grid, which is what the reference
+          layout is. Only the founder has a photograph (REDESIGN-NOTES §5.9),
+          so the rest carry a monogram tile of identical proportion; supply the
+          real portraits and they drop into the same slots unchanged. */}
       <section
         id="team"
         className="scroll-mt-24 relative overflow-x-clip border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22"
@@ -182,109 +206,87 @@ export default function AboutPage() {
           className="pointer-events-none absolute -right-[10%] top-1/4 size-[32rem] rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.07),transparent_66%)] blur-3xl"
         />
         <Container size="wide" className="relative">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <SectionHeading
-              eyebrow="Our team"
-              title={
-                <>
-                  Individual ambitions,{" "}
-                  <span className="text-brand-700">one shared vision</span>
-                </>
-              }
-              description="Over the years, our dedicated innovators, working collaboratively, have proven to be invaluable assets driving our success."
-            />
-            <Reveal delay={2} className="shrink-0">
-              <span className="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-4 py-2 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-600 shadow-(--shadow-card)">
-                <span aria-hidden className="size-1.5 rounded-full bg-brand-500" />
-                {leadership.length} leading the firm
-              </span>
+          <div className="grid gap-6 lg:grid-cols-[1fr_0.85fr] lg:items-end">
+            <div>
+              <Reveal>
+                <p className="flex items-center gap-2.5 font-mono text-[0.66rem] uppercase tracking-[0.22em] text-ink-500">
+                  <span aria-hidden className="h-px w-5 bg-brand-300" />
+                  Leadership
+                </p>
+              </Reveal>
+              <Reveal delay={1}>
+                <h2 className="mt-5 font-display text-[2.4rem] leading-[1.02] text-ink-950 sm:text-[3rem]">
+                  The people
+                </h2>
+              </Reveal>
+              <Reveal delay={2}>
+                <p className="font-[family-name:var(--font-display)] text-[2.1rem] font-medium italic leading-tight tracking-[-0.02em] text-brand-700 sm:text-[2.6rem]">
+                  behind the work.
+                </p>
+              </Reveal>
+            </div>
+
+            <Reveal delay={2}>
+              <p className="max-w-sm text-pretty text-[0.94rem] leading-relaxed text-ink-600">
+                The people who plan the work, write it and answer for it —
+                supported by a team of {teamSize} across {officeCount} offices.
+              </p>
             </Reveal>
           </div>
 
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {leadership.map((p, i) => {
-              const isFounder = i === 0;
-              return (
-                <Reveal
-                  as="li"
-                  key={p.name}
-                  delay={i % 4}
-                  className={isFounder ? "sm:col-span-2 lg:row-span-2" : undefined}
-                >
-                  <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-ink-200/80 bg-white shadow-(--shadow-card) transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:border-brand-200 hover:shadow-(--shadow-card-hover)">
-                    <div
-                      className={cn(
-                        "relative overflow-hidden bg-[var(--canvas-subtle)]",
-                        isFounder ? "h-64 sm:h-80" : "h-40",
-                      )}
-                    >
-                      <div aria-hidden className="absolute inset-0 bg-grid opacity-60" />
-                      <div
-                        aria-hidden
-                        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_25%,rgba(174,49,53,0.14),transparent_64%)]"
-                      />
+          {/* ---- Portrait grid ---- */}
+          <ul className="mt-12 grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-3 lg:grid-cols-6">
+            {team.map((person, i) => (
+              <Reveal as="li" key={person.name} delay={i % 6} className="group">
+                <div className="relative aspect-square overflow-hidden rounded-2xl bg-[linear-gradient(160deg,#f4f2f0,#e9e6e2)] ring-1 ring-ink-200/70 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 group-hover:ring-brand-300">
+                  <span aria-hidden className="absolute inset-0 bg-grid opacity-50" />
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(174,49,53,0.14),transparent_62%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  />
+                  <span className="absolute inset-0 flex items-center justify-center">
+                    <span className="font-display text-[1.75rem] text-brand-700/80 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110">
+                      {person.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </span>
+                  </span>
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand-600 to-brand-400 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
+                  />
+                </div>
 
-                      {isFounder ? (
-                        <Image
-                          src={chairmanMessage.photo}
-                          alt={p.name + ", " + p.role}
-                          fill
-                          sizes="(min-width: 1024px) 26rem, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover object-top transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
-                        />
-                      ) : (
-                        <span className="absolute inset-0 flex items-center justify-center">
-                          <span className="relative flex size-16 items-center justify-center overflow-hidden rounded-2xl border border-brand-200/60 bg-white font-display text-[1.25rem] text-brand-700 shadow-[0_6px_18px_-12px_rgba(16,15,20,0.3)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-brand-500 group-hover:text-white">
-                            <span
-                              aria-hidden
-                              className="absolute inset-0 origin-bottom scale-y-0 bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-y-100"
-                            />
-                            <span className="relative">
-                              {p.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")}
-                            </span>
-                          </span>
-                        </span>
-                      )}
-
-                      {isFounder && (
-                        <span className="absolute left-4 top-4 rounded-full border border-white/50 bg-white/85 px-2.5 py-1 font-mono text-[0.56rem] uppercase tracking-[0.16em] text-brand-800 backdrop-blur-sm">
-                          Founder
-                        </span>
-                      )}
-                    </div>
-
-                    <div className={cn("flex flex-1 flex-col p-5", isFounder && "sm:p-6")}>
-                      <p
-                        className={cn(
-                          "font-display text-ink-950",
-                          isFounder ? "text-[1.3rem]" : "text-[1rem]",
-                        )}
-                      >
-                        {p.name}
-                      </p>
-                      <p className="mt-1 font-mono text-[0.58rem] uppercase tracking-[0.16em] text-ink-500">
-                        {p.role}
-                      </p>
-
-                      {isFounder && (
-                        <blockquote className="mt-4 border-l-2 border-brand-300 pl-4 text-pretty text-[0.9rem] leading-relaxed text-ink-600">
-                          {chairmanMessage.quote.split(". ")[0]}.
-                        </blockquote>
-                      )}
-                    </div>
-
-                    <span
-                      aria-hidden
-                      className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand-600 to-brand-400 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
-                    />
-                  </article>
-                </Reveal>
-              );
-            })}
+                <p className="mt-3 text-[0.9rem] font-semibold text-brand-700 transition-colors duration-300 group-hover:text-brand-800">
+                  {person.name}
+                </p>
+                <p className="mt-0.5 font-mono text-[0.56rem] uppercase leading-relaxed tracking-[0.14em] text-ink-500">
+                  {person.role}
+                </p>
+              </Reveal>
+            ))}
           </ul>
+
+          {/* ---- Philosophy ---- */}
+          <Reveal delay={2}>
+            <figure className="mt-12 grid gap-6 border-t border-ink-200 pt-9 lg:grid-cols-[0.32fr_1fr] lg:gap-10">
+              <p className="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-brand-700">
+                Our philosophy
+              </p>
+              <div>
+                <blockquote className="max-w-2xl text-pretty font-[family-name:var(--font-display)] text-[1.3rem] font-medium italic leading-[1.5] tracking-[-0.01em] text-ink-800 sm:text-[1.55rem]">
+                  &ldquo;{philosophy?.description}&rdquo;
+                </blockquote>
+                <figcaption className="mt-5 flex items-center gap-3">
+                  <span aria-hidden className="h-px w-8 bg-brand-400" />
+                  <span className="font-mono text-[0.58rem] uppercase tracking-[0.18em] text-ink-500">
+                    {philosophy?.title}
+                  </span>
+                </figcaption>
+              </div>
+            </figure>
+          </Reveal>
         </Container>
       </section>
 
