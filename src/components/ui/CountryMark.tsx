@@ -32,12 +32,11 @@ export function CountryMark({
   className?: string;
 }) {
   const flagUrl = FLAG_SVGS[country];
-  const code = CODES[country] ?? country.slice(0, 2).toUpperCase();
 
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50/70 px-2 py-1 font-mono text-[0.72rem] font-medium text-ink-800 shadow-2xs",
+        "inline-flex items-center justify-center shrink-0 overflow-hidden rounded-xs border border-ink-200/80 bg-ink-100/40",
         className,
       )}
     >
@@ -45,12 +44,13 @@ export function CountryMark({
         <img
           src={flagUrl}
           alt={`${country} flag`}
-          className="h-3.5 w-5 rounded-xs object-cover"
+          className="size-full object-cover"
         />
       ) : (
-        <span className="text-[0.85rem]">🌐</span>
+        <span className="font-mono text-[0.6rem] font-bold text-ink-700">
+          {country.slice(0, 2).toUpperCase()}
+        </span>
       )}
-      <span>{code}</span>
     </span>
   );
 }

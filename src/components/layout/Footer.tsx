@@ -180,12 +180,12 @@ export function Footer() {
               <ColumnTitle>Global Presence</ColumnTitle>
               <ul className="mt-5 space-y-3.5">
                 {offices.map((off) => (
-                  <li key={off.country} className="text-[0.85rem]">
+                  <li key={off.city + off.country} className="text-[0.85rem]">
                     <div className="flex items-center gap-2 font-bold text-ink-950">
-                      <CountryMark country={off.country} className="size-3.5 shrink-0 rounded-xs" />
+                      <span className="text-sm shrink-0">{off.flag}</span>
                       <span>{off.city}, {off.country}</span>
                     </div>
-                    <span className="block text-[0.72rem] text-ink-500 font-medium mt-0.5 pl-5 truncate">
+                    <span className="block text-[0.72rem] leading-snug text-ink-500 font-medium mt-0.5">
                       {off.address}
                     </span>
                   </li>
