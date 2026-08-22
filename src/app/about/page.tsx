@@ -64,7 +64,7 @@ export default function AboutPage() {
       </PageHero>
 
       {/* ---------- Milestones ---------- */}
-      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
+      <section id="milestones" className="scroll-mt-24 border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="Milestones"
@@ -100,7 +100,7 @@ export default function AboutPage() {
       <ChairmanSection />
 
       {/* ---------- Core values ---------- */}
-      <section className="relative overflow-x-clip border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
+      <section id="values" className="scroll-mt-24 relative overflow-x-clip border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
         <div
           aria-hidden
           className="pointer-events-none absolute -right-[10%] top-[16%] size-[32rem] rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.07),transparent_66%)] blur-3xl"
@@ -180,7 +180,7 @@ export default function AboutPage() {
       </section>
 
       {/* ---------- Leadership ---------- */}
-      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
+      <section id="team" className="scroll-mt-24 border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="Our team"
@@ -226,7 +226,7 @@ export default function AboutPage() {
       </section>
 
       {/* ---------- Why + offices ---------- */}
-      <section className="border-t border-ink-100 py-14 sm:py-18 lg:py-22">
+      <section id="offices" className="scroll-mt-24 border-t border-ink-100 py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <div className="grid gap-12 lg:grid-cols-[1fr_0.85fr] lg:gap-16">
             <div>

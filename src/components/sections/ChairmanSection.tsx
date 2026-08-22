@@ -14,7 +14,7 @@ import { Eyebrow } from "@/components/ui/SectionHeading";
  */
 export function ChairmanSection() {
   return (
-    <section className="relative overflow-x-clip border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
+    <section id="chairman" className="scroll-mt-24 relative overflow-x-clip border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
       <div
         aria-hidden
         className="pointer-events-none absolute -left-[10%] top-1/4 size-[34rem] rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.08),transparent_66%)] blur-3xl"

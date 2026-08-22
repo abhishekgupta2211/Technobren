@@ -83,7 +83,7 @@ export default function MethodologyPage() {
       </PageHero>
 
       {/* ---------- Principles ---------- */}
-      <section className="border-t border-ink-100 bg-[var(--canvas-subtle)] py-12 sm:py-14">
+      <section id="principles" className="scroll-mt-24 border-t border-ink-100 bg-[var(--canvas-subtle)] py-12 sm:py-14">
         <Container size="wide">
           <ul className="grid gap-4 lg:grid-cols-3">
             {PRINCIPLES.map((p, i) => (
@@ -109,7 +109,7 @@ export default function MethodologyPage() {
       </section>
 
       {/* ---------- Stages ---------- */}
-      <section className="border-t border-ink-100 py-14 sm:py-18 lg:py-22">
+      <section id="stages" className="scroll-mt-24 border-t border-ink-100 py-14 sm:py-18 lg:py-22">
         <Container size="wide">
           <SectionHeading
             eyebrow="The stages"
