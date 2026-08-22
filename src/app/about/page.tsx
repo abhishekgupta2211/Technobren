@@ -8,9 +8,9 @@ import { Counter } from "@/components/ui/Counter";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/sections/PageHero";
+import { OriginSection } from "@/components/sections/OriginSection";
 import { ChairmanSection } from "@/components/sections/ChairmanSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { OfficesSection } from "@/components/sections/OfficesSection";
 import { CTASection } from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
@@ -62,6 +62,8 @@ export default function AboutPage() {
           </Button>
         </div>
       </PageHero>
+
+      <OriginSection />
 
       {/* ---------- Milestones ---------- */}
       <section id="milestones" className="scroll-mt-24 border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">

@@ -97,6 +97,20 @@ export const socials = [
 ];
 
 /* ------------------------------------------------------------------ */
+/* ORIGIN — founding year supplied by TechnoBren (2026-08-22).          */
+/* This also settles REDESIGN-NOTES.md §5.6, which had the years in      */
+/* business as an open question.                                         */
+/* ------------------------------------------------------------------ */
+
+export const origin = {
+  foundedYear: 2015,
+  /** Derived at build time so it can never go stale in the copy. */
+  get yearsInBusiness() {
+    return new Date().getFullYear() - this.foundedYear;
+  },
+} as const;
+
+/* ------------------------------------------------------------------ */
 /* STATS — verified: about.html "Milestones"                           */
 /* ------------------------------------------------------------------ */
 
@@ -543,6 +557,21 @@ export const techCategories = [
       "WooCommerce",
       "BigCommerce",
       "OpenCart",
+    ],
+  },
+  {
+    name: "AI & Data",
+    blurb: "Machine learning frameworks and the data plumbing behind them.",
+    // Verified: these are the frameworks named in the AI & ML service copy.
+    items: [
+      "TensorFlow",
+      "Torch",
+      "Caffe",
+      "Apache SystemML",
+      "Apache Mahout",
+      "OpenNN",
+      "Neuroph",
+      "Mycroft AI",
     ],
   },
   {

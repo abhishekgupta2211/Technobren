@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { X } from "lucide-react";
 import { techCategories } from "@/lib/site";
 import { getTechLogo } from "@/lib/techLogos";
 import { Container } from "@/components/ui/Container";
@@ -14,24 +15,40 @@ import { cn } from "@/lib/utils";
  * Technology expertise.
  *
  * The whole stack is on screen at once, drifting past in three lanes, rather
- * than hidden behind tabs. Pointing at a discipline in the legend lights up only
- * that discipline's technologies in the lanes — so the section answers "what do
- * you work with" and "how is it organised" in a single glance, without a click.
+ * than hidden behind tabs. Two levels of interaction:
+ *
+ * - Pointing at a discipline lights it up and dims the rest, so you can find a
+ *   category without losing sight of the whole.
+ * - Clicking one pins it, and the lanes then carry *only* that discipline —
+ *   pick Mobile and you see the mobile stack and nothing else. Clicking again
+ *   (or "Show all") releases it.
  */
 export function TechnologySection() {
-  const [active, setActive] = useState<string | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const [pinned, setPinned] = useState<string | null>(null);
+  // A pin outranks a hover, so the lit category never flickers while pinned.
+  const active = pinned ?? hovered;
   const reduce = useReducedMotion();
 
   // Flatten the stack, then deal it into three lanes so each row is a mix of
   // disciplines rather than one category per line.
   const lanes = useMemo(() => {
-    const flat = techCategories.flatMap((c) =>
+    const source = pinned
+      ? techCategories.filter((c) => c.name === pinned)
+      : techCategories;
+    const flat = source.flatMap((c) =>
       c.items.map((item) => ({ item, category: c.name })),
     );
-    const out: { item: string; category: string }[][] = [[], [], []];
-    flat.forEach((entry, i) => out[i % 3].push(entry));
+    // A pinned discipline has too few items to fill three lanes, so it runs as
+    // a single lane instead of three sparse ones.
+    const laneCount = pinned ? 1 : 3;
+    const out: { item: string; category: string }[][] = Array.from(
+      { length: laneCount },
+      () => [],
+    );
+    flat.forEach((entry, i) => out[i % laneCount].push(entry));
     return out;
-  }, []);
+  }, [pinned]);
 
   const total = techCategories.reduce((n, c) => n + c.items.length, 0);
 
@@ -67,16 +84,17 @@ export function TechnologySection() {
             </span>
             {techCategories.map((c) => {
               const on = active === c.name;
+              const isPinned = pinned === c.name;
               return (
                 <button
                   key={c.name}
                   type="button"
-                  onMouseEnter={() => setActive(c.name)}
-                  onMouseLeave={() => setActive(null)}
-                  onFocus={() => setActive(c.name)}
-                  onBlur={() => setActive(null)}
-                  onClick={() => setActive(on ? null : c.name)}
-                  aria-pressed={on}
+                  onMouseEnter={() => setHovered(c.name)}
+                  onMouseLeave={() => setHovered(null)}
+                  onFocus={() => setHovered(c.name)}
+                  onBlur={() => setHovered(null)}
+                  onClick={() => setPinned(isPinned ? null : c.name)}
+                  aria-pressed={isPinned}
                   className={cn(
                     "group inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-[0.83rem] font-medium transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
                     on
@@ -96,6 +114,20 @@ export function TechnologySection() {
                 </button>
               );
             })}
+
+            {pinned && (
+              <motion.button
+                type="button"
+                initial={reduce ? false : { opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                onClick={() => setPinned(null)}
+                className="inline-flex items-center gap-1.5 rounded-full border border-ink-300 border-dashed bg-white px-4 py-2.5 text-[0.83rem] font-medium text-ink-600 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700"
+              >
+                <X className="size-3.5" aria-hidden />
+                Show all
+              </motion.button>
+            )}
           </div>
         </Reveal>
 
@@ -164,15 +196,17 @@ export function TechnologySection() {
         {/* ---- Discipline detail ---- */}
         <Reveal delay={3} className="mt-6">
           <motion.p
-            key={active ?? "all"}
+            key={`${pinned ?? "none"}-${active ?? "all"}`}
             initial={reduce ? false : { opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="text-center text-[0.9rem] text-ink-600"
           >
-            {active
-              ? techCategories.find((c) => c.name === active)?.blurb
-              : "Point at a discipline to see what we build with it."}
+            {pinned
+              ? `${techCategories.find((c) => c.name === pinned)?.blurb} — showing ${pinned} only.`
+              : active
+                ? techCategories.find((c) => c.name === active)?.blurb
+                : "Point at a discipline to highlight it, or click to see only that stack."}
           </motion.p>
         </Reveal>
       </Container>

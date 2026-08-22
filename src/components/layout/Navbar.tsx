@@ -36,6 +36,43 @@ export function Navbar() {
   const reduce = useReducedMotion();
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+
+  /**
+   * The panel is aligned to the nav list, not to the pill: it spans exactly
+   * from the first item to the last, so it reads as belonging to the links
+   * rather than to the whole bar. Measured rather than guessed, because the
+   * list width depends on the rendered label text.
+   */
+  const [span, setSpan] = useState<{ left: number; width: number } | null>(null);
+
+  useEffect(() => {
+    const measure = () => {
+      const wrap = wrapRef.current;
+      const list = listRef.current;
+      if (!wrap || !list) return;
+      // Measured from the first link's left edge to the last link's right edge,
+      // not the list's own box — the list carries gaps that would leave the
+      // panel visibly inset from the words it belongs to.
+      const items = list.querySelectorAll<HTMLElement>(":scope > li");
+      if (items.length === 0) return;
+      const firstR = items[0].getBoundingClientRect();
+      const lastR = items[items.length - 1].getBoundingClientRect();
+      // Zero width means the list is display:none below lg — no panel there.
+      if (firstR.width === 0) return setSpan(null);
+      const wrapLeft = wrap.getBoundingClientRect().left;
+      setSpan({ left: firstR.left - wrapLeft, width: lastR.right - firstR.left });
+    };
+    measure();
+    // The first measurement can land while the fallback font is still in use,
+    // which makes the labels — and so the list — narrower than they end up.
+    document.fonts?.ready.then(measure);
+    const ro = new ResizeObserver(measure);
+    if (wrapRef.current) ro.observe(wrapRef.current);
+    if (listRef.current) ro.observe(listRef.current);
+    return () => ro.disconnect();
+  }, []);
 
   const cancelClose = () => {
     if (closeTimer.current) {
@@ -96,7 +133,7 @@ export function Navbar() {
     >
       <Container size="wide">
         {/* Anchors the dropdown, and bounds the hover region that keeps it open. */}
-        <div className="relative" onMouseLeave={scheduleClose}>
+        <div ref={wrapRef} className="relative" onMouseLeave={scheduleClose}>
           <motion.nav
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -127,6 +164,7 @@ export function Navbar() {
 
             {/* ---------- Desktop nav with interactive hover & active pill ---------- */}
             <ul
+              ref={listRef}
               onMouseLeave={() => setHoveredPath(null)}
               className="hidden items-center gap-1 lg:flex"
             >
@@ -221,6 +259,7 @@ export function Navbar() {
           </motion.nav>
 
           <MegaMenu
+            span={span}
             openLabel={openMenu}
             onNavigate={closeNow}
             onMouseEnter={cancelClose}

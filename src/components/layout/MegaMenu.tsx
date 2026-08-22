@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion, type Variants } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  type Variants,
+} from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { megaMenu, type MegaLink, type MegaPanel } from "@/lib/megaMenu";
@@ -179,60 +184,53 @@ type Preview = {
  */
 function OrbitBackdrop() {
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-grid opacity-40" />
-
-      <div className="animate-bloom absolute -right-14 -top-20 size-64 rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.2),transparent_66%)] blur-2xl" />
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 overflow-hidden [transform-style:preserve-3d]"
+    >
+      {/* Four layers, each parked at a different depth. Because the card tilts
+          on hover inside a perspective, they slide past one another by
+          different amounts — real parallax rather than a painted-on picture. */}
       <div
-        className="animate-bloom absolute -bottom-24 -left-16 size-56 rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.13),transparent_68%)] blur-2xl"
-        style={{ ["--bloom-duration" as string]: "21s", animationDelay: "-7s" }}
+        className="absolute inset-0 bg-grid opacity-40"
+        style={{ transform: "translateZ(-70px) scale(1.09)" }}
       />
 
-      {/* Outer ring, clockwise. */}
-      <svg
-        viewBox="0 0 240 240"
-        fill="none"
-        className="animate-orbit absolute -right-20 -top-24 size-80"
-        style={{ ["--orbit-duration" as string]: "38s" }}
-      >
-        <circle
-          cx="120"
-          cy="120"
-          r="96"
-          stroke="#ae3135"
-          strokeOpacity="0.1"
-          strokeWidth="1"
-          strokeDasharray="3 7"
+      <div style={{ transform: "translateZ(-45px) scale(1.06)" }} className="absolute inset-0">
+        <div className="animate-bloom absolute -right-14 -top-20 size-64 rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.22),transparent_66%)] blur-2xl" />
+        <div
+          className="animate-bloom absolute -bottom-24 -left-16 size-56 rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.14),transparent_68%)] blur-2xl"
+          style={{ ["--bloom-duration" as string]: "21s", animationDelay: "-7s" }}
         />
-        <path
-          d="M24 120A96 96 0 0 1 120 24"
-          stroke="#ae3135"
-          strokeOpacity="0.34"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-        <circle cx="120" cy="24" r="4.5" fill="#ae3135" fillOpacity="0.5" />
-      </svg>
+      </div>
 
-      {/* Inner ring, counter-clockwise — same class, reversed. */}
-      <svg
-        viewBox="0 0 240 240"
-        fill="none"
-        className="animate-orbit absolute -right-20 -top-24 size-80"
-        style={{
-          ["--orbit-duration" as string]: "26s",
-          animationDirection: "reverse",
-        }}
-      >
-        <path
-          d="M56 120A64 64 0 0 1 120 56"
-          stroke="#ae3135"
-          strokeOpacity="0.24"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <circle cx="56" cy="120" r="3.5" fill="#ae3135" fillOpacity="0.4" />
-      </svg>
+      {/* Outer ring, clockwise, sitting behind the plane. */}
+      <div style={{ transform: "translateZ(-22px) scale(1.03)" }} className="absolute inset-0">
+        <svg
+          viewBox="0 0 240 240"
+          fill="none"
+          className="animate-orbit absolute -right-20 -top-24 size-80"
+          style={{ ["--orbit-duration" as string]: "38s" }}
+        >
+          <circle cx="120" cy="120" r="96" stroke="#ae3135" strokeOpacity="0.1" strokeWidth="1" strokeDasharray="3 7" />
+          <path d="M24 120A96 96 0 0 1 120 24" stroke="#ae3135" strokeOpacity="0.34" strokeWidth="1.6" strokeLinecap="round" />
+          <circle cx="120" cy="24" r="4.5" fill="#ae3135" fillOpacity="0.5" />
+        </svg>
+      </div>
+
+      {/* Inner ring, counter-clockwise, floating in front of the plane. */}
+      <div style={{ transform: "translateZ(26px)" }} className="absolute inset-0">
+        <svg
+          viewBox="0 0 240 240"
+          fill="none"
+          className="animate-orbit absolute -right-20 -top-24 size-80"
+          style={{ ["--orbit-duration" as string]: "26s", animationDirection: "reverse" }}
+        >
+          <path d="M56 120A64 64 0 0 1 120 56" stroke="#ae3135" strokeOpacity="0.26" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="56" cy="120" r="3.5" fill="#ae3135" fillOpacity="0.45" />
+        </svg>
+        <span className="animate-node-pulse absolute right-10 top-16 size-2 rounded-full bg-brand-500/60" />
+      </div>
     </div>
   );
 }
@@ -274,7 +272,7 @@ function PanelBody({
       variants={reduce ? undefined : groupFor(motionSpec)}
       initial="hidden"
       animate="show"
-      className="grid gap-6 p-6 lg:grid-cols-[minmax(0,1.38fr)_minmax(0,0.62fr)]"
+      className="grid gap-5 p-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.66fr)]"
       onMouseLeave={() => setHovered(null)}
     >
       {/* ---------------- Link grid ---------------- */}
@@ -287,7 +285,7 @@ function PanelBody({
           {panel.intro}
         </motion.p>
 
-        <ul className="mt-3 grid gap-1 [perspective:900px] sm:grid-cols-2">
+        <ul className="mt-3 grid gap-0.5 [perspective:900px]">
           {panel.links.map((l) => {
             const isOn = hovered?.href === l.href && hovered?.label === l.label;
             return (
@@ -353,7 +351,7 @@ function PanelBody({
         <Link
           href={preview.href}
           onClick={onNavigate}
-          className="group/feature relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200/70 bg-gradient-to-br from-brand-50/90 via-white to-[var(--canvas-subtle)] p-6 transition-[border-color,box-shadow,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] [transform-style:preserve-3d] hover:border-brand-300 hover:shadow-(--shadow-card-hover) hover:[transform:translateZ(10px)_rotateX(2deg)]"
+          className="group/feature relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200/70 bg-gradient-to-br from-brand-50/90 via-white to-[var(--canvas-subtle)] p-6 transition-[border-color,box-shadow,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] [transform-style:preserve-3d] hover:border-brand-300 hover:shadow-(--shadow-card-hover) hover:[transform:translateZ(16px)_rotateX(3.5deg)_rotateY(-3deg)]"
         >
           <OrbitBackdrop />
 
@@ -439,61 +437,99 @@ function PanelBody({
 
 export function MegaMenu({
   openLabel,
+  span,
   onNavigate,
   onMouseEnter,
   onMouseLeave,
 }: {
   openLabel: string | null;
+  /** Measured position of the nav list, so the panel lines up with the links. */
+  span: { left: number; width: number } | null;
   onNavigate: () => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
 }) {
   const reduce = useReducedMotion();
-  const panel = openLabel ? megaMenu[openLabel] : undefined;
-  const spec = (openLabel && MOTION[openLabel]) || FALLBACK;
+
+  /**
+   * Mounting is owned here, not by AnimatePresence, and the animation is
+   * declarative rather than imperative. Both were arrived at the hard way:
+   *
+   * - AnimatePresence with `key={openLabel}` never mounted the second key, so
+   *   the panel froze on whichever menu opened first.
+   * - Driving it with `useAnimationControls` instead left `start()` unbound —
+   *   the panel stayed on its `hidden` frame at opacity 0, present in the DOM
+   *   but invisible.
+   *
+   * So: the element is remounted per menu (`key={shown}`), which replays that
+   * menu's entrance for free, and closing flips the same element to its `exit`
+   * variant and unmounts on completion. `shown` outlives `openLabel` for
+   * exactly as long as the exit takes.
+   */
+  const [closing, setClosing] = useState<string | null>(null);
+  const shown = openLabel ?? closing;
+  const isClosing = !openLabel && closing !== null;
+
+  const shownRef = useRef<string | null>(null);
+  useEffect(() => {
+    shownRef.current = shown;
+  }, [shown]);
+
+  useEffect(() => {
+    if (openLabel) return; // opening is derived — nothing to schedule
+    const outgoing = shownRef.current;
+    if (!outgoing) return;
+    setClosing(reduce ? null : outgoing);
+  }, [openLabel, reduce]);
+
+  const panel = shown ? megaMenu[shown] : undefined;
+  const spec = (shown && MOTION[shown]) || FALLBACK;
 
   return (
-    // Always mounted so AnimatePresence can play an exit, but inert while
-    // closed — otherwise this strip would swallow clicks on the hero beneath.
-    // The perspective lives here: the panel needs a parent to be projected in.
+    // Always mounted so the exit has somewhere to play, but inert while closed —
+    // otherwise this strip would swallow clicks on the hero beneath. The
+    // perspective lives here: the panel needs a parent to be projected in.
     <div
       className={cn(
-        "absolute inset-x-0 top-full z-40 hidden pt-3 lg:block",
+        "absolute top-full z-40 hidden pt-3 lg:block",
         panel ? "pointer-events-auto" : "pointer-events-none",
       )}
-      style={{ perspective: "1800px", perspectiveOrigin: "50% 0%" }}
+      style={{
+        perspective: "1800px",
+        perspectiveOrigin: "50% 0%",
+        // Aligned to the first and last nav link rather than the full pill.
+        // Falls back to the pill width until the first measurement lands.
+        left: span ? span.left : 0,
+        width: span ? span.width : undefined,
+        right: span ? undefined : 0,
+      }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {/* Keyed on the open item, so switching menus plays one signature out and
-          the next one in, instead of swapping contents inside a static box. */}
-      <AnimatePresence mode="wait" initial={false}>
-        {panel && (
-          <motion.div
-            key={openLabel}
-            id="mega-menu"
-            role="group"
-            aria-label={`${openLabel} menu`}
-            variants={reduce ? undefined : spec.panel}
-            initial={reduce ? { opacity: 0 } : "hidden"}
-            animate={reduce ? { opacity: 1 } : "show"}
-            exit={reduce ? { opacity: 0 } : "exit"}
-            transition={reduce ? { duration: 0.12 } : undefined}
-            style={{
-              transformOrigin: spec.origin,
-              transformStyle: "preserve-3d",
-            }}
-            className="relative overflow-hidden rounded-[1.75rem] border border-ink-200/70 bg-white/95 shadow-[0_24px_70px_-28px_rgba(16,15,20,0.32),0_10px_28px_-18px_rgba(174,49,53,0.26)] backdrop-blur-2xl backdrop-saturate-150"
-          >
-            {/* Brand hairline along the top edge, matching the navbar's beam. */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-400/80 to-transparent"
-            />
-            <PanelBody panel={panel} motionSpec={spec} onNavigate={onNavigate} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {panel && (
+        <motion.div
+          key={shown}
+          id="mega-menu"
+          role="group"
+          aria-label={`${shown} menu`}
+          variants={reduce ? undefined : spec.panel}
+          initial={reduce ? { opacity: 0 } : "hidden"}
+          animate={reduce ? { opacity: 1 } : isClosing ? "exit" : "show"}
+          transition={reduce ? { duration: 0.12 } : undefined}
+          onAnimationComplete={(definition) => {
+            if (definition === "exit") setClosing(null);
+          }}
+          style={{ transformOrigin: spec.origin, transformStyle: "preserve-3d" }}
+          className="relative overflow-hidden rounded-[1.75rem] border border-ink-200/70 bg-white/95 shadow-[0_24px_70px_-28px_rgba(16,15,20,0.32),0_10px_28px_-18px_rgba(174,49,53,0.26)] backdrop-blur-2xl backdrop-saturate-150"
+        >
+          {/* Brand hairline along the top edge, matching the navbar's beam. */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-400/80 to-transparent"
+          />
+          <PanelBody panel={panel} motionSpec={spec} onNavigate={onNavigate} />
+        </motion.div>
+      )}
     </div>
   );
 }

@@ -52,6 +52,14 @@ export const TECH_LOGOS: Record<string, string> = {
   OpenCart: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencart/opencart-original.svg",
   BigCommerce: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/salesforce/salesforce-original.svg",
 
+  // AI & Data
+  TensorFlow: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+  Torch: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
+  "Apache SystemML": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg",
+  "Apache Mahout": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg",
+  // Caffe, OpenNN, Neuroph and Mycroft AI have no devicon mark — they fall back
+  // to the brand dot, which getTechLogo already handles.
+
   // DevOps & Cloud
   AWS: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
   Azure: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
