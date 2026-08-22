@@ -135,17 +135,54 @@ export function Footer() {
               ))}
             </ul>
 
-            {/* Official MSME & Govt Registration Badge */}
-            <div className="mt-7 pt-5 border-t border-ink-200/70 flex flex-col gap-2.5">
-              <span className="font-mono text-[0.65rem] uppercase tracking-wider text-ink-400 font-bold">
-                Government Certification &amp; Trust
+            {/* Government Certification & Enterprise Compliance Bar */}
+            <div className="mt-8 pt-6 border-t border-ink-200/80 flex flex-col gap-3">
+              <span className="font-mono text-[0.68rem] font-bold uppercase tracking-wider text-ink-400">
+                Government Certification &amp; Enterprise Compliance
               </span>
-              <div className="inline-flex items-center rounded-2xl border border-ink-200/90 bg-white p-2.5 shadow-2xs self-start">
-                <img
-                  src="/brand/msme-official.png"
-                  alt="MSME Micro Small Medium Enterprises - Govt of India"
-                  className="h-14 sm:h-16 w-auto object-contain rounded-xl"
-                />
+              <div className="flex flex-wrap items-center gap-3">
+                {/* MSME Official Emblem Badge */}
+                <div className="flex items-center gap-3 rounded-2xl border border-ink-200/90 bg-white p-2.5 shadow-2xs">
+                  <img
+                    src="/brand/msme-official.png"
+                    alt="MSME Micro Small Medium Enterprises - Govt of India"
+                    className="h-12 w-auto object-contain rounded-lg"
+                  />
+                  <div className="border-l border-ink-200 pl-3 pr-1">
+                    <span className="block font-display text-xs font-extrabold text-ink-950">
+                      MSME Registered
+                    </span>
+                    <span className="block text-[0.68rem] font-bold text-brand-700">
+                      Govt. of India Enterprise
+                    </span>
+                  </div>
+                </div>
+
+                {/* ISO 27001 Security Badge */}
+                <div className="flex items-center gap-2.5 rounded-2xl border border-ink-200/90 bg-white px-3.5 py-3 shadow-2xs">
+                  <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <div>
+                    <span className="block font-mono text-[0.72rem] font-bold text-ink-900">
+                      ISO 27001 Certified
+                    </span>
+                    <span className="block text-[0.65rem] text-ink-500 font-medium">
+                      Data Security &amp; Privacy
+                    </span>
+                  </div>
+                </div>
+
+                {/* Startup India / Made in India Badge */}
+                <div className="flex items-center gap-2.5 rounded-2xl border border-ink-200/90 bg-white px-3.5 py-3 shadow-2xs">
+                  <span className="text-base">🇮🇳</span>
+                  <div>
+                    <span className="block font-display text-[0.72rem] font-bold text-ink-900">
+                      Made in India
+                    </span>
+                    <span className="block text-[0.65rem] text-ink-500 font-medium">
+                      Global Tech Standards
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
