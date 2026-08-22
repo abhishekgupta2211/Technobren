@@ -273,6 +273,57 @@ body {
   animation-delay: var(--wave-delay, 0s);
 }
 
+/* The 3D discipline stack on /about.
+   Bob and spin are separate elements on purpose: one translates, the other
+   rotates, on periods that do not divide into each other. Combined in a single
+   keyframe they would loop in lockstep and read as mechanical. */
+@keyframes stack-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+}
+@keyframes stack-spin {
+  from {
+    transform: rotateX(54deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(54deg) rotateZ(360deg);
+  }
+}
+.animate-stack-bob {
+  animation: stack-bob 7s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+.animate-stack-spin {
+  animation: stack-spin 26s linear infinite;
+  transform-style: preserve-3d;
+}
+
+/* Ocean swell on the office map.
+   Water does not travel in one direction forever — it runs in and draws back.
+   So this eases out and returns rather than translating linearly, and rises
+   very slightly at the top of the stroke, the way a swell lifts before it
+   settles. Two sets run against each other at different periods, which is what
+   produces the irregular interference real water has. Masked to the sea, so
+   nothing ever crosses a coastline. */
+@keyframes wave-swell {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-60px, -2.5px, 0);
+  }
+}
+.anim-wave {
+  animation: wave-swell var(--wave-duration, 9s) ease-in-out infinite;
+  animation-delay: var(--wave-delay, 0s);
+}
+
 /* The 3D discipline stack on /about. A slow float, so the isometric plates
    read as suspended rather than pasted down. */
 @keyframes stack-float {

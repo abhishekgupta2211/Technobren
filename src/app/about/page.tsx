@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { coreValues, leadership, stats, differentiators } from "@/lib/site";
+import Image from "next/image";
+import { coreValues, leadership, stats, differentiators, chairmanMessage } from "@/lib/site";
+import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -166,47 +168,122 @@ export default function AboutPage() {
       </section>
 
       {/* ---------- Leadership ---------- */}
-      <section id="team" className="scroll-mt-24 border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22">
-        <Container size="wide">
-          <SectionHeading
-            eyebrow="Our team"
-            title={
-              <>
-                Individual ambitions,{" "}
-                <span className="text-brand-700">one shared vision</span>
-              </>
-            }
-            description="Over the years, our dedicated innovators, working collaboratively, have proven to be invaluable assets driving our success."
-          />
+      {/* Only the founder has a portrait (public/team/founder.jpg) — see
+          REDESIGN-NOTES §5.9. Rather than pad the row with stock faces, his
+          card leads at double width with the real photograph and the opening
+          line of his message, and the rest carry a designed monogram. Supply
+          the remaining portraits and they drop straight in. */}
+      <section
+        id="team"
+        className="scroll-mt-24 relative overflow-x-clip border-t border-ink-100 bg-[var(--canvas-subtle)] py-14 sm:py-18 lg:py-22"
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-[10%] top-1/4 size-[32rem] rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.07),transparent_66%)] blur-3xl"
+        />
+        <Container size="wide" className="relative">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <SectionHeading
+              eyebrow="Our team"
+              title={
+                <>
+                  Individual ambitions,{" "}
+                  <span className="text-brand-700">one shared vision</span>
+                </>
+              }
+              description="Over the years, our dedicated innovators, working collaboratively, have proven to be invaluable assets driving our success."
+            />
+            <Reveal delay={2} className="shrink-0">
+              <span className="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-4 py-2 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-600 shadow-(--shadow-card)">
+                <span aria-hidden className="size-1.5 rounded-full bg-brand-500" />
+                {leadership.length} leading the firm
+              </span>
+            </Reveal>
+          </div>
 
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {leadership.map((p, i) => (
-              <Reveal
-                as="li"
-                key={p.name}
-                delay={i % 5}
-                className="group overflow-hidden rounded-2xl border border-ink-200 bg-white transition-all duration-500 hover:-translate-y-1 hover:border-brand-200 hover:shadow-(--shadow-card-hover)"
-              >
-                {/* Monogram plate — the old site had no team photography. */}
-                <div className="relative flex h-36 items-center justify-center overflow-hidden bg-[var(--canvas-subtle)]">
-                  <div aria-hidden className="absolute inset-0 bg-grid opacity-70" />
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(174,49,53,0.12),transparent_62%)]"
-                  />
-                  <span className="relative flex size-16 items-center justify-center rounded-2xl bg-white font-display text-[1.4rem] text-brand-700 shadow-[0_5px_16px_-11px_rgba(16,15,20,0.2)] ring-1 ring-ink-200">
-                    {p.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </span>
-                </div>
-                <div className="p-5">
-                  <p className="font-display text-[1rem] text-ink-950">{p.name}</p>
-                  <p className="mt-1 text-[0.83rem] text-ink-500">{p.role}</p>
-                </div>
-              </Reveal>
-            ))}
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {leadership.map((p, i) => {
+              const isFounder = i === 0;
+              return (
+                <Reveal
+                  as="li"
+                  key={p.name}
+                  delay={i % 4}
+                  className={isFounder ? "sm:col-span-2 lg:row-span-2" : undefined}
+                >
+                  <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-ink-200/80 bg-white shadow-(--shadow-card) transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:border-brand-200 hover:shadow-(--shadow-card-hover)">
+                    <div
+                      className={cn(
+                        "relative overflow-hidden bg-[var(--canvas-subtle)]",
+                        isFounder ? "h-64 sm:h-80" : "h-40",
+                      )}
+                    >
+                      <div aria-hidden className="absolute inset-0 bg-grid opacity-60" />
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_25%,rgba(174,49,53,0.14),transparent_64%)]"
+                      />
+
+                      {isFounder ? (
+                        <Image
+                          src={chairmanMessage.photo}
+                          alt={p.name + ", " + p.role}
+                          fill
+                          sizes="(min-width: 1024px) 26rem, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover object-top transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+                        />
+                      ) : (
+                        <span className="absolute inset-0 flex items-center justify-center">
+                          <span className="relative flex size-16 items-center justify-center overflow-hidden rounded-2xl border border-brand-200/60 bg-white font-display text-[1.25rem] text-brand-700 shadow-[0_6px_18px_-12px_rgba(16,15,20,0.3)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-brand-500 group-hover:text-white">
+                            <span
+                              aria-hidden
+                              className="absolute inset-0 origin-bottom scale-y-0 bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-y-100"
+                            />
+                            <span className="relative">
+                              {p.name
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")}
+                            </span>
+                          </span>
+                        </span>
+                      )}
+
+                      {isFounder && (
+                        <span className="absolute left-4 top-4 rounded-full border border-white/50 bg-white/85 px-2.5 py-1 font-mono text-[0.56rem] uppercase tracking-[0.16em] text-brand-800 backdrop-blur-sm">
+                          Founder
+                        </span>
+                      )}
+                    </div>
+
+                    <div className={cn("flex flex-1 flex-col p-5", isFounder && "sm:p-6")}>
+                      <p
+                        className={cn(
+                          "font-display text-ink-950",
+                          isFounder ? "text-[1.3rem]" : "text-[1rem]",
+                        )}
+                      >
+                        {p.name}
+                      </p>
+                      <p className="mt-1 font-mono text-[0.58rem] uppercase tracking-[0.16em] text-ink-500">
+                        {p.role}
+                      </p>
+
+                      {isFounder && (
+                        <blockquote className="mt-4 border-l-2 border-brand-300 pl-4 text-pretty text-[0.9rem] leading-relaxed text-ink-600">
+                          {chairmanMessage.quote.split(". ")[0]}.
+                        </blockquote>
+                      )}
+                    </div>
+
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand-600 to-brand-400 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
+                    />
+                  </article>
+                </Reveal>
+              );
+            })}
           </ul>
         </Container>
       </section>

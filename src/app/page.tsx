@@ -9,7 +9,7 @@ import { AboutStripSection } from "@/components/sections/AboutStripSection";
 import { WhySection } from "@/components/sections/WhySection";
 import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
-import { AnimatedWaveScaleSection } from "@/components/sections/AnimatedWaveScaleSection";
+import { ReliabilitySection } from "@/components/sections/ReliabilitySection";
 import { CredentialsSection } from "@/components/sections/CredentialsSection";
 import { ReviewsSection } from "@/components/sections/ReviewsSection";
 import { FaqSection } from "@/components/sections/FaqSection";
@@ -46,8 +46,8 @@ export default function HomePage() {
       <IndustriesSection />
       {/* 10 — How we work */}
       <ProcessSection />
-      {/* 11 — Scale with confidence */}
-      <AnimatedWaveScaleSection />
+      {/* 11 — Reliability */}
+      <ReliabilitySection />
       {/* 12 — Objections */}
       <FaqSection />
       {/* 13 — Conversion */}

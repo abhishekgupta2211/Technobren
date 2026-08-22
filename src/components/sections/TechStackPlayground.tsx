@@ -57,9 +57,9 @@ export const TECH_TABS: TechStackTab[] = [
       "B2B Marketplaces",
     ],
     capabilities: [
-      { label: "RPS Throughput", value: "10,000+ RPS" },
-      { label: "SEO Rating", value: "100/100 Lighthouse" },
-      { label: "Security", value: "OWASP Compliant" },
+      { label: "Rendering", value: "Server & static" },
+      { label: "Routing", value: "File-based, typed" },
+      { label: "Delivery", value: "Edge-cached" },
     ],
   },
   {
@@ -79,7 +79,7 @@ export const TECH_TABS: TechStackTab[] = [
         "const bus = new EventBus({ concurrency: 50000 });",
         'bus.on("transaction.created", async (event) => {',
         '  await Microservice.processOrderSync(event.payload);',
-        '  console.log("✔ Order processed sub-25ms");',
+        '  console.log("✔ Order processed");',
         "});",
       ],
     },
@@ -96,9 +96,9 @@ export const TECH_TABS: TechStackTab[] = [
       "High-Traffic APIs",
     ],
     capabilities: [
-      { label: "API Latency", value: "< 25ms Average" },
-      { label: "Uptime SLA", value: "99.99% Operational" },
-      { label: "Concurrency", value: "50k Active Connections" },
+      { label: "Model", value: "Event-driven, non-blocking" },
+      { label: "Interfaces", value: "REST & GraphQL" },
+      { label: "Realtime", value: "Sockets & webhooks" },
     ],
   },
   {
@@ -134,8 +134,8 @@ export const TECH_TABS: TechStackTab[] = [
       "Fraud Detection Engines",
     ],
     capabilities: [
-      { label: "Model Accuracy", value: "98.7% Certified" },
-      { label: "Processing Speed", value: "1.2k Doc/Min" },
+      { label: "Extraction", value: "OCR & document parsing" },
+      { label: "Forecasting", value: "Demand & sales models" },
       { label: "Pipeline", value: "Automated ETL" },
     ],
   },
@@ -173,8 +173,8 @@ export const TECH_TABS: TechStackTab[] = [
       "Customer Mobile Apps",
     ],
     capabilities: [
-      { label: "Offline Mode", value: "100% Reliable Sync" },
-      { label: "Frame Rate", value: "60 FPS Native" },
+      { label: "Offline", value: "Queue & reconcile" },
+      { label: "Rendering", value: "Compiled native UI" },
       { label: "Platforms", value: "iOS & Android" },
     ],
   },
@@ -186,7 +186,7 @@ export const TECH_TABS: TechStackTab[] = [
     logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
     tagline: "ACID-Compliant Relational Data Engines & Search",
     description:
-      "We architect high-availability transactional PostgreSQL clusters, Redis caching layers, and vector search databases designed for zero data loss and sub-10ms queries.",
+      "We architect high-availability transactional PostgreSQL clusters, Redis caching layers and vector search databases, with replication, point-in-time recovery and query plans tuned to the access pattern.",
     codeSnippet: {
       filename: "technobren-cluster-query.sql",
       lines: [
@@ -211,9 +211,9 @@ export const TECH_TABS: TechStackTab[] = [
       "Inventory Ledgers",
     ],
     capabilities: [
-      { label: "Query Speed", value: "< 8ms Indexing" },
-      { label: "Reliability", value: "Zero Data Loss" },
-      { label: "Encryption", value: "AES-256 at Rest" },
+      { label: "Integrity", value: "ACID transactions" },
+      { label: "Indexing", value: "Query-plan tuned" },
+      { label: "Recovery", value: "Point-in-time restore" },
     ],
   },
   {
@@ -250,9 +250,9 @@ export const TECH_TABS: TechStackTab[] = [
       "Disaster Recovery",
     ],
     capabilities: [
-      { label: "Auto-Scaling", value: "100% Elastic" },
-      { label: "Deployment", value: "Zero Downtime" },
-      { label: "Security", value: "ISO 27001 Ready" },
+      { label: "Scaling", value: "Horizontal, on demand" },
+      { label: "Releases", value: "Rolling, with rollback" },
+      { label: "Observability", value: "Monitoring & alerting" },
     ],
   },
 ];
