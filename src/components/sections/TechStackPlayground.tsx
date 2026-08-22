@@ -261,7 +261,7 @@ export function TechStackPlayground() {
   const [activeTabId, setActiveTabId] = useState("nextjs");
   const [isPaused, setIsPaused] = useState(false);
 
-  // Automatic rotation loop every 3.5 seconds (pauses on hover)
+  // Automatic rotation loop every exact 5.0 seconds (pauses on hover)
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
@@ -270,7 +270,7 @@ export function TechStackPlayground() {
         const nextIndex = (currentIndex + 1) % TECH_TABS.length;
         return TECH_TABS[nextIndex].id;
       });
-    }, 3500);
+    }, 5000);
     return () => clearInterval(interval);
   }, [isPaused]);
 
@@ -311,7 +311,7 @@ export function TechStackPlayground() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTabId(tab.id)}
-                className={`relative flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-xs transition-all duration-300 text-center border ${
+                className={`relative overflow-hidden flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-xs transition-all duration-300 text-center border ${
                   isActive
                     ? "border-brand-500 bg-brand-50/90 text-brand-950 font-extrabold shadow-2xs"
                     : "border-ink-200/90 bg-white text-ink-700 hover:border-brand-300 hover:bg-brand-50/50 hover:text-ink-950 font-medium"
@@ -319,6 +319,17 @@ export function TechStackPlayground() {
               >
                 <img src={tab.logo} alt={tab.name} className="size-4 shrink-0 object-contain" />
                 <span className="truncate">{tab.name}</span>
+
+                {/* 5-Second Animated Progress Bar on Active Tab */}
+                {isActive && !isPaused && (
+                  <motion.span
+                    key={activeTabId}
+                    initial={{ width: "0%" }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 5, ease: "linear" }}
+                    className="absolute bottom-0 left-0 h-0.5 bg-brand-600 rounded-full"
+                  />
+                )}
               </button>
             );
           })}
