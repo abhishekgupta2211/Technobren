@@ -98,6 +98,7 @@ export default function WorkPage() {
         eyebrow="Who we build for"
         title={<>Platforms running inside <span className="text-brand-700">these businesses</span></>}
         description="Operations at these brands run on systems we designed, built and deployed."
+        moreHref={null}
       />
 
       {/* ---------- The platforms, as delivered engagements ---------- */}

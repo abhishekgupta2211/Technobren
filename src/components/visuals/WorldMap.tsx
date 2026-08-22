@@ -49,6 +49,38 @@ const GRATICULE = (() => {
   return d.join("");
 })();
 
+/**
+ * Live local time per office.
+ *
+ * Deliberately null on the first render and filled in after mount: the server
+ * and the visitor's machine are in different places, so rendering a clock
+ * during SSR guarantees a hydration mismatch.
+ */
+function useLocalTimes() {
+  const [times, setTimes] = useState<Record<string, string> | null>(null);
+
+  useEffect(() => {
+    const read = () =>
+      setTimes(
+        Object.fromEntries(
+          offices.map((o) => [
+            o.city,
+            new Intl.DateTimeFormat("en-GB", {
+              hour: "2-digit",
+              minute: "2-digit",
+              timeZone: o.tz,
+            }).format(new Date()),
+          ]),
+        ),
+      );
+    read();
+    const id = setInterval(read, 30_000);
+    return () => clearInterval(id);
+  }, []);
+
+  return times;
+}
+
 /** "Uganda" fills both the city and the country slot; never print it twice. */
 function placeName(o: Office) {
   return o.city === o.country ? o.city : `${o.city}, ${o.country}`;
@@ -73,6 +105,7 @@ export function WorldMap({ className }: { className?: string }) {
   // away from the one they are reading.
   const [touched, setTouched] = useState(false);
   const [zoomed, setZoomed] = useState(false);
+  const [hovered, setHovered] = useState<number | null>(null);
 
   const nodes = useMemo(() => offices.map(place), []);
   const legs = useMemo(
@@ -92,6 +125,7 @@ export function WorldMap({ className }: { className?: string }) {
     return () => clearInterval(id);
   }, [reduce, touched]);
 
+  const times = useLocalTimes();
   const active = offices[selected];
   const focus = nodes[selected];
 
@@ -268,8 +302,10 @@ export function WorldMap({ className }: { className?: string }) {
             <g style={plane(56)}>
               {nodes.map((n, i) => {
                 const on = i === selected;
+                const lit = on || hovered === i;
                 // Counter-scale, so a pin is the same size at every zoom level.
                 const k = 1 / scale;
+                const STEM = 26;
                 return (
                   <g
                     key={offices[i].city}
@@ -277,6 +313,8 @@ export function WorldMap({ className }: { className?: string }) {
                     style={{ transition: reduce ? undefined : `transform ${FLY}` }}
                     className="cursor-pointer"
                     onClick={() => choose(i)}
+                    onMouseEnter={() => setHovered(i)}
+                    onMouseLeave={() => setHovered(null)}
                     role="button"
                     tabIndex={0}
                     aria-label={placeName(offices[i])}
@@ -288,24 +326,76 @@ export function WorldMap({ className }: { className?: string }) {
                       }
                     }}
                   >
-                    <circle r={26} fill="transparent" />
+                    <circle r={30} fill="transparent" />
+
+                    {/* Where the marker meets the ground. */}
+                    <ellipse
+                      rx={lit ? 10 : 7}
+                      ry={lit ? 3.4 : 2.4}
+                      fill="#16151a"
+                      opacity={0.22}
+                      style={{ transition: reduce ? undefined : "all 400ms" }}
+                    />
                     {on && !reduce && (
-                      <motion.circle
+                      <motion.ellipse
                         fill="none"
                         stroke="#ae3135"
-                        strokeWidth={1.6}
-                        initial={{ r: 9, opacity: 0.75 }}
-                        animate={{ r: [9, 34], opacity: [0.75, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+                        strokeWidth={1.4}
+                        initial={{ rx: 10, ry: 3.4, opacity: 0.8 }}
+                        animate={{ rx: [10, 40], ry: [3.4, 13], opacity: [0.8, 0] }}
+                        transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }}
                       />
                     )}
-                    <motion.circle
-                      fill="#ae3135"
-                      filter="url(#wm-lift)"
-                      animate={{ r: on ? 10 : 6.5, opacity: on ? 1 : 0.62 }}
-                      transition={{ duration: reduce ? 0 : 0.45, ease: EASE }}
-                    />
-                    <circle r={3} fill="#fff" />
+
+                    {/* The mast, and the head sitting on top of it. */}
+                    <motion.g
+                      initial={reduce ? false : { y: -70, opacity: 0 }}
+                      whileInView={{ y: 0, opacity: 1 }}
+                      viewport={{ once: true, margin: "-10%" }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 220,
+                        damping: 16,
+                        delay: 0.5 + i * 0.12,
+                      }}
+                    >
+                      <line
+                        x1={0}
+                        y1={0}
+                        x2={0}
+                        y2={-STEM}
+                        stroke="#ae3135"
+                        strokeWidth={lit ? 2.4 : 1.8}
+                        strokeOpacity={lit ? 0.9 : 0.5}
+                        style={{ transition: reduce ? undefined : "all 400ms" }}
+                      />
+                      <motion.circle
+                        cy={-STEM}
+                        fill="#ae3135"
+                        filter="url(#wm-pin)"
+                        animate={{ r: lit ? 9 : 6 }}
+                        transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
+                      />
+                      <circle cy={-STEM} r={2.8} fill="#fff" />
+                    </motion.g>
+
+                    {/* Name on the map, so it reads without clicking. */}
+                    <text
+                      x={0}
+                      y={STEM + 16}
+                      textAnchor="middle"
+                      className="font-mono"
+                      fontSize={11}
+                      fontWeight={700}
+                      letterSpacing={0.6}
+                      fill={lit ? "#932a2e" : "#57565c"}
+                      stroke="#faf9f8"
+                      strokeWidth={3}
+                      paintOrder="stroke"
+                      style={{ transition: reduce ? undefined : "fill 400ms" }}
+                    >
+                      {offices[i].city.toUpperCase()}
+                    </text>
                   </g>
                 );
               })}
@@ -336,6 +426,11 @@ export function WorldMap({ className }: { className?: string }) {
               {active.hq && (
                 <span className="rounded border border-brand-200 bg-brand-50 px-1.5 py-px font-mono text-[0.58rem] uppercase tracking-wider text-brand-700">
                   HQ
+                </span>
+              )}
+              {times && (
+                <span className="ml-auto shrink-0 font-mono text-[0.8rem] font-semibold tabular-nums text-brand-700">
+                  {times[active.city]}
                 </span>
               )}
             </p>
@@ -398,8 +493,18 @@ export function WorldMap({ className }: { className?: string }) {
                     {o.city}
                   </span>
                   {o.hq && (
-                    <span className="ml-auto font-mono text-[0.55rem] uppercase tracking-wider text-brand-700">
+                    <span className="font-mono text-[0.55rem] uppercase tracking-wider text-brand-700">
                       HQ
+                    </span>
+                  )}
+                  {times && (
+                    <span
+                      className={cn(
+                        "ml-auto font-mono text-[0.72rem] font-semibold tabular-nums transition-colors duration-500",
+                        on ? "text-brand-700" : "text-ink-500",
+                      )}
+                    >
+                      {times[o.city]}
                     </span>
                   )}
                 </span>

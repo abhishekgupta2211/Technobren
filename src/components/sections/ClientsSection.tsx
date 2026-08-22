@@ -30,11 +30,16 @@ export function ClientsSection({
   eyebrow = "Clients",
   title,
   description = "Brands across FMCG, payments and education run day-to-day operations on platforms we designed, built and deployed.",
+  moreHref = "/work",
+  moreLabel = "View all projects",
 }: {
   className?: string;
   eyebrow?: string;
   title?: React.ReactNode;
   description?: string;
+  /** Pass null on a page that would otherwise link to itself. */
+  moreHref?: string | null;
+  moreLabel?: string;
 }) {
   return (
     <section
@@ -136,6 +141,23 @@ export function ClientsSection({
             )}
           </ul>
         </Reveal>
+
+        {moreHref && (
+          <Reveal delay={2}>
+            <div className="mt-7 flex justify-center">
+              <Link
+                href={moreHref}
+                className="group inline-flex items-center gap-2.5 rounded-full border border-ink-200 bg-white px-6 py-3 text-[0.88rem] font-semibold text-ink-800 shadow-(--shadow-card) transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700 hover:shadow-(--shadow-card-hover)"
+              >
+                {moreLabel}
+                <ArrowUpRight
+                  aria-hidden
+                  className="size-4 text-brand-600 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </Link>
+            </div>
+          </Reveal>
+        )}
       </Container>
     </section>
   );

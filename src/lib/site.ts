@@ -50,6 +50,8 @@ export type Office = {
   lon: number;
   /** ISO 3166-1 alpha-2, so the map can light the country this office is in. */
   iso: "IN" | "AE" | "UG";
+  /** IANA zone, used to show the office's live local time. */
+  tz: string;
   /**
    * Optional: an office is listed as soon as the presence is confirmed, but the
    * street address only appears once it has actually been supplied. Publishing a
@@ -62,6 +64,7 @@ export type Office = {
 export const offices: Office[] = [
   {
     city: "Jaunpur",
+    tz: "Asia/Kolkata",
     iso: "IN",
     country: "India",
     flag: "🇮🇳",
@@ -72,6 +75,7 @@ export const offices: Office[] = [
   },
   {
     city: "Ahmedabad",
+    tz: "Asia/Kolkata",
     iso: "IN",
     country: "India",
     flag: "🇮🇳",
@@ -82,6 +86,7 @@ export const offices: Office[] = [
   },
   {
     city: "Dubai",
+    tz: "Asia/Dubai",
     iso: "AE",
     country: "UAE",
     flag: "🇦🇪",
@@ -92,6 +97,7 @@ export const offices: Office[] = [
   },
   {
     city: "Uganda",
+    tz: "Africa/Kampala",
     iso: "UG",
     country: "Uganda",
     flag: "🇺🇬",
