@@ -134,6 +134,28 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+
+            {/* Official MSME & Govt Registration Badge */}
+            <div className="mt-7 pt-5 border-t border-ink-200/70 flex flex-col gap-2.5">
+              <span className="font-mono text-[0.65rem] uppercase tracking-wider text-ink-400 font-bold">
+                Government Certification &amp; Trust
+              </span>
+              <div className="flex items-center gap-3 rounded-2xl border border-ink-200/90 bg-white p-2.5 shadow-2xs">
+                <img
+                  src="/brand/msme-badge.svg"
+                  alt="MSME Registered Enterprise - Govt of India"
+                  className="h-11 w-auto object-contain"
+                />
+                <div className="border-l border-ink-100 pl-3">
+                  <span className="block font-display text-xs font-bold text-ink-950">
+                    MSME Registered
+                  </span>
+                  <span className="block text-[0.68rem] text-ink-500 font-medium">
+                    Govt. of India Enterprise
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="grid gap-10 sm:grid-cols-3 lg:col-span-8 lg:gap-8">
