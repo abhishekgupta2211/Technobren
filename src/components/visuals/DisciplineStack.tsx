@@ -39,6 +39,127 @@ const GAP = 30;
 const SPIN_SECONDS = 24;
 const LAG_SECONDS = 1;
 
+
+const C = "#ae3135";
+
+/**
+ * What sits on each plate.
+ *
+ * The plates were blank surfaces with a grid, which read as unfinished. Each
+ * now carries a schematic of the discipline it stands for — a phone frame for
+ * mobile, a layout wireframe for front end, a pipeline for data, and so on.
+ *
+ * Deliberately abstract rather than labelled: the plates turn, so any text
+ * would spend most of its time upside down. Opacity rises with depth so the
+ * surface plate reads as the detailed one and the plates beneath fade back.
+ */
+function PlateFace({ variant, strength }: { variant: number; strength: number }) {
+  const common = {
+    viewBox: "0 0 120 120",
+    className: "absolute inset-0 size-full",
+    fill: "none" as const,
+    "aria-hidden": true,
+    style: { opacity: strength },
+  };
+  const line = { stroke: C, strokeWidth: 1.4, strokeLinecap: "round" as const };
+
+  switch (variant) {
+    // Mobile — the surface plate: a device frame with content.
+    case 6:
+      return (
+        <svg {...common}>
+          <rect x="43" y="24" width="34" height="62" rx="7" {...line} strokeOpacity={0.5} />
+          <rect x="51" y="28" width="18" height="2.5" rx="1.25" fill={C} fillOpacity={0.35} />
+          {[38, 48, 58].map((y) => (
+            <rect key={y} x="49" y={y} width="22" height="6" rx="2" fill={C} fillOpacity={0.16} />
+          ))}
+          <rect x="49" y="68" width="14" height="6" rx="3" fill={C} fillOpacity={0.4} />
+          <circle cx="60" cy="82" r="2" fill={C} fillOpacity={0.45} />
+        </svg>
+      );
+    // Front end — a layout wireframe.
+    case 5:
+      return (
+        <svg {...common}>
+          <rect x="26" y="28" width="68" height="8" rx="2.5" fill={C} fillOpacity={0.22} />
+          <rect x="26" y="42" width="20" height="50" rx="2.5" fill={C} fillOpacity={0.13} />
+          <rect x="52" y="42" width="42" height="22" rx="2.5" fill={C} fillOpacity={0.18} />
+          <rect x="52" y="70" width="19" height="22" rx="2.5" fill={C} fillOpacity={0.13} />
+          <rect x="75" y="70" width="19" height="22" rx="2.5" fill={C} fillOpacity={0.13} />
+        </svg>
+      );
+    // Backend — request flowing through services.
+    case 4:
+      return (
+        <svg {...common}>
+          <path d="M22 60 H40 M56 60 H72 M88 60 H100" {...line} strokeOpacity={0.3} />
+          {[48, 80].map((x) => (
+            <rect key={x} x={x - 8} y="48" width="16" height="24" rx="4" {...line} strokeOpacity={0.45} />
+          ))}
+          <circle cx="22" cy="60" r="3" fill={C} fillOpacity={0.5} />
+          <circle cx="100" cy="60" r="3" fill={C} fillOpacity={0.5} />
+        </svg>
+      );
+    // Database — stacked volumes.
+    case 3:
+      return (
+        <svg {...common}>
+          {[40, 56, 72].map((y, k) => (
+            <g key={y}>
+              <rect x="36" y={y} width="48" height="12" rx="6" {...line} strokeOpacity={0.44 - k * 0.08} />
+              <circle cx="46" cy={y + 6} r="1.8" fill={C} fillOpacity={0.45} />
+            </g>
+          ))}
+        </svg>
+      );
+    // CMS & commerce — a card grid.
+    case 2:
+      return (
+        <svg {...common}>
+          {[0, 1, 2].map((r) =>
+            [0, 1, 2].map((c) => (
+              <rect
+                key={`${r}-${c}`}
+                x={30 + c * 21}
+                y={34 + r * 21}
+                width="16"
+                height="16"
+                rx="3"
+                fill={C}
+                fillOpacity={r === 1 && c === 1 ? 0.34 : 0.14}
+              />
+            )),
+          )}
+        </svg>
+      );
+    // AI & data — samples and the trend through them.
+    case 1:
+      return (
+        <svg {...common}>
+          <path d="M26 78 L44 66 L58 70 L74 50 L94 42" {...line} strokeOpacity={0.5} />
+          {[[26, 78], [44, 66], [58, 70], [74, 50], [94, 42]].map(([x, y]) => (
+            <circle key={`${x}`} cx={x} cy={y} r="2.6" fill={C} fillOpacity={0.5} />
+          ))}
+          <path d="M26 90 H94" {...line} strokeOpacity={0.16} />
+        </svg>
+      );
+    // Infrastructure — the base plate: racks and their uplink.
+    default:
+      return (
+        <svg {...common}>
+          {[42, 58, 74].map((y) => (
+            <rect key={y} x="34" y={y} width="52" height="10" rx="3" {...line} strokeOpacity={0.32} />
+          ))}
+          {[42, 58, 74].map((y) => (
+            <circle key={`d${y}`} cx="42" cy={y + 5} r="1.6" fill={C} fillOpacity={0.5} />
+          ))}
+          <path d="M60 32 V42" {...line} strokeOpacity={0.35} />
+          <circle cx="60" cy="30" r="3" fill={C} fillOpacity={0.45} />
+        </svg>
+      );
+  }
+}
+
 export function DisciplineStack({ className }: { className?: string }) {
   const reduce = useReducedMotion();
   const [active, setActive] = useState<number | null>(null);
@@ -112,6 +233,9 @@ export function DisciplineStack({ className }: { className?: string }) {
                       }}
                     >
                       <span className="pointer-events-none absolute inset-0 rounded-2xl bg-grid opacity-40" />
+                      <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+                        <PlateFace variant={i} strength={lit ? 1 : 0.35 + depth * 0.55} />
+                      </span>
                       <span className="pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-2xl bg-gradient-to-r from-transparent via-brand-400/70 to-transparent" />
                     </div>
                     {/* Set behind the face: the slab's thickness. */}
