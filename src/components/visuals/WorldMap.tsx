@@ -41,6 +41,26 @@ const HOME = (() => {
 
 const ZOOM = 3.2;
 
+/**
+ * Ocean swell: three sine lines at different depths and speeds. Each spans well
+ * beyond the frame and shifts by exactly one wavelength, so the loop is
+ * invisible. Drawn under a water mask, so they stop at every coastline.
+ */
+const WAVES = [
+  { y: 300, amp: 3.5, opacity: 0.5, width: 1.1, duration: "11s" },
+  { y: 372, amp: 4.5, opacity: 0.38, width: 1.3, duration: "8s" },
+  { y: 452, amp: 3, opacity: 0.3, width: 1, duration: "14s" },
+  { y: 236, amp: 3, opacity: 0.28, width: 1, duration: "13s" },
+  { y: 528, amp: 4, opacity: 0.26, width: 1.2, duration: "9.5s" },
+].map((w) => {
+  const WAVELENGTH = 120;
+  let d = `M -240 ${w.y}`;
+  for (let x = -240; x < 2400; x += WAVELENGTH) {
+    d += ` q ${WAVELENGTH / 4} ${-w.amp} ${WAVELENGTH / 2} 0 q ${WAVELENGTH / 4} ${w.amp} ${WAVELENGTH / 2} 0`;
+  }
+  return { ...w, d };
+});
+
 /** Meridians and parallels every 15 degrees, for the feel of a real chart. */
 const GRATICULE = (() => {
   const d: string[] = [];
@@ -178,6 +198,7 @@ export function WorldMap({ className }: { className?: string }) {
           <svg
             viewBox={`${HOME.x} ${HOME.y} ${HOME.w} ${HOME.h}`}
             className="relative w-full"
+            shapeRendering="geometricPrecision"
             style={{ transformStyle: "preserve-3d" }}
             role="img"
             aria-label={`TechnoBren offices: ${offices.map(placeName).join("; ")}`}
@@ -192,10 +213,11 @@ export function WorldMap({ className }: { className?: string }) {
                 <stop offset="0%" stopColor="#eceef0" />
                 <stop offset="100%" stopColor="#e3e6ea" />
               </linearGradient>
-              {/* The soft ring real charts carry where land meets water. */}
-              <filter id="wm-shelf" x="-15%" y="-15%" width="130%" height="130%">
-                <feGaussianBlur stdDeviation="4" />
-              </filter>
+              {/* Water-only mask, so the swell never crosses a coastline. */}
+              <mask id="wm-sea-mask">
+                <rect x="-4000" y="-4000" width="12000" height="12000" fill="#fff" />
+                <path d={LAND_PATH} fill="#000" />
+              </mask>
               <linearGradient id="wm-route" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0%" stopColor="#ae3135" stopOpacity="0.12" />
                 <stop offset="50%" stopColor="#ae3135" stopOpacity="0.85" />
@@ -244,9 +266,26 @@ export function WorldMap({ className }: { className?: string }) {
                 height={12000}
                 fill="url(#wm-sea)"
               />
-              {/* Shelf: a blurred copy of the coast, so the edge is not a
-                  hard cut between two flat fills. */}
-              <path d={LAND_PATH} fill="#c9c6c2" opacity={0.5} filter="url(#wm-shelf)" />
+              {/* Ocean swell: sine lines drifting west, clipped to water. */}
+              <g mask="url(#wm-sea-mask)">
+                {WAVES.map((w, i) => (
+                  <g
+                    key={i}
+                    className={reduce ? undefined : "anim-wave"}
+                    style={{ ["--wave-duration" as string]: w.duration }}
+                  >
+                    <path
+                      d={w.d}
+                      stroke="#8fa6bb"
+                      strokeOpacity={w.opacity}
+                      strokeWidth={w.width}
+                      strokeLinecap="round"
+                      vectorEffect="non-scaling-stroke"
+                      fill="none"
+                    />
+                  </g>
+                ))}
+              </g>
               <path
                 d={GRATICULE}
                 fill="none"
@@ -255,7 +294,16 @@ export function WorldMap({ className }: { className?: string }) {
                 strokeOpacity="0.28"
                 vectorEffect="non-scaling-stroke"
               />
-              <path d={LAND_PATH} fill="url(#wm-land)" filter="url(#wm-lift)" />
+              {/* A crisp offset copy stands in for the drop shadow: an SVG
+                  filter rasterises at one resolution, so at 3.2x zoom it was
+                  the single blurriest thing on the map. */}
+              <path
+                d={LAND_PATH}
+                fill="#57565c"
+                opacity={0.18}
+                transform="translate(0 5)"
+              />
+              <path d={LAND_PATH} fill="url(#wm-land)" />
               {/* The country the selected office is in, lit. */}
               <path
                 d={COUNTRY_PATHS[active.iso]}

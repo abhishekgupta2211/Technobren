@@ -252,6 +252,20 @@ body {
   animation: lift-bob 3.4s ease-in-out infinite;
 }
 
+/* Ocean swell on the office map. Shifts by exactly one wavelength so the loop
+   is seamless, and is masked to water so it never crosses a coastline. */
+@keyframes wave-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-120px);
+  }
+}
+.anim-wave {
+  animation: wave-drift var(--wave-duration, 9s) linear infinite;
+}
+
 /* Orbit — the logo arc motif */
 @keyframes orbit-spin {
   from {
