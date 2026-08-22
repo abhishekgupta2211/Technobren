@@ -87,72 +87,92 @@ export function OriginSection() {
       </svg>
 
       <Container size="wide" className="relative">
-        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-16">
-          {/* ---- The statement ---- */}
-          <div>
-            <Reveal>
-              <p className="flex items-center gap-2.5 font-mono text-[0.66rem] uppercase tracking-[0.22em] text-ink-500">
-                <span aria-hidden className="h-px w-5 bg-brand-300" />
-                Origin
-              </p>
-            </Reveal>
+        <div className="relative overflow-hidden rounded-[1.75rem] border border-ink-200/80 bg-white shadow-(--shadow-card)">
+          {/* Brand hairline along the top, matching the nav panel. */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-400/70 to-transparent"
+          />
 
-            <Reveal delay={1}>
-              <h2 className="mt-6 font-display text-[2.6rem] leading-[0.98] text-ink-950 sm:text-[3.4rem] lg:text-[4rem]">
-                Founded in{" "}
-                <span className="text-gradient-brand">{origin.foundedYear}</span>.
-              </h2>
-            </Reveal>
+          <div className="grid gap-10 p-7 sm:p-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+            {/* ---- The statement ---- */}
+            <div className="relative">
+              <Reveal>
+                <p className="flex items-center gap-2.5 font-mono text-[0.66rem] uppercase tracking-[0.22em] text-ink-500">
+                  <span aria-hidden className="h-px w-5 bg-brand-300" />
+                  Origin
+                </p>
+              </Reveal>
 
-            <Reveal delay={2}>
-              <p className="mt-2 font-display text-[1.9rem] font-medium italic leading-tight tracking-[-0.02em] text-ink-700 sm:text-[2.4rem]">
-                Still founder-led.
-              </p>
-            </Reveal>
+              <Reveal delay={1}>
+                <h2 className="mt-6 font-display text-[2.6rem] leading-[0.98] text-ink-950 sm:text-[3.2rem]">
+                  Founded in{" "}
+                  <span className="text-gradient-brand">{origin.foundedYear}</span>.
+                </h2>
+              </Reveal>
 
-            {/* ---- Counted, not claimed ---- */}
-            <Reveal delay={3}>
-              <p className="mt-8 flex items-center gap-3 text-[0.9rem] text-ink-600">
-                <span aria-hidden className="h-px w-8 bg-brand-300" />
-                {founder.name} · {founder.role}
-              </p>
-            </Reveal>
+              <Reveal delay={2}>
+                <p className="mt-2 font-[family-name:var(--font-display)] text-[1.8rem] font-medium italic leading-tight tracking-[-0.02em] text-ink-700 sm:text-[2.1rem]">
+                  Still founder-led.
+                </p>
+              </Reveal>
+
+              <Reveal delay={3}>
+                <div className="mt-8 flex items-center gap-3.5 rounded-2xl border border-ink-200 bg-[var(--canvas-subtle)] p-3.5">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800 font-display text-[0.8rem] text-white">
+                    {founder.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-[0.9rem] font-semibold text-ink-950">
+                      {founder.name}
+                    </span>
+                    <span className="block font-mono text-[0.58rem] uppercase tracking-[0.16em] text-ink-500">
+                      {founder.role}
+                    </span>
+                  </span>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* ---- The story, with the figures reading as part of it ---- */}
+            <div className="relative flex flex-col justify-between gap-8">
+              <Reveal delay={2}>
+                <p className="text-pretty text-[1.02rem] leading-[1.75] text-ink-600">
+                  TechnoBren started in {origin.foundedYear} as a small team of
+                  engineers who believed enterprise software should be built by
+                  people who understand the operation it runs. {origin.yearsInBusiness}{" "}
+                  years on, we are {offices.length} offices across {countries}{" "}
+                  countries — and {founder.name}, who started it, is still the one
+                  answering for what we ship.
+                </p>
+              </Reveal>
+
+              <Reveal delay={3}>
+                <dl className="grid grid-cols-3 divide-x divide-ink-200 border-t border-ink-200 pt-6">
+                  {FACTS.map((f, i) => (
+                    <div key={f.label} className={i === 0 ? "pr-5" : "px-5"}>
+                      <dt className="font-display text-[2rem] leading-none text-brand-700">
+                        {f.value}
+                        {f.suffix && (
+                          <span className="align-top text-[1.1rem]">{f.suffix}</span>
+                        )}
+                      </dt>
+                      <dd className="mt-2 font-mono text-[0.56rem] uppercase tracking-[0.16em] text-ink-500">
+                        {f.label}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </Reveal>
+            </div>
           </div>
-
-          {/* ---- The story ---- */}
-          <Reveal delay={2}>
-            <p className="text-pretty text-[1.02rem] leading-[1.75] text-ink-600 lg:text-[1.08rem]">
-              TechnoBren started in {origin.foundedYear} as a small team of engineers
-              who believed enterprise software should be built by people who
-              understand the operation it runs. {origin.yearsInBusiness} years on, we
-              are {offices.length} offices across {countries} countries — and{" "}
-              {founder.name}, who started it, is still the one answering for what we
-              ship.
-            </p>
-          </Reveal>
         </div>
 
-        {/* ---- Counted, not claimed ---- */}
-        <Reveal delay={3}>
-          <dl className="mt-12 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200 shadow-(--shadow-card)">
-            {FACTS.map((f) => (
-              <div key={f.label} className="bg-white px-6 py-6">
-                <dt className="font-display text-[2.1rem] leading-none text-brand-700">
-                  {f.value}
-                  {f.suffix && (
-                    <span className="align-top text-[1.2rem]">{f.suffix}</span>
-                  )}
-                </dt>
-                <dd className="mt-2.5 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-ink-500">
-                  {f.label}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
-
         {/* ---- Pillars ---- */}
-        <ul className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {PILLARS.map((p, i) => (
             <Reveal
               as="li"

@@ -42,20 +42,28 @@ const HOME = (() => {
 const ZOOM = 3.2;
 
 /**
- * Ocean swell: three sine lines at different depths and speeds. Each spans well
- * beyond the frame and shifts by exactly one wavelength, so the loop is
- * invisible. Drawn under a water mask, so they stop at every coastline.
+ * Ocean swell.
+ *
+ * Two opposing sets of sine lines at different periods and phases. Because they
+ * run against each other and never share a cycle length, the crests drift in
+ * and out of alignment instead of marching in lockstep — which is the thing
+ * that makes water look like water rather than like moving stripes.
+ *
+ * Colour runs from a pale crest to a deeper trough so the lines read as
+ * surface, not as ink drawn on top of it.
  */
 const WAVES = [
-  { y: 300, amp: 3.5, opacity: 0.5, width: 1.1, duration: "11s" },
-  { y: 372, amp: 4.5, opacity: 0.38, width: 1.3, duration: "8s" },
-  { y: 452, amp: 3, opacity: 0.3, width: 1, duration: "14s" },
-  { y: 236, amp: 3, opacity: 0.28, width: 1, duration: "13s" },
-  { y: 528, amp: 4, opacity: 0.26, width: 1.2, duration: "9.5s" },
+  { y: 236, amp: 3, opacity: 0.34, width: 1, duration: "13s", delay: "-2s", back: false, tone: "#9dc4de" },
+  { y: 300, amp: 3.5, opacity: 0.5, width: 1.15, duration: "9s", delay: "0s", back: false, tone: "#6f9dc4" },
+  { y: 344, amp: 2.5, opacity: 0.3, width: 0.9, duration: "16s", delay: "-5s", back: true, tone: "#9dc4de" },
+  { y: 372, amp: 4.5, opacity: 0.46, width: 1.3, duration: "11s", delay: "-3s", back: true, tone: "#5f8fb8" },
+  { y: 452, amp: 3, opacity: 0.38, width: 1.05, duration: "14s", delay: "-1s", back: false, tone: "#6f9dc4" },
+  { y: 500, amp: 2.5, opacity: 0.26, width: 0.9, duration: "18s", delay: "-7s", back: true, tone: "#9dc4de" },
+  { y: 552, amp: 4, opacity: 0.32, width: 1.2, duration: "12s", delay: "-4s", back: false, tone: "#5f8fb8" },
 ].map((w) => {
   const WAVELENGTH = 120;
-  let d = `M -240 ${w.y}`;
-  for (let x = -240; x < 2400; x += WAVELENGTH) {
+  let d = `M -300 ${w.y}`;
+  for (let x = -300; x < 2400; x += WAVELENGTH) {
     d += ` q ${WAVELENGTH / 4} ${-w.amp} ${WAVELENGTH / 2} 0 q ${WAVELENGTH / 4} ${w.amp} ${WAVELENGTH / 2} 0`;
   }
   return { ...w, d };
@@ -210,8 +218,9 @@ export function WorldMap({ className }: { className?: string }) {
                 <stop offset="100%" stopColor="#e2dfda" />
               </linearGradient>
               <linearGradient id="wm-sea" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#eceef0" />
-                <stop offset="100%" stopColor="#e3e6ea" />
+                <stop offset="0%" stopColor="#eaf1f6" />
+                <stop offset="55%" stopColor="#dfe9f1" />
+                <stop offset="100%" stopColor="#d5e2ec" />
               </linearGradient>
               {/* Water-only mask, so the swell never crosses a coastline. */}
               <mask id="wm-sea-mask">
@@ -272,11 +281,16 @@ export function WorldMap({ className }: { className?: string }) {
                   <g
                     key={i}
                     className={reduce ? undefined : "anim-wave"}
-                    style={{ ["--wave-duration" as string]: w.duration }}
+                    style={{
+                      ["--wave-duration" as string]: w.duration,
+                      ["--wave-delay" as string]: w.delay,
+                      // Half the sets run the other way; the two never line up.
+                      animationDirection: w.back ? "reverse" : "normal",
+                    }}
                   >
                     <path
                       d={w.d}
-                      stroke="#8fa6bb"
+                      stroke={w.tone}
                       strokeOpacity={w.opacity}
                       strokeWidth={w.width}
                       strokeLinecap="round"

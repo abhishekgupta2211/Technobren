@@ -252,18 +252,41 @@ body {
   animation: lift-bob 3.4s ease-in-out infinite;
 }
 
-/* Ocean swell on the office map. Shifts by exactly one wavelength so the loop
-   is seamless, and is masked to water so it never crosses a coastline. */
-@keyframes wave-drift {
-  from {
-    transform: translateX(0);
+/* Ocean swell on the office map.
+   Water does not travel in one direction forever — it runs in and draws back.
+   So this eases out and returns rather than translating linearly, and rises
+   very slightly at the top of the stroke, the way a swell lifts before it
+   settles. Two sets run against each other at different periods, which is what
+   produces the irregular interference real water has. Masked to the sea, so
+   nothing ever crosses a coastline. */
+@keyframes wave-swell {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
   }
-  to {
-    transform: translateX(-120px);
+  50% {
+    transform: translate3d(-60px, -2.5px, 0);
   }
 }
 .anim-wave {
-  animation: wave-drift var(--wave-duration, 9s) linear infinite;
+  animation: wave-swell var(--wave-duration, 9s) ease-in-out infinite;
+  animation-delay: var(--wave-delay, 0s);
+}
+
+/* The 3D discipline stack on /about. A slow float, so the isometric plates
+   read as suspended rather than pasted down. */
+@keyframes stack-float {
+  0%,
+  100% {
+    transform: translateY(0) rotateX(54deg) rotateZ(-38deg);
+  }
+  50% {
+    transform: translateY(-14px) rotateX(54deg) rotateZ(-38deg);
+  }
+}
+.animate-stack-float {
+  animation: stack-float 9s ease-in-out infinite;
+  transform-style: preserve-3d;
 }
 
 /* Orbit — the logo arc motif */

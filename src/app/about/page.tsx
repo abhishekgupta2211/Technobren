@@ -7,6 +7,7 @@ import { Counter } from "@/components/ui/Counter";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/sections/PageHero";
+import { DisciplineStack } from "@/components/visuals/DisciplineStack";
 import { OriginSection } from "@/components/sections/OriginSection";
 import { GlobalPresenceSection } from "@/components/sections/GlobalPresenceSection";
 import { ChairmanSection } from "@/components/sections/ChairmanSection";
@@ -34,6 +35,7 @@ export default function AboutPage() {
         title="The leading on-demand"
         accent="app solution provider."
         description="Our company is more than just a business; it is a testament to our unwavering commitment to excellence, innovation and integrity. As a unified global entity, we are dedicated to empowering our clients to innovate and thrive by delivering top-notch, customised solutions."
+        aside={<DisciplineStack />}
       >
         <div className="mt-9 flex flex-wrap gap-3">
           <Button href="/work" size="lg" arrow>

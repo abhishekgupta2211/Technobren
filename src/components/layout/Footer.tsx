@@ -209,16 +209,6 @@ export function Footer() {
           <p className="max-w-sm text-ink-500">
             {`The ${site.name} logo, brandmark and name are a registered trademark of ${site.legalName}. All rights reserved.`}
           </p>
-          <a
-            href="#main"
-            className="group inline-flex items-center gap-2 self-start rounded-full border border-ink-200 bg-white px-4 py-2 font-medium text-ink-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700 lg:self-auto"
-          >
-            Back to top
-            <ArrowUp
-              aria-hidden
-              className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5"
-            />
-          </a>
         </div>
       </Container>
     </footer>

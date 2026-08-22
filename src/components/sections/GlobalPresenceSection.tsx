@@ -37,8 +37,8 @@ export function GlobalPresenceSection() {
                   unfalsifiable claim about vision — the point is that the
                   working day never actually closes. */}
               <h2 className="mt-5 max-w-xl font-display text-[2.1rem] leading-[1.02] text-ink-950 sm:text-[2.7rem]">
-                {countries} countries.{" "}
-                <span className="text-brand-700">One working day.</span>
+                {offices.length} offices.{" "}
+                <span className="text-brand-700">One continuous shift.</span>
               </h2>
             </Reveal>
           </div>
