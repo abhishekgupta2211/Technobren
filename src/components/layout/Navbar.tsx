@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "motion/react";
-import { navigation, contact } from "@/lib/site";
+import { navigation } from "@/lib/site";
 import { megaMenu } from "@/lib/megaMenu";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -240,12 +240,6 @@ export function Navbar() {
               className="flex shrink-0 items-center gap-2.5"
               onMouseEnter={closeNow}
             >
-              <a
-                href={`mailto:${contact.primaryEmail}`}
-                className="hidden rounded-full px-3.5 py-2 text-[0.82rem] font-medium text-ink-600 transition-colors duration-300 hover:text-brand-700 2xl:block"
-              >
-                {contact.primaryEmail}
-              </a>
               <Button
                 href="/contact"
                 size="sm"

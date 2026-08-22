@@ -17,11 +17,10 @@ import { cn } from "@/lib/utils";
  * The whole stack is on screen at once, drifting past in three lanes, rather
  * than hidden behind tabs. Two levels of interaction:
  *
- * - Pointing at a discipline lights it up and dims the rest, so you can find a
- *   category without losing sight of the whole.
- * - Clicking one pins it, and the lanes then carry *only* that discipline —
- *   pick Mobile and you see the mobile stack and nothing else. Clicking again
- *   (or "Show all") releases it.
+ * - Pointing at a discipline narrows the lanes to it immediately — hover Mobile
+ *   and the lanes carry the mobile stack and nothing else.
+ * - Clicking pins that choice, so it survives the pointer leaving. Clicking
+ *   again (or "Show all") releases it.
  */
 export function TechnologySection() {
   const [hovered, setHovered] = useState<string | null>(null);
@@ -33,22 +32,22 @@ export function TechnologySection() {
   // Flatten the stack, then deal it into three lanes so each row is a mix of
   // disciplines rather than one category per line.
   const lanes = useMemo(() => {
-    const source = pinned
-      ? techCategories.filter((c) => c.name === pinned)
+    const source = active
+      ? techCategories.filter((c) => c.name === active)
       : techCategories;
     const flat = source.flatMap((c) =>
       c.items.map((item) => ({ item, category: c.name })),
     );
-    // A pinned discipline has too few items to fill three lanes, so it runs as
-    // a single lane instead of three sparse ones.
-    const laneCount = pinned ? 1 : 3;
+    // A single discipline has too few items to fill three lanes, so it runs as
+    // one lane rather than three sparse ones.
+    const laneCount = active ? 1 : 3;
     const out: { item: string; category: string }[][] = Array.from(
       { length: laneCount },
       () => [],
     );
     flat.forEach((entry, i) => out[i % laneCount].push(entry));
     return out;
-  }, [pinned]);
+  }, [active]);
 
   const total = techCategories.reduce((n, c) => n + c.items.length, 0);
 
@@ -151,9 +150,8 @@ export function TechnologySection() {
                       animationDirection: laneIndex === 1 ? "reverse" : "normal",
                     }}
                   >
-                    {[...lane, ...lane].map(({ item, category }, i) => {
-                      const dim = active !== null && active !== category;
-                      const lit = active !== null && active === category;
+                    {[...lane, ...lane].map(({ item }, i) => {
+                      const lit = active !== null;
                       const logoUrl = getTechLogo(item);
 
                       return (
@@ -163,8 +161,7 @@ export function TechnologySection() {
                             "flex shrink-0 items-center gap-2.5 rounded-xl border bg-white px-3.5 py-2.5 text-[0.85rem] font-semibold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-2xs hover:scale-105",
                             lit &&
                               "border-brand-500 text-brand-900 bg-brand-50/60 shadow-[0_5px_14px_-10px_rgba(174,49,53,0.4)]",
-                            dim && "border-ink-200/60 text-ink-500 opacity-40",
-                            !lit && !dim && "border-ink-200 text-ink-800 hover:border-brand-300",
+                            !lit && "border-ink-200 text-ink-800 hover:border-brand-300",
                           )}
                         >
                           {logoUrl ? (
@@ -203,10 +200,10 @@ export function TechnologySection() {
             className="text-center text-[0.9rem] text-ink-600"
           >
             {pinned
-              ? `${techCategories.find((c) => c.name === pinned)?.blurb} — showing ${pinned} only.`
+              ? `${techCategories.find((c) => c.name === pinned)?.blurb} — pinned to ${pinned}.`
               : active
                 ? techCategories.find((c) => c.name === active)?.blurb
-                : "Point at a discipline to highlight it, or click to see only that stack."}
+                : "Point at a discipline to see only that stack, or click to pin it."}
           </motion.p>
         </Reveal>
       </Container>
