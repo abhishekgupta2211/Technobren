@@ -10,6 +10,7 @@ import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PageHero } from "@/components/sections/PageHero";
 import { DASHBOARDS } from "@/components/visuals/dashboard";
+import { ClientsSection } from "@/components/sections/ClientsSection";
 
 export const metadata: Metadata = {
   title: "Our Work",
@@ -92,6 +93,12 @@ export default function WorkPage() {
           </dl>
         </Container>
       </section>
+
+      <ClientsSection
+        eyebrow="Who we build for"
+        title={<>Platforms running inside <span className="text-brand-700">these businesses</span></>}
+        description="Operations at these brands run on systems we designed, built and deployed."
+      />
 
       {/* ---------- The platforms, as delivered engagements ---------- */}
       <section className="border-t border-ink-100">

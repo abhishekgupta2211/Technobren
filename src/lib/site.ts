@@ -870,6 +870,41 @@ export const contactAssurances = {
 };
 
 /* ------------------------------------------------------------------ */
+/* CLIENTS — logos supplied by TechnoBren                              */
+/* Sectors are stated only where the client's own public positioning     */
+/* makes them plain (beverages, bakery, water, payments, education).      */
+/* No engagement detail is claimed here — see REDESIGN-NOTES.md §5.7.      */
+/* ------------------------------------------------------------------ */
+
+export type Client = {
+  name: string;
+  /** Sits under the mark, so the wall still reads when a logo is unfamiliar. */
+  sector: string;
+  logo: string;
+  /**
+   * Width in CSS px at the rendered height. The source files are pre-trimmed
+   * and optically balanced, so these are just their natural ratios at h-14.
+   */
+  width: number;
+  height: number;
+  /**
+   * True when the artwork is a reversed lockup that carries its own background
+   * plate — it must not sit on a white card as if it were transparent.
+   */
+  plate?: boolean;
+};
+
+export const clients: Client[] = [
+  { name: "Coca-Cola", sector: "Beverages", logo: "/clients/coca-cola.png", width: 135, height: 45 },
+  { name: "Mastercard", sector: "Payments", logo: "/clients/mastercard.png", width: 89, height: 54 },
+  { name: "Masafi", sector: "Beverages & water", logo: "/clients/masafi.png", width: 94, height: 54 },
+  { name: "Admirals", sector: "Food & FMCG", logo: "/clients/admirals.png", width: 160, height: 54 },
+  { name: "Modern Bakery", sector: "Bakery & FMCG", logo: "/clients/modern-bakery.png", width: 146, height: 54 },
+  { name: "Hariss International", sector: "Beverages · Uganda", logo: "/clients/hariss.png", width: 113, height: 54, plate: true },
+  { name: "SchoolExl", sector: "Education technology", logo: "/clients/schoolexl.png", width: 200, height: 29 },
+];
+
+/* ------------------------------------------------------------------ */
 /* NAVIGATION                                                          */
 /* ------------------------------------------------------------------ */
 
