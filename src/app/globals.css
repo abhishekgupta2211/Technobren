@@ -274,6 +274,60 @@ body {
 }
 
 /* The 3D discipline stack on /about.
+   The whole stack used to turn as one block. Each plate now turns on its own
+   axis instead, on a duration no other plate shares and from a different
+   starting angle — so the corners drift in and out of alignment forever and
+   the stack never reads as one rigid object. Bob stays on an outer element so
+   translation and rotation cannot overwrite each other. */
+@keyframes stack-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+}
+@keyframes plate-spin {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+.animate-stack-bob {
+  animation: stack-bob 7s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+.animate-plate-spin {
+  animation: plate-spin var(--plate-duration, 30s) linear infinite;
+  animation-delay: var(--plate-delay, 0s);
+  transform-style: preserve-3d;
+}
+
+/* Ocean swell on the office map.
+   Water does not travel in one direction forever — it runs in and draws back.
+   So this eases out and returns rather than translating linearly, and rises
+   very slightly at the top of the stroke, the way a swell lifts before it
+   settles. Two sets run against each other at different periods, which is what
+   produces the irregular interference real water has. Masked to the sea, so
+   nothing ever crosses a coastline. */
+@keyframes wave-swell {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-60px, -2.5px, 0);
+  }
+}
+.anim-wave {
+  animation: wave-swell var(--wave-duration, 9s) ease-in-out infinite;
+  animation-delay: var(--wave-delay, 0s);
+}
+
+/* The 3D discipline stack on /about.
    Bob and spin are separate elements on purpose: one translates, the other
    rotates, on periods that do not divide into each other. Combined in a single
    keyframe they would loop in lockstep and read as mechanical. */

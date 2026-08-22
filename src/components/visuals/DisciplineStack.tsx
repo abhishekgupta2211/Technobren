@@ -12,10 +12,12 @@ import { cn } from "@/lib/utils";
  * in Z. Vector, so it stays crisp at any size, and it genuinely parallaxes
  * rather than being an isometric drawing.
  *
- * Motion is split across two elements — an outer one that bobs and an inner one
- * that turns — on periods that do not divide into each other (7s against 26s).
- * Folded into a single keyframe they would loop together and read as
- * mechanical; kept apart, the stack never quite repeats itself.
+ * Every plate turns on its own axis rather than the stack turning as a block:
+ * seven durations that share no common multiple, each starting from a
+ * different angle, so the corners drift in and out of alignment and the shape
+ * never repeats. Bob lives on an outer element, and depth on a wrapper inside
+ * each plate — translation and rotation on one element would overwrite each
+ * other, which is a mistake already made once on the office map.
  *
  * The labels are a flat legend rather than being pinned to the plates. Anchored
  * in 3D they came out skewed, collided with each other, and — once the stack
@@ -24,6 +26,13 @@ import { cn } from "@/lib/utils";
  */
 
 const GAP = 30;
+
+/**
+ * Seconds per revolution, one per plate. Deliberately co-prime-ish: no two
+ * share a factor, so the stack takes many minutes to return to any pose it has
+ * held before. Negative delays start each plate part-way round.
+ */
+const SPIN = [23, 29, 37, 31, 43, 26, 34];
 
 export function DisciplineStack({ className }: { className?: string }) {
   const reduce = useReducedMotion();
@@ -54,15 +63,12 @@ export function DisciplineStack({ className }: { className?: string }) {
           style={{ transformStyle: "preserve-3d" }}
         >
           <div
-            className={cn(
-              "relative flex items-center justify-center",
-              !reduce && "animate-stack-spin",
-            )}
+            className="relative flex items-center justify-center"
             style={{
               transformStyle: "preserve-3d",
-              // Held at the same tilt the spin keyframe starts from, so a
-              // reduced-motion visitor sees the intended pose rather than flat.
-              transform: reduce ? "rotateX(54deg) rotateZ(-38deg)" : undefined,
+              // The stage holds the isometric tilt; the plates inside do the
+              // turning, each on its own clock.
+              transform: "rotateX(54deg) rotateZ(-38deg)",
             }}
           >
             {plates.map((c, i) => {
@@ -71,6 +77,8 @@ export function DisciplineStack({ className }: { className?: string }) {
               return (
                 <div
                   key={c.name}
+                  // Depth only. The spin lives on the child, because one
+                  // element cannot hold two transforms.
                   className="absolute size-[11.5rem] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
                   style={{
                     transform: `translateZ(${(i - (plates.length - 1) / 2) * GAP + (lit ? 22 : 0)}px)`,
@@ -78,25 +86,35 @@ export function DisciplineStack({ className }: { className?: string }) {
                   }}
                 >
                   <div
-                    className={cn(
-                      "absolute inset-0 rounded-2xl border transition-[background-color,border-color,box-shadow] duration-500",
-                      lit ? "border-brand-500" : "border-brand-200/60",
-                    )}
+                    className={cn("absolute inset-0", !reduce && "animate-plate-spin")}
                     style={{
-                      backgroundColor: `rgba(${255 - (1 - depth) * 16}, ${255 - (1 - depth) * 28}, ${255 - (1 - depth) * 28}, ${0.52 + depth * 0.4})`,
-                      boxShadow: lit
-                        ? "0 26px 50px -26px rgba(174,49,53,0.6)"
-                        : "0 20px 44px -30px rgba(16,15,20,0.5)",
+                      ["--plate-duration" as string]: `${SPIN[i % SPIN.length]}s`,
+                      ["--plate-delay" as string]: `-${i * 3.5}s`,
+                      // Pauses the whole stack while a plate is being read.
+                      animationPlayState: active !== null ? "paused" : undefined,
                     }}
                   >
-                    <span className="pointer-events-none absolute inset-0 rounded-2xl bg-grid opacity-40" />
-                    <span className="pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-2xl bg-gradient-to-r from-transparent via-brand-400/70 to-transparent" />
+                    <div
+                      className={cn(
+                        "absolute inset-0 rounded-2xl border transition-[background-color,border-color,box-shadow] duration-500",
+                        lit ? "border-brand-500" : "border-brand-200/60",
+                      )}
+                      style={{
+                        backgroundColor: `rgba(${255 - (1 - depth) * 16}, ${255 - (1 - depth) * 28}, ${255 - (1 - depth) * 28}, ${0.52 + depth * 0.4})`,
+                        boxShadow: lit
+                          ? "0 26px 50px -26px rgba(174,49,53,0.6)"
+                          : "0 20px 44px -30px rgba(16,15,20,0.5)",
+                      }}
+                    >
+                      <span className="pointer-events-none absolute inset-0 rounded-2xl bg-grid opacity-40" />
+                      <span className="pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-2xl bg-gradient-to-r from-transparent via-brand-400/70 to-transparent" />
+                    </div>
+                    {/* Set behind the face: the slab's thickness. */}
+                    <div
+                      className="absolute inset-0 rounded-2xl bg-gradient-to-br from-brand-200/50 to-brand-300/40"
+                      style={{ transform: "translateZ(-7px)" }}
+                    />
                   </div>
-                  {/* Set behind the face: the slab's thickness. */}
-                  <div
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-br from-brand-200/50 to-brand-300/40"
-                    style={{ transform: "translateZ(-7px)" }}
-                  />
                 </div>
               );
             })}
