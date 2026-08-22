@@ -5,6 +5,7 @@ import {
   solutions,
   processSteps,
   leadership,
+  stats,
 } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
@@ -42,10 +43,22 @@ const PILLARS = [
 export function OriginSection() {
   const countries = new Set(offices.map((o) => o.country)).size;
 
+  const projects = stats.find((s) => s.label === "Projects delivered");
+
+  /**
+   * Only open-ended figures carry a "+". Offices and countries are exact
+   * counts — an earlier version appended it to all three, which claimed more
+   * offices and more countries than there are.
+   */
   const FACTS = [
-    { value: `${origin.yearsInBusiness}`, label: "Years building" },
-    { value: `${offices.length}`, label: "Offices" },
-    { value: `${countries}`, label: "Countries" },
+    { value: origin.yearsInBusiness, suffix: "+", label: "Years building" },
+    { value: offices.length, suffix: "", label: "Offices" },
+    { value: countries, suffix: "", label: "Countries" },
+    {
+      value: projects?.value ?? 0,
+      suffix: projects?.suffix ?? "",
+      label: "Projects delivered",
+    },
   ];
 
   return (
@@ -104,19 +117,10 @@ export function OriginSection() {
 
             {/* ---- Counted, not claimed ---- */}
             <Reveal delay={3}>
-              <dl className="mt-9 grid max-w-md grid-cols-3 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200 shadow-(--shadow-card)">
-                {FACTS.map((f) => (
-                  <div key={f.label} className="bg-white px-5 py-4">
-                    <dt className="font-display text-[1.7rem] leading-none text-brand-700">
-                      {f.value}
-                      <span className="text-[1.1rem] align-top">+</span>
-                    </dt>
-                    <dd className="mt-1.5 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-ink-500">
-                      {f.label}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+              <p className="mt-8 flex items-center gap-3 text-[0.9rem] text-ink-600">
+                <span aria-hidden className="h-px w-8 bg-brand-300" />
+                {founder.name} · {founder.role}
+              </p>
             </Reveal>
           </div>
 
@@ -133,8 +137,27 @@ export function OriginSection() {
           </Reveal>
         </div>
 
+        {/* ---- Counted, not claimed ---- */}
+        <Reveal delay={3}>
+          <dl className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200 shadow-(--shadow-card) lg:grid-cols-4">
+            {FACTS.map((f) => (
+              <div key={f.label} className="bg-white px-6 py-6">
+                <dt className="font-display text-[2.1rem] leading-none text-brand-700">
+                  {f.value}
+                  {f.suffix && (
+                    <span className="align-top text-[1.2rem]">{f.suffix}</span>
+                  )}
+                </dt>
+                <dd className="mt-2.5 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-ink-500">
+                  {f.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
+
         {/* ---- Pillars ---- */}
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PILLARS.map((p, i) => (
             <Reveal
               as="li"

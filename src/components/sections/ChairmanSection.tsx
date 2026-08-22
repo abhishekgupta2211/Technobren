@@ -92,7 +92,14 @@ export function ChairmanSection() {
             </Reveal>
 
             <Reveal delay={2}>
-              <blockquote className="mt-5 text-balance font-display text-[1.3rem] font-semibold leading-[1.5] tracking-[-0.02em] text-ink-900 sm:text-[1.6rem] lg:text-[1.8rem]">
+              {/*
+                Uses the display family directly rather than the `.font-display`
+                class: that class is declared outside any layer in globals.css,
+                so its `font-weight: 800; line-height: 1.02` beat the utilities
+                written here — which is why this quote was rendering as a
+                cramped headline instead of a readable pull-quote.
+              */}
+              <blockquote className="mt-5 text-pretty font-[family-name:var(--font-display)] text-[1.15rem] font-medium leading-[1.62] tracking-[-0.005em] text-ink-800 sm:text-[1.3rem] lg:text-[1.42rem]">
                 {chairmanMessage.quote}
               </blockquote>
             </Reveal>
