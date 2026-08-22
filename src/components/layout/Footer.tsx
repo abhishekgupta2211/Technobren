@@ -140,23 +140,12 @@ export function Footer() {
               <span className="font-mono text-[0.68rem] font-bold uppercase tracking-wider text-ink-400">
                 Government Certification &amp; Trust
               </span>
-              <div className="flex items-center gap-3.5 rounded-2xl border border-brand-200/80 bg-white p-3 shadow-sm hover:shadow-md transition-all duration-300">
+              <div className="inline-flex items-center justify-center rounded-2xl border border-ink-200/90 bg-white p-3 shadow-xs self-start">
                 <img
                   src="/brand/msme-official.png"
                   alt="MSME Micro Small Medium Enterprises - Govt of India"
-                  className="h-12 w-auto object-contain rounded-lg"
+                  className="h-16 w-auto object-contain rounded-lg"
                 />
-                <div className="border-l border-ink-200/90 pl-3.5 pr-2">
-                  <div className="flex items-center gap-1.5">
-                    <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="font-display text-xs font-extrabold text-ink-950">
-                      MSME Registered
-                    </span>
-                  </div>
-                  <span className="block text-[0.7rem] font-bold text-brand-700 mt-0.5">
-                    Govt. of India Enterprise
-                  </span>
-                </div>
               </div>
             </div>
           </div>
