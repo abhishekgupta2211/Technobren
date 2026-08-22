@@ -104,7 +104,8 @@ const organizationSchema = {
   founder: { "@type": "Person", name: "Rajkeshar Yadav" },
   address: offices.map((o) => ({
     "@type": "PostalAddress",
-    streetAddress: o.address,
+    // Omitted rather than emitted empty when the street address is not yet known.
+    ...(o.address ? { streetAddress: o.address } : {}),
     addressLocality: o.city,
     addressCountry: o.country,
   })),

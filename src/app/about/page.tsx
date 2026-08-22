@@ -16,12 +16,12 @@ import { CTASection } from "@/components/sections/CTASection";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "TechnoBren Infotech is an offshore software development company with offices across India, the UAE and the USA. Meet the team, the values and the milestones behind our work.",
+    "TechnoBren Infotech is an offshore software development company with offices across India, the UAE and Uganda. Meet the team, the values and the milestones behind our work.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About Us | TechnoBren Infotech",
     description:
-      "An offshore software development company with offices across India, the UAE and the USA.",
+      "An offshore software development company with offices across India, the UAE and Uganda.",
     url: "/about",
   },
 };
@@ -269,18 +269,22 @@ export default function AboutPage() {
                       <div className="min-w-0 flex-1">
                         <p className="flex items-center gap-2 text-[0.92rem] font-semibold text-ink-950">
                           {o.city}
-                          <span className="text-[0.78rem] font-normal text-ink-600">
-                            {o.country}
-                          </span>
+                          {o.city !== o.country && (
+                            <span className="text-[0.78rem] font-normal text-ink-600">
+                              {o.country}
+                            </span>
+                          )}
                           {o.hq && (
                             <span className="rounded border border-brand-200 bg-brand-50 px-1.5 py-px font-mono text-[0.6rem] uppercase tracking-wider text-brand-700">
                               HQ
                             </span>
                           )}
                         </p>
-                        <p className="mt-1 text-pretty text-[0.82rem] leading-relaxed text-ink-500">
-                          {o.address}
-                        </p>
+                        {o.address && (
+                          <p className="mt-1 text-pretty text-[0.82rem] leading-relaxed text-ink-500">
+                            {o.address}
+                          </p>
+                        )}
                       </div>
                     </li>
                   ))}

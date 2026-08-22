@@ -45,7 +45,12 @@ export type Office = {
   city: string;
   country: string;
   flag: string;
-  address: string;
+  /**
+   * Optional: an office is listed as soon as the presence is confirmed, but the
+   * street address only appears once it has actually been supplied. Publishing a
+   * guessed address is worse than publishing none.
+   */
+  address?: string;
   hq?: boolean;
 };
 
@@ -75,7 +80,9 @@ export const offices: Office[] = [
     city: "Uganda",
     country: "Uganda",
     flag: "🇺🇬",
-    address: "499, N. Canon Drive, Suite 215, Beverly Hills CA 90210 USA",
+    // TODO(client): supply the Kampala street address. The value that was here —
+    // "499, N. Canon Drive, Suite 215, Beverly Hills CA 90210 USA" — is a
+    // Beverly Hills, California address and was never a Uganda one.
   },
 ];
 

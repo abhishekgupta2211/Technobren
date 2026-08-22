@@ -40,9 +40,11 @@ export default function CareersPage() {
                   <span className="text-[0.88rem] font-medium text-ink-900">
                     {o.city}
                   </span>
-                  <span className="ml-auto text-[0.78rem] text-ink-500">
-                    {o.country}
-                  </span>
+                  {o.city !== o.country && (
+                    <span className="ml-auto text-[0.78rem] text-ink-500">
+                      {o.country}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
@@ -189,7 +191,9 @@ export default function CareersPage() {
                         <p className="text-[0.9rem] font-semibold text-ink-950">
                           {o.city}
                         </p>
-                        <p className="text-[0.78rem] text-ink-500">{o.country}</p>
+                        {o.city !== o.country && (
+                          <p className="text-[0.78rem] text-ink-500">{o.country}</p>
+                        )}
                       </div>
                     </li>
                   ))}

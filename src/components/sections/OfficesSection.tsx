@@ -54,10 +54,15 @@ export function OfficesSection() {
                     )}
                   </div>
 
-                  <p className="mt-4 flex items-start gap-2.5 text-[0.85rem] leading-relaxed text-ink-600">
-                    <MapPin className="mt-1 size-4 shrink-0 text-brand-600" aria-hidden />
-                    <span>{office.address}</span>
-                  </p>
+                  {office.address && (
+                    <p className="mt-4 flex items-start gap-2.5 text-[0.85rem] leading-relaxed text-ink-600">
+                      <MapPin
+                        className="mt-1 size-4 shrink-0 text-brand-600"
+                        aria-hidden
+                      />
+                      <span>{office.address}</span>
+                    </p>
+                  )}
                 </div>
 
                 <div className="mt-6 flex items-center justify-between border-t border-ink-100 pt-4 text-[0.75rem] font-medium text-ink-500">
