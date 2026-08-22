@@ -150,7 +150,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-3 lg:col-span-8 lg:gap-8">
+          <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4 lg:col-span-8 lg:gap-8">
             {COLUMNS.map((col) => (
               <nav key={col.title} aria-label={col.title}>
                 <ColumnTitle>{col.title}</ColumnTitle>
@@ -174,6 +174,24 @@ export function Footer() {
                 </ul>
               </nav>
             ))}
+
+            {/* 4th Column: Global Offices */}
+            <div>
+              <ColumnTitle>Global Presence</ColumnTitle>
+              <ul className="mt-5 space-y-3.5">
+                {offices.map((off) => (
+                  <li key={off.country} className="text-[0.85rem]">
+                    <div className="flex items-center gap-2 font-bold text-ink-950">
+                      <CountryMark country={off.country} className="size-3.5 shrink-0 rounded-xs" />
+                      <span>{off.city}, {off.country}</span>
+                    </div>
+                    <span className="block text-[0.72rem] text-ink-500 font-medium mt-0.5 pl-5 truncate">
+                      {off.address}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
