@@ -17,8 +17,9 @@ import { cn } from "@/lib/utils";
  * same institutional weight as the milestone tables, which is the right register
  * for a credibility section.
  *
- * The eighth cell is a quiet invitation, so seven logos still fill a four-column
- * grid exactly.
+ * The grid is two columns on a phone and four from lg, and a closing
+ * invitation cell is only added when the logo count would otherwise leave a
+ * ragged last row — so the wall stays perfectly filled as clients are added.
  *
  * Logo artwork is pre-processed — background knocked out, trimmed to its ink and
  * optically balanced so a wide wordmark does not overpower a square mark. See
@@ -65,7 +66,7 @@ export function ClientsSection({
         </div>
 
         <Reveal delay={1}>
-          <ul className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200 shadow-(--shadow-card) sm:grid-cols-3 lg:grid-cols-4">
+          <ul className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-200 bg-ink-200 shadow-(--shadow-card) lg:grid-cols-4">
             {clients.map((c) => (
               <li
                 key={c.name}
@@ -113,7 +114,8 @@ export function ClientsSection({
               </li>
             ))}
 
-            {/* Eighth cell: completes the four-column grid rather than leaving a hole. */}
+            {/* Only rendered when the logos would otherwise leave a gap. */}
+            {clients.length % 4 !== 0 && (
             <li className="group bg-white transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-brand-50/40">
               <Link
                 href="/contact"
@@ -131,6 +133,7 @@ export function ClientsSection({
                 </span>
               </Link>
             </li>
+            )}
           </ul>
         </Reveal>
       </Container>

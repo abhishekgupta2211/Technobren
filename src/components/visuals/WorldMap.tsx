@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MapPin, Building2 } from "lucide-react";
 import { offices, type Office } from "@/lib/site";
-import { LAND_PATH, BORDER_PATH, project } from "./worldGeo";
+import { LAND_PATH, BORDER_PATH, COUNTRY_PATHS, project } from "./worldGeo";
 import { cn } from "@/lib/utils";
 
 /**
@@ -34,6 +34,20 @@ const HOME = (() => {
 })();
 
 const ZOOM = 3.2;
+
+/** Meridians and parallels every 15 degrees, for the feel of a real chart. */
+const GRATICULE = (() => {
+  const d: string[] = [];
+  for (let lon = -180; lon <= 180; lon += 15) {
+    const a = project(lon, 84), b = project(lon, -60);
+    d.push(`M${a.x} ${a.y}L${b.x} ${b.y}`);
+  }
+  for (let lat = -60; lat <= 84; lat += 15) {
+    const a = project(-180, lat), b = project(180, lat);
+    d.push(`M${a.x} ${a.y}L${b.x} ${b.y}`);
+  }
+  return d.join("");
+})();
 
 /** "Uganda" fills both the city and the country slot; never print it twice. */
 function placeName(o: Office) {
@@ -88,18 +102,18 @@ export function WorldMap({ className }: { className?: string }) {
   const tx = zoomed && !reduce ? cx - scale * focus.x : 0;
   const ty = zoomed && !reduce ? cy - scale * focus.y : 0;
 
-  const flyStyle = {
-    transform: `translate(${tx}px, ${ty}px) scale(${scale})`,
-    transformOrigin: "0 0",
-    transformBox: "view-box",
-    transition: reduce ? undefined : `transform ${FLY}`,
-  } as const;
-
-  /** Planes are lifted in Z; the tilted stage below is what makes that read. */
+  /**
+   * Depth and fly-to have to live in ONE transform. Setting them as two
+   * properties meant the second silently replaced the first, and the zoom never
+   * moved. Read right to left: scale, then pan, then lift off the surface.
+   */
   const plane = (z: number) =>
     ({
-      transform: `translateZ(${reduce ? 0 : z}px)`,
+      transform: `translateZ(${reduce ? 0 : z}px) translate(${tx}px, ${ty}px) scale(${scale})`,
+      transformOrigin: "0 0",
+      transformBox: "view-box",
       transformStyle: "preserve-3d",
+      transition: reduce ? undefined : `transform ${FLY}`,
     }) as const;
 
   return (
@@ -138,6 +152,14 @@ export function WorldMap({ className }: { className?: string }) {
                 <stop offset="50%" stopColor="#ae3135" stopOpacity="0.85" />
                 <stop offset="100%" stopColor="#ae3135" stopOpacity="0.12" />
               </linearGradient>
+              <linearGradient id="wm-country" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#e17c81" />
+                <stop offset="100%" stopColor="#ae3135" />
+              </linearGradient>
+              <radialGradient id="wm-vignette" cx="50%" cy="42%" r="72%">
+                <stop offset="60%" stopColor="#000" stopOpacity="0" />
+                <stop offset="100%" stopColor="#16151a" stopOpacity="0.1" />
+              </radialGradient>
               <filter id="wm-lift" x="-60%" y="-60%" width="220%" height="220%">
                 <feDropShadow
                   dx="0"
@@ -147,11 +169,41 @@ export function WorldMap({ className }: { className?: string }) {
                   floodOpacity="0.2"
                 />
               </filter>
+              <filter id="wm-pin" x="-120%" y="-120%" width="340%" height="340%">
+                <feDropShadow
+                  dx="0"
+                  dy="7"
+                  stdDeviation="4"
+                  floodColor="#7a2528"
+                  floodOpacity="0.45"
+                />
+              </filter>
             </defs>
 
             {/* ---- Plane 0: land ---- */}
-            <g style={{ ...flyStyle, ...plane(0) }}>
+            {/* A dark copy of the coastline, offset and sunk behind everything:
+                the slab the continents appear to be lifted off. */}
+            <g style={plane(-30)} opacity={0.16}>
+              <path d={LAND_PATH} fill="#57565c" transform="translate(0 10)" />
+            </g>
+
+            <g style={plane(0)}>
+              <path
+                d={GRATICULE}
+                fill="none"
+                stroke="#c9c6c2"
+                strokeWidth={0.6}
+                strokeOpacity="0.45"
+                vectorEffect="non-scaling-stroke"
+              />
               <path d={LAND_PATH} fill="url(#wm-land)" filter="url(#wm-lift)" />
+              {/* The country the selected office is in, lit. */}
+              <path
+                d={COUNTRY_PATHS[active.iso]}
+                fill="url(#wm-country)"
+                fillOpacity={0.9}
+                style={{ transition: reduce ? undefined : "d 0ms, fill-opacity 500ms" }}
+              />
               <path
                 d={BORDER_PATH}
                 fill="none"
@@ -170,7 +222,7 @@ export function WorldMap({ className }: { className?: string }) {
             </g>
 
             {/* ---- Plane 1: routes, floating above the land ---- */}
-            <g style={{ ...flyStyle, ...plane(26) }}>
+            <g style={plane(26)}>
               {legs.map((d, i) => (
                 <g key={`leg-${i}`}>
                   <motion.path
@@ -213,7 +265,7 @@ export function WorldMap({ className }: { className?: string }) {
             </g>
 
             {/* ---- Plane 2: pins, highest off the surface ---- */}
-            <g style={{ ...flyStyle, ...plane(56) }}>
+            <g style={plane(56)}>
               {nodes.map((n, i) => {
                 const on = i === selected;
                 // Counter-scale, so a pin is the same size at every zoom level.

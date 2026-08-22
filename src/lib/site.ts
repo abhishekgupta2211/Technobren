@@ -48,6 +48,8 @@ export type Office = {
   /** Decimal degrees, used to place the pin on the world map. */
   lat: number;
   lon: number;
+  /** ISO 3166-1 alpha-2, so the map can light the country this office is in. */
+  iso: "IN" | "AE" | "UG";
   /**
    * Optional: an office is listed as soon as the presence is confirmed, but the
    * street address only appears once it has actually been supplied. Publishing a
@@ -60,6 +62,7 @@ export type Office = {
 export const offices: Office[] = [
   {
     city: "Jaunpur",
+    iso: "IN",
     country: "India",
     flag: "🇮🇳",
     lat: 25.75,
@@ -69,6 +72,7 @@ export const offices: Office[] = [
   },
   {
     city: "Ahmedabad",
+    iso: "IN",
     country: "India",
     flag: "🇮🇳",
     lat: 23.02,
@@ -78,6 +82,7 @@ export const offices: Office[] = [
   },
   {
     city: "Dubai",
+    iso: "AE",
     country: "UAE",
     flag: "🇦🇪",
     lat: 25.2,
@@ -87,6 +92,7 @@ export const offices: Office[] = [
   },
   {
     city: "Uganda",
+    iso: "UG",
     country: "Uganda",
     flag: "🇺🇬",
     // Country centroid, not a city: the local address is still outstanding, so
@@ -937,12 +943,13 @@ export type Client = {
 };
 
 export const clients: Client[] = [
+  { name: "Hariss International", sector: "Beverages · Uganda", logo: "/clients/hariss.png", width: 113, height: 54, plate: true },
   { name: "Coca-Cola", sector: "Beverages", logo: "/clients/coca-cola.png", width: 135, height: 45 },
   { name: "Mastercard", sector: "Payments", logo: "/clients/mastercard.png", width: 89, height: 54 },
   { name: "Masafi", sector: "Beverages & water", logo: "/clients/masafi.png", width: 94, height: 54 },
   { name: "Admirals", sector: "Food & FMCG", logo: "/clients/admirals.png", width: 160, height: 54 },
   { name: "Modern Bakery", sector: "Bakery & FMCG", logo: "/clients/modern-bakery.png", width: 146, height: 54 },
-  { name: "Hariss International", sector: "Beverages · Uganda", logo: "/clients/hariss.png", width: 113, height: 54, plate: true },
+  { name: "Barakat", sector: "Fresh food & juice", logo: "/clients/barakat.png", width: 158, height: 54 },
   { name: "SchoolExl", sector: "Education technology", logo: "/clients/schoolexl.png", width: 200, height: 29 },
 ];
 
