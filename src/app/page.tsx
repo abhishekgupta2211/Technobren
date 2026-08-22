@@ -4,13 +4,12 @@ import { ServicesSection } from "@/components/sections/ServicesSection";
 import { TechnologySection } from "@/components/sections/TechnologySection";
 import { SolutionsSection } from "@/components/sections/SolutionsSection";
 import { WorkSection } from "@/components/sections/WorkSection";
+import { ClientsSection } from "@/components/sections/ClientsSection";
 import { AboutStripSection } from "@/components/sections/AboutStripSection";
 import { WhySection } from "@/components/sections/WhySection";
 import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
-import { HireTeamSection } from "@/components/sections/HireTeamSection";
 import { AnimatedWaveScaleSection } from "@/components/sections/AnimatedWaveScaleSection";
-import { OfficesSection } from "@/components/sections/OfficesSection";
 import { CTASection } from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
@@ -33,20 +32,20 @@ export default function HomePage() {
       <SolutionsSection />
       {/* 05 — What we've built */}
       <WorkSection />
-      {/* 06 — Who we are */}
-      <AboutStripSection />
+      {/* 06 — Who we built it for */}
+      <ClientsSection />
       {/* 07 — Differentiators */}
       <WhySection />
       {/* 08 — Industries */}
       <IndustriesSection />
       {/* 09 — How we work */}
       <ProcessSection />
-      {/* 10.5 — Scale with Confidence Animated Wave */}
+      {/* 10 — Scale with confidence */}
       <AnimatedWaveScaleSection />
-      {/* 11 — Global Offices */}
-      <OfficesSection />
-      {/* 12 — Conversion */}
+      {/* 11 — Conversion */}
       <CTASection />
+      {/* 12 — Who we are, sitting directly above the footer */}
+      <AboutStripSection />
     </>
   );
 }

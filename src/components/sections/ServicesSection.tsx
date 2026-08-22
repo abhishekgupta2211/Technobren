@@ -136,12 +136,6 @@ export function ServicesSection() {
             ))}
           </ul>
         </div>
-
-        <Container size="wide">
-          <p className="mt-6 text-center font-mono text-[0.68rem] uppercase tracking-[0.18em] text-ink-500">
-            {services.length} practices · hover to pause
-          </p>
-        </Container>
       </Reveal>
     </section>
   );
