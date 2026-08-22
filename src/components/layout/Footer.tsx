@@ -140,17 +140,25 @@ export function Footer() {
               <span className="font-mono text-[0.65rem] uppercase tracking-wider text-ink-400 font-bold">
                 Government Certification &amp; Trust
               </span>
-              <div className="flex items-center gap-3 rounded-2xl border border-ink-200/90 bg-white p-2.5 shadow-2xs">
-                <img
-                  src="/brand/msme-badge.svg"
-                  alt="MSME Registered Enterprise - Govt of India"
-                  className="h-11 w-auto object-contain"
-                />
-                <div className="border-l border-ink-100 pl-3">
-                  <span className="block font-display text-xs font-bold text-ink-950">
-                    MSME Registered
+              <div className="flex items-center gap-3.5 rounded-2xl border border-ink-200/90 bg-white p-3 shadow-2xs">
+                {/* Embedded Govt MSME Seal SVG */}
+                <div className="relative size-12 shrink-0 rounded-xl bg-[#003366] flex items-center justify-center border-2 border-[#FF9933] shadow-xs overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center opacity-30">
+                    <div className="size-8 rounded-full border border-white" />
+                  </div>
+                  <span className="font-mono text-[0.65rem] font-black text-white tracking-widest">
+                    MSME
                   </span>
-                  <span className="block text-[0.68rem] text-ink-500 font-medium">
+                </div>
+
+                <div className="border-l border-ink-200 pl-3">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="font-display text-xs font-extrabold text-ink-950">
+                      MSME Registered
+                    </span>
+                  </div>
+                  <span className="block text-[0.7rem] font-bold text-brand-700 mt-0.5">
                     Govt. of India Enterprise
                   </span>
                 </div>
