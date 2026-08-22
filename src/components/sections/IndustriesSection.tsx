@@ -19,7 +19,12 @@ export function IndustriesSection() {
         <SectionHeading
           align="center"
           eyebrow="Industries"
-          title="Where our solutions go to work"
+          title={
+            <>
+              Where our solutions{" "}
+              <span className="text-brand-700">go to work</span>
+            </>
+          }
           description="Our product portfolio and engineering practice are applied across sectors where operations are complex and data has to be trusted."
           className="mx-auto"
         />

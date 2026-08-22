@@ -239,7 +239,11 @@ export default function WorkPage() {
           <SectionHeading
             align="center"
             eyebrow="Sectors"
-            title="Where these systems run"
+            title={
+              <>
+                Where these <span className="text-brand-700">systems run</span>
+              </>
+            }
             description="Our platforms are applied where operations are complex, teams are distributed and data has to be trusted."
             className="mx-auto"
           />

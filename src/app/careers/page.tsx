@@ -154,7 +154,12 @@ export default function CareersPage() {
             <div>
               <SectionHeading
                 eyebrow="How we work"
-                title="What we hold ourselves to"
+                title={
+                  <>
+                    What we{" "}
+                    <span className="text-brand-700">hold ourselves to</span>
+                  </>
+                }
                 description="Our core values are the guiding principles that define who we are and how we conduct our business every day."
               />
               <ul className="mt-9 space-y-5">

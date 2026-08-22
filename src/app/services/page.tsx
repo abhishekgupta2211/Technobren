@@ -205,7 +205,11 @@ export default function ServicesPage() {
           <SectionHeading
             align="center"
             eyebrow="Also offering"
-            title="Supporting capabilities"
+            title={
+              <>
+                Supporting <span className="text-brand-700">capabilities</span>
+              </>
+            }
             description="Practices that wrap around delivery to make sure what we build lands well and keeps working."
             className="mx-auto"
           />
