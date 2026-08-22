@@ -129,6 +129,8 @@ export const socials = [
 
 export const origin = {
   foundedYear: 2015,
+  /** Countries we have delivered into, supplied by TechnoBren 2026-08-22. */
+  countriesServed: 5,
   /** Derived at build time so it can never go stale in the copy. */
   get yearsInBusiness() {
     return new Date().getFullYear() - this.foundedYear;
@@ -159,10 +161,11 @@ export const stats = [
     sub: "Measured across delivered engagements",
   },
   {
-    value: 4,
-    suffix: "",
-    label: "Global offices",
-    sub: "India, the UAE and Uganda",
+    // Supplied by TechnoBren 2026-08-22: 80+ across every location.
+    value: 80,
+    suffix: "+",
+    label: "People on the team",
+    sub: "Across every office, India to Uganda",
   },
 ];
 
@@ -586,17 +589,21 @@ export const techCategories = [
   },
   {
     name: "AI & Data",
-    blurb: "Machine learning frameworks and the data plumbing behind them.",
-    // Verified: these are the frameworks named in the AI & ML service copy.
+    blurb: "Foundation models, agent tooling and the ML stack underneath them.",
     items: [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "Llama",
+      "Mistral",
+      "LangChain",
+      "Vertex AI",
+      "Cloud Vision",
       "TensorFlow",
-      "Torch",
-      "Caffe",
-      "Apache SystemML",
-      "Apache Mahout",
-      "OpenNN",
-      "Neuroph",
-      "Mycroft AI",
+      "PyTorch",
+      "OpenCV",
+      "Watson",
+      "n8n",
     ],
   },
   {
@@ -756,38 +763,63 @@ export const processSteps = [
 /* Flagged for client confirmation in REDESIGN-NOTES.md                */
 /* ------------------------------------------------------------------ */
 
-export const industries = [
+export type Industry = {
+  name: string;
+  description: string;
+  icon: string;
+  /**
+   * What we actually put in front of this sector. Every entry is an existing
+   * product in `solutions` or practice in `services` — nothing here claims a
+   * capability that is not already on the site.
+   */
+  builds: string[];
+  href: string;
+};
+
+export const industries: Industry[] = [
   {
     name: "FMCG & Distribution",
     description:
       "Van sales, distributor and merchandiser systems for multi-tier channels.",
     icon: "PackageSearch",
+    builds: ["Van Sales System", "Distributor Management", "Merchandiser Management"],
+    href: "/solutions#van-sales-system",
   },
   {
     name: "Retail & Commerce",
     description: "Storefronts, order management and retail execution tooling.",
     icon: "ShoppingBag",
+    builds: ["Web & Digital Commerce", "Merchandiser Management"],
+    href: "/services#web-digital-commerce",
   },
   {
     name: "Manufacturing",
     description: "ERP, asset tracking and operational reporting on the plant floor.",
     icon: "Factory",
+    builds: ["Custom ERP", "Asset Management", "Business Intelligence"],
+    href: "/solutions#custom-erp",
   },
   {
     name: "Healthcare",
     description: "Records, scheduling, patient portals and analytics platforms.",
     icon: "HeartPulse",
+    builds: ["Custom Software Development", "Business Intelligence"],
+    href: "/services#custom-software-development",
   },
   {
     name: "Logistics & Field Ops",
     description:
       "Route planning, mobile workforce apps and offline-first field tooling.",
     icon: "Route",
+    builds: ["Van Sales System", "Asset Management", "Mobile App Development"],
+    href: "/solutions#asset-management",
   },
   {
     name: "Enterprise IT",
     description: "Integration, automation and modernisation of internal systems.",
     icon: "Server",
+    builds: ["Enterprise Applications & ERP", "Technology Integration"],
+    href: "/services#enterprise-applications",
   },
 ];
 
@@ -957,6 +989,51 @@ export const clients: Client[] = [
   { name: "Modern Bakery", sector: "Bakery & FMCG", logo: "/clients/modern-bakery.png", width: 146, height: 54 },
   { name: "Barakat", sector: "Fresh food & juice", logo: "/clients/barakat.png", width: 158, height: 54 },
   { name: "SchoolExl", sector: "Education technology", logo: "/clients/schoolexl.png", width: 200, height: 29 },
+];
+
+/* ------------------------------------------------------------------ */
+/* FAQ                                                                  */
+/* Every answer restates something already established elsewhere on the  */
+/* site — the NDA assurances, the six delivery stages, the engagement     */
+/* types on the hiring form, the published budget bands. Nothing here      */
+/* invents a commercial or contractual term.                               */
+/* ------------------------------------------------------------------ */
+
+export type Faq = { q: string; a: string };
+
+export const faqs: Faq[] = [
+  {
+    q: "How do we start, and how quickly can you begin?",
+    a: "It starts with a conversation, not a quote. We map your goals, constraints and existing systems, agree what success looks like, and put an effort estimate in front of you before any code is written. Engagements can begin immediately, within a month, or on your own timetable — and the first seven days are on us.",
+  },
+  {
+    q: "Is my idea protected before I share it?",
+    a: "Yes. An NDA is in place from the first conversation, before anything is shared. Your confidential information is not passed on without your consent — that is the point at which trust starts, so we do not defer it to later in the process.",
+  },
+  {
+    q: "How will I see progress? I have been burned by black boxes.",
+    a: "Six stages, each with an output you review: discovery, design, development, testing, deployment and support. Nothing moves to the next stage until you have seen it. You approve the product at prototype, and engineering runs in short cycles with code review, version control and a demo at the end of every one.",
+  },
+  {
+    q: "Can I hire developers directly instead of commissioning a project?",
+    a: "Yes. You can build a dedicated offshore team across frontend, backend and full-stack, CMS and eCommerce, mobile, or AI and ML. Engagements run full time, part time, contract, project-based or as a dedicated team, and every engineer is cleared by a qualification test before joining you.",
+  },
+  {
+    q: "Which technologies do you actually work in?",
+    a: "Seven disciplines and more than fifty technologies — mobile, front end, backend, databases, CMS and commerce, AI and data, and cloud infrastructure. We choose the stack that fits the problem rather than the one that is fashionable, and the full list is published on the technology page.",
+  },
+  {
+    q: "Where is your team, and will time zones be a problem?",
+    a: "Four offices across three countries: Jaunpur (our headquarters) and Ahmedabad in India, Dubai, and Uganda — around eighty people in total. We operate around the clock, so the overlap with your working day is a matter of scheduling rather than compromise.",
+  },
+  {
+    q: "What happens after launch?",
+    a: "Support is a stage of the process, not an afterthought. You keep a maintenance window, an enhancement roadmap, issue resolution and ongoing optimisation — handled by the team that already knows your system rather than by whoever is free.",
+  },
+  {
+    q: "What does an engagement cost?",
+    a: "It depends on scope, which is exactly what discovery exists to establish. Projects typically fall between under $5,000 and $50,000+, and we will tell you which band yours sits in before you commit. Hiring a dedicated remote team is the cheaper route — it cuts development cost by up to a third.",
+  },
 ];
 
 /* ------------------------------------------------------------------ */

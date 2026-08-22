@@ -53,12 +53,15 @@ export const TECH_LOGOS: Record<string, string> = {
   BigCommerce: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/salesforce/salesforce-original.svg",
 
   // AI & Data
+  // Only the marks devicon actually ships are mapped — each URL below was
+  // checked and returns 200. OpenAI, Anthropic, Gemini, Llama, Mistral,
+  // LangChain, Watson and n8n have no devicon icon (they 403), so they fall
+  // through to the brand dot, which getTechLogo already handles.
   TensorFlow: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
-  Torch: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
-  "Apache SystemML": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg",
-  "Apache Mahout": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg",
-  // Caffe, OpenNN, Neuroph and Mycroft AI have no devicon mark — they fall back
-  // to the brand dot, which getTechLogo already handles.
+  PyTorch: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
+  OpenCV: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg",
+  "Vertex AI": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+  "Cloud Vision": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
 
   // DevOps & Cloud
   AWS: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",

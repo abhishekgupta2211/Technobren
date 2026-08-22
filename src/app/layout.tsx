@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { PageLoader } from "@/components/layout/PageLoader";
 import { site, contact, offices } from "@/lib/site";
 import "./globals.css";
@@ -144,6 +145,7 @@ export default function RootLayout({
         <Navbar />
         <main id="main">{children}</main>
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );

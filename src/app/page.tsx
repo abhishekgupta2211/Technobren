@@ -10,6 +10,8 @@ import { WhySection } from "@/components/sections/WhySection";
 import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { AnimatedWaveScaleSection } from "@/components/sections/AnimatedWaveScaleSection";
+import { ReachSection } from "@/components/sections/ReachSection";
+import { FaqSection } from "@/components/sections/FaqSection";
 import { CTASection } from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
@@ -34,17 +36,21 @@ export default function HomePage() {
       <WorkSection />
       {/* 06 — Who we built it for */}
       <ClientsSection />
-      {/* 07 — Differentiators */}
+      {/* 07 — Reach */}
+      <ReachSection />
+      {/* 08 — Differentiators */}
       <WhySection />
-      {/* 08 — Industries */}
+      {/* 09 — Industries */}
       <IndustriesSection />
-      {/* 09 — How we work */}
+      {/* 10 — How we work */}
       <ProcessSection />
-      {/* 10 — Scale with confidence */}
+      {/* 11 — Scale with confidence */}
       <AnimatedWaveScaleSection />
-      {/* 11 — Conversion */}
+      {/* 12 — Objections */}
+      <FaqSection />
+      {/* 13 — Conversion */}
       <CTASection />
-      {/* 12 — Who we are, sitting directly above the footer */}
+      {/* 14 — Who we are, sitting directly above the footer */}
       <AboutStripSection />
     </>
   );

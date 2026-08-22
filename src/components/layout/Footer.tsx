@@ -76,6 +76,71 @@ export function Footer() {
       />
 
       <Container size="wide" className="relative">
+        {/* ---------- Closing invitation ---------- */}
+        <div className="group relative mt-12 overflow-hidden rounded-3xl border border-ink-200/80 bg-white p-7 shadow-(--shadow-card) sm:p-9">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-16 -top-24 size-80 rounded-full bg-[radial-gradient(circle,rgba(174,49,53,0.12),transparent_66%)] blur-3xl"
+          />
+          <svg
+            aria-hidden
+            viewBox="0 0 200 200"
+            fill="none"
+            className="pointer-events-none absolute -right-10 -top-16 size-64 opacity-80"
+          >
+            <path
+              d="M8 168C8 80 80 8 168 8"
+              stroke="#ae3135"
+              strokeOpacity="0.18"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            <path
+              d="M44 176C44 103 103 44 176 44"
+              stroke="#ae3135"
+              strokeOpacity="0.1"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            <circle cx="168" cy="8" r="4" fill="#ae3135" fillOpacity="0.4" />
+          </svg>
+
+          <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="flex items-center gap-2.5 font-mono text-[0.64rem] uppercase tracking-[0.22em] text-ink-500">
+                <span aria-hidden className="h-px w-5 bg-brand-300" />
+                Next step
+              </p>
+              <p className="mt-4 max-w-xl text-balance font-display text-[1.6rem] leading-tight text-ink-950 sm:text-[2rem]">
+                Have something to build?{" "}
+                <span className="text-brand-700">Tell us the problem.</span>
+              </p>
+              <p className="mt-3 text-[0.9rem] text-ink-600">
+                Every engagement starts under NDA.
+              </p>
+            </div>
+
+            <div className="flex shrink-0 flex-wrap items-center gap-3">
+              <Link
+                href="/contact"
+                className="group/cta inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3.5 text-[0.9rem] font-semibold text-white shadow-[0_1px_2px_rgba(174,49,53,0.22),0_10px_24px_-12px_rgba(174,49,53,0.6)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:bg-brand-700"
+              >
+                Start a project
+                <ArrowUpRight
+                  aria-hidden
+                  className="size-4 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/cta:-translate-y-0.5 group-hover/cta:translate-x-0.5"
+                />
+              </Link>
+              <Link
+                href="/hire-developers"
+                className="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-6 py-3.5 text-[0.9rem] font-semibold text-ink-800 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand-700"
+              >
+                Hire developers
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {/* ---------- Brand + primary navigation ---------- */}
         <div className="grid gap-10 py-12 lg:grid-cols-12 lg:gap-8 lg:py-14">
           <div className="lg:col-span-4">
@@ -131,19 +196,6 @@ export function Footer() {
               ))}
             </ul>
 
-            {/* Official MSME Government Registration Badge */}
-            <div className="mt-8 pt-5 border-t border-ink-200/80 flex flex-col gap-2.5">
-              <span className="font-mono text-[0.68rem] font-bold uppercase tracking-wider text-ink-400">
-                Government Certification &amp; Trust
-              </span>
-              <div className="inline-flex items-center justify-center rounded-2xl border border-ink-200/90 bg-white p-3 shadow-xs self-start">
-                <img
-                  src="/brand/msme-official.png"
-                  alt="MSME Micro Small Medium Enterprises - Govt of India"
-                  className="h-16 w-auto object-contain rounded-lg"
-                />
-              </div>
-            </div>
           </div>
 
           <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4 lg:col-span-8 lg:gap-8">
@@ -200,10 +252,27 @@ export function Footer() {
 
 
         {/* ---------- Legal ---------- */}
-        <div className="flex flex-col gap-4 border-t border-ink-200 py-7 text-[0.78rem] text-ink-500 lg:flex-row lg:items-center lg:justify-between">
-          <p>{`© ${year} ${site.legalName}. All rights reserved.`}</p>
-          <p className="max-w-md text-ink-500">
-            {`The ${site.name} logo, brandmark and name are a registered trademark of ${site.legalName}.`}
+        <div className="flex flex-col gap-5 border-t border-ink-200 py-7 text-[0.78rem] text-ink-500 lg:flex-row lg:items-center lg:justify-between">
+          {/* The MSME mark belongs beside the legal line, not floating in the
+              brand column's empty gutter. */}
+          <div className="flex items-center gap-3.5">
+            <span className="inline-flex shrink-0 items-center justify-center rounded-xl border border-ink-200 bg-white p-2 shadow-2xs">
+              <img
+                src="/brand/msme-official.png"
+                alt="MSME Micro, Small & Medium Enterprises — Government of India"
+                className="h-9 w-auto object-contain"
+              />
+            </span>
+            <span className="leading-snug">
+              <span className="block font-mono text-[0.6rem] uppercase tracking-[0.16em] text-ink-400">
+                Govt. of India registered
+              </span>
+              <span className="block text-ink-600">{`© ${year} ${site.legalName}`}</span>
+            </span>
+          </div>
+
+          <p className="max-w-sm text-ink-500">
+            {`The ${site.name} logo, brandmark and name are a registered trademark of ${site.legalName}. All rights reserved.`}
           </p>
           <a
             href="#main"

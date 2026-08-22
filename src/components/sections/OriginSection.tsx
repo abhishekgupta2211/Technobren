@@ -43,7 +43,9 @@ const PILLARS = [
 export function OriginSection() {
   const countries = new Set(offices.map((o) => o.country)).size;
 
-  const projects = stats.find((s) => s.label === "Projects delivered");
+  const stat = (label: string) => stats.find((s) => s.label === label);
+  const projects = stat("Projects delivered");
+  const team = stat("People on the team");
 
   /**
    * Only open-ended figures carry a "+". Offices and countries are exact
@@ -52,8 +54,8 @@ export function OriginSection() {
    */
   const FACTS = [
     { value: origin.yearsInBusiness, suffix: "+", label: "Years building" },
+    { value: team?.value ?? 0, suffix: team?.suffix ?? "", label: "People" },
     { value: offices.length, suffix: "", label: "Offices" },
-    { value: countries, suffix: "", label: "Countries" },
     {
       value: projects?.value ?? 0,
       suffix: projects?.suffix ?? "",

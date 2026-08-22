@@ -190,22 +190,6 @@ export function TechnologySection() {
           </div>
         </Reveal>
 
-        {/* ---- Discipline detail ---- */}
-        <Reveal delay={3} className="mt-6">
-          <motion.p
-            key={`${pinned ?? "none"}-${active ?? "all"}`}
-            initial={reduce ? false : { opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center text-[0.9rem] text-ink-600"
-          >
-            {pinned
-              ? `${techCategories.find((c) => c.name === pinned)?.blurb} — pinned to ${pinned}.`
-              : active
-                ? techCategories.find((c) => c.name === active)?.blurb
-                : "Point at a discipline to see only that stack, or click to pin it."}
-          </motion.p>
-        </Reveal>
       </Container>
     </section>
   );

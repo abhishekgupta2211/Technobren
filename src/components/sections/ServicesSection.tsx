@@ -13,10 +13,10 @@ type Service = (typeof services)[number];
 /**
  * What we do.
  *
- * The six practices ride a continuous horizontal lane rather than sitting in a
- * static grid. The set is rendered twice so the loop is seamless, the lane pauses
- * on hover so a card can actually be read and clicked, and with reduced motion it
- * degrades to an ordinary swipeable row.
+ * The six practices sit in a fixed three-column grid. They used to ride a
+ * continuous horizontal lane, which meant half of them were always cut off at
+ * the frame edge and the whole set could never be compared at a glance — a
+ * moving target is a poor way to present a menu of what a company does.
  *
  * Each card opens with its own artwork — six arrangements of the logo's
  * arc-and-node motif — with the icon plate straddling the edge of that band.
@@ -25,7 +25,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
   return (
     <Link
       href={`/services#${service.slug}`}
-      className="group flex w-[19rem] shrink-0 flex-col overflow-hidden rounded-3xl border border-ink-200/80 bg-white shadow-(--shadow-card) transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:border-brand-200 hover:shadow-(--shadow-card-hover) sm:w-[21rem]"
+      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-ink-200/80 bg-white shadow-(--shadow-card) transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:border-brand-200 hover:shadow-(--shadow-card-hover)"
     >
       {/* ---- Artwork band ---- */}
       <div className="relative h-32 overflow-hidden bg-gradient-to-br from-brand-50/80 via-white to-[var(--canvas-subtle)]">
@@ -55,15 +55,19 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 
       {/* ---- Body ---- */}
       <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
-        <h3 className="font-display text-[1.2rem] leading-snug text-ink-950">
+        {/* Both boxes are floored to their longest case, so a two-line title or
+            a three-line summary cannot make one grid row taller than the next. */}
+        <h3 className="flex min-h-[3.3rem] items-start font-display text-[1.2rem] leading-snug text-ink-950">
           {service.title}
         </h3>
-        <p className="mt-2.5 text-pretty text-[0.89rem] leading-relaxed text-ink-600">
+        <p className="mt-1 line-clamp-3 min-h-[4.4rem] text-pretty text-[0.89rem] leading-relaxed text-ink-600">
           {service.short}
         </p>
 
-        <ul className="mt-5 flex flex-1 flex-wrap content-start gap-1.5">
-          {service.capabilities.slice(0, 2).map((c) => (
+        {/* Fixed box: capability names wrap differently per service, and without
+            a floor the grid rows end up different heights. */}
+        <ul className="mt-5 flex h-[5.5rem] shrink-0 flex-wrap content-start gap-1.5 overflow-hidden">
+          {service.capabilities.slice(0, 3).map((c) => (
             <li
               key={c}
               className="rounded-lg border border-ink-200 bg-[var(--canvas-subtle)] px-2.5 py-1.5 text-[0.73rem] font-medium text-ink-700 transition-colors duration-500 group-hover:border-brand-200 group-hover:bg-brand-50 group-hover:text-brand-800"
@@ -72,7 +76,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
             </li>
           ))}
           <li className="rounded-lg border border-dashed border-ink-200 px-2.5 py-1.5 text-[0.73rem] font-medium text-ink-500">
-            +{service.capabilities.length - 2} more
+            +{service.capabilities.length - 3} more
           </li>
         </ul>
       </div>
@@ -122,21 +126,15 @@ export function ServicesSection() {
         />
       </Container>
 
-      {/* ---- Continuous lane ---- */}
-      <Reveal delay={1} className="relative mt-10">
-        <div className="marquee-host mask-edges flex overflow-hidden py-2 max-sm:snap-x max-sm:snap-mandatory max-sm:overflow-x-auto max-sm:[scrollbar-width:none] motion-reduce:overflow-x-auto motion-reduce:[scrollbar-width:none] max-sm:[&::-webkit-scrollbar]:hidden">
-          <ul
-            className="animate-marquee flex shrink-0 items-stretch gap-5 px-5 max-sm:animate-none sm:gap-6 sm:px-3 motion-reduce:animate-none"
-            style={{ ["--marquee-duration" as string]: "56s" }}
-          >
-            {[...services, ...services].map((s, i) => (
-              <li key={`${s.slug}-${i}`} className="flex snap-start">
-                <ServiceCard service={s} index={i % services.length} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Reveal>
+      <Container size="wide" className="relative">
+        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s, i) => (
+            <Reveal as="li" key={s.slug} delay={i % 3} className="flex">
+              <ServiceCard service={s} index={i} />
+            </Reveal>
+          ))}
+        </ul>
+      </Container>
     </section>
   );
 }

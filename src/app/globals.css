@@ -187,6 +187,21 @@ body {
   animation-play-state: paused;
 }
 
+/* Vertical marquee — used by the reach wall, whose columns drift upward at
+   different speeds behind a masked headline. */
+@keyframes marquee-y {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -50%, 0);
+  }
+}
+.animate-marquee-y {
+  animation: marquee-y var(--marquee-duration, 60s) linear infinite;
+  will-change: transform;
+}
+
 /* Orbit — the logo arc motif */
 @keyframes orbit-spin {
   from {
@@ -233,6 +248,25 @@ body {
 }
 .animate-node-pulse {
   animation: node-pulse 2.8s var(--ease-out-expo) infinite;
+}
+
+/* Card swap — used where an element is remounted by key and must always
+   animate in. A CSS keyframe is deliberate here: Motion's mount animation
+   proved unreliable on remount, leaving the element stranded at its initial
+   frame. `both` holds the final state, and the reduced-motion block below
+   neutralises it for free. */
+@keyframes card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-card-rise {
+  animation: card-rise 0.42s var(--ease-out-expo) both;
 }
 
 /* ============================================================

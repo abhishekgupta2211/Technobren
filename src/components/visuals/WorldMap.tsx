@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { MapPin, Building2 } from "lucide-react";
 import { offices, type Office } from "@/lib/site";
 import { LAND_PATH, BORDER_PATH, COUNTRY_PATHS, project } from "./worldGeo";
@@ -26,10 +26,16 @@ import { cn } from "@/lib/utils";
 const EASE = [0.16, 1, 0.3, 1] as const;
 const FLY = "1100ms cubic-bezier(0.16, 1, 0.3, 1)";
 
-/** The frame the map rests at: Europe through South Asia, where the offices are. */
+/**
+ * The frame the map rests at: the Atlantic across to South East Asia, cropped
+ * to a 3:1 band. The earlier frame was nearly square, which made the section
+ * enormously tall for no extra information — every office sits in one
+ * horizontal belt, so the map should be a belt too. Every pin keeps at least
+ * 10 degrees of margin inside this box.
+ */
 const HOME = (() => {
-  const tl = project(-22, 62);
-  const br = project(108, -38);
+  const tl = project(-18, 40);
+  const br = project(132, -10);
   return { x: tl.x, y: tl.y, w: br.x - tl.x, h: br.y - tl.y };
 })();
 
@@ -154,7 +160,7 @@ export function WorldMap({ className }: { className?: string }) {
     <div className={cn("relative", className)}>
       <div
         className="relative overflow-hidden rounded-3xl border border-ink-200/80 bg-[var(--canvas-subtle)] p-3 shadow-(--shadow-card) sm:p-5"
-        style={{ perspective: "1600px", perspectiveOrigin: "50% 40%" }}
+        style={{ perspective: "2000px", perspectiveOrigin: "50% 35%" }}
       >
         <div
           aria-hidden
@@ -166,7 +172,7 @@ export function WorldMap({ className }: { className?: string }) {
           className="relative"
           style={{
             transformStyle: "preserve-3d",
-            transform: reduce ? undefined : "rotateX(11deg)",
+            transform: reduce ? undefined : "rotateX(7deg)",
           }}
         >
           <svg
@@ -178,9 +184,18 @@ export function WorldMap({ className }: { className?: string }) {
           >
             <defs>
               <linearGradient id="wm-land" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#f2f1ef" />
-                <stop offset="100%" stopColor="#dedbd7" />
+                <stop offset="0%" stopColor="#fbfaf9" />
+                <stop offset="55%" stopColor="#efedea" />
+                <stop offset="100%" stopColor="#e2dfda" />
               </linearGradient>
+              <linearGradient id="wm-sea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#eceef0" />
+                <stop offset="100%" stopColor="#e3e6ea" />
+              </linearGradient>
+              {/* The soft ring real charts carry where land meets water. */}
+              <filter id="wm-shelf" x="-15%" y="-15%" width="130%" height="130%">
+                <feGaussianBlur stdDeviation="4" />
+              </filter>
               <linearGradient id="wm-route" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0%" stopColor="#ae3135" stopOpacity="0.12" />
                 <stop offset="50%" stopColor="#ae3135" stopOpacity="0.85" />
@@ -222,12 +237,22 @@ export function WorldMap({ className }: { className?: string }) {
             </g>
 
             <g style={plane(0)}>
+              <rect
+                x={-4000}
+                y={-4000}
+                width={12000}
+                height={12000}
+                fill="url(#wm-sea)"
+              />
+              {/* Shelf: a blurred copy of the coast, so the edge is not a
+                  hard cut between two flat fills. */}
+              <path d={LAND_PATH} fill="#c9c6c2" opacity={0.5} filter="url(#wm-shelf)" />
               <path
                 d={GRATICULE}
                 fill="none"
-                stroke="#c9c6c2"
-                strokeWidth={0.6}
-                strokeOpacity="0.45"
+                stroke="#a3a09b"
+                strokeWidth={0.5}
+                strokeOpacity="0.28"
                 vectorEffect="non-scaling-stroke"
               />
               <path d={LAND_PATH} fill="url(#wm-land)" filter="url(#wm-lift)" />
@@ -235,8 +260,12 @@ export function WorldMap({ className }: { className?: string }) {
               <path
                 d={COUNTRY_PATHS[active.iso]}
                 fill="url(#wm-country)"
-                fillOpacity={0.9}
-                style={{ transition: reduce ? undefined : "d 0ms, fill-opacity 500ms" }}
+                fillOpacity={0.28}
+                stroke="#ae3135"
+                strokeWidth={1.6}
+                strokeOpacity={0.9}
+                vectorEffect="non-scaling-stroke"
+                style={{ transition: reduce ? undefined : "fill-opacity 500ms" }}
               />
               <path
                 d={BORDER_PATH}
@@ -338,6 +367,8 @@ export function WorldMap({ className }: { className?: string }) {
                     />
                     {on && !reduce && (
                       <motion.ellipse
+                        rx={10}
+                        ry={3.4}
                         fill="none"
                         stroke="#ae3135"
                         strokeWidth={1.4}
@@ -371,6 +402,10 @@ export function WorldMap({ className }: { className?: string }) {
                       />
                       <motion.circle
                         cy={-STEM}
+                        // An explicit r is required: with only `animate`, the
+                        // first paint writes r="undefined" and the browser
+                        // rejects the attribute.
+                        r={6}
                         fill="#ae3135"
                         filter="url(#wm-pin)"
                         animate={{ r: lit ? 9 : 6 }}
@@ -404,48 +439,49 @@ export function WorldMap({ className }: { className?: string }) {
         </div>
 
         {/* ---- Detail card ---- */}
-        <AnimatePresence mode="popLayout">
-          <motion.div
-            key={active.city}
-            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10, scale: 0.98 }}
-            transition={{ duration: reduce ? 0.15 : 0.4, ease: EASE }}
-            // On a phone the map is short, so the card stacks beneath it there
-            // and only floats over the map from sm up.
-            className="pointer-events-none relative mt-4 rounded-2xl border border-ink-200 bg-white/95 p-4 shadow-[0_16px_40px_-20px_rgba(16,15,20,0.3)] backdrop-blur-sm sm:absolute sm:bottom-7 sm:left-7 sm:mt-0 sm:max-w-xs"
-          >
-            <p className="flex items-center gap-2 font-display text-[1.05rem] text-ink-950">
-              <MapPin className="size-4 shrink-0 text-brand-600" aria-hidden />
-              {active.city}
-              {active.city !== active.country && (
-                <span className="text-[0.8rem] font-normal text-ink-600">
-                  {active.country}
-                </span>
-              )}
-              {active.hq && (
-                <span className="rounded border border-brand-200 bg-brand-50 px-1.5 py-px font-mono text-[0.58rem] uppercase tracking-wider text-brand-700">
-                  HQ
-                </span>
-              )}
-              {times && (
-                <span className="ml-auto shrink-0 font-mono text-[0.8rem] font-semibold tabular-nums text-brand-700">
-                  {times[active.city]}
-                </span>
-              )}
-            </p>
-            {active.address ? (
-              <p className="mt-2 text-pretty text-[0.8rem] leading-relaxed text-ink-500">
-                {active.address}
-              </p>
-            ) : (
-              <p className="mt-2 flex items-center gap-1.5 text-[0.8rem] text-ink-500">
-                <Building2 className="size-3.5 shrink-0 text-ink-400" aria-hidden />
-                Regional office
-              </p>
+        {/*
+          Keyed remount, not AnimatePresence. AnimatePresence's exits do not
+          complete for this component pair: every selection left another card
+          behind at opacity 0, so four dead nodes stacked up and nothing was
+          visible at all. React removing the old node outright is both correct
+          and snappier — there is nothing to see during an exit here anyway.
+        */}
+        <div
+          key={active.city}
+          // On a phone the map is short, so the card stacks beneath it there
+          // and only floats over the map from sm up.
+          className="pointer-events-none animate-card-rise relative mt-4 rounded-2xl border border-ink-200 bg-white/95 p-4 shadow-[0_16px_40px_-20px_rgba(16,15,20,0.3)] backdrop-blur-sm sm:absolute sm:bottom-7 sm:left-7 sm:mt-0 sm:max-w-xs"
+        >
+          <p className="flex items-center gap-2 font-display text-[1.05rem] text-ink-950">
+            <MapPin className="size-4 shrink-0 text-brand-600" aria-hidden />
+            {active.city}
+            {active.city !== active.country && (
+              <span className="text-[0.8rem] font-normal text-ink-600">
+                {active.country}
+              </span>
             )}
-          </motion.div>
-        </AnimatePresence>
+            {active.hq && (
+              <span className="rounded border border-brand-200 bg-brand-50 px-1.5 py-px font-mono text-[0.58rem] uppercase tracking-wider text-brand-700">
+                HQ
+              </span>
+            )}
+            {times && (
+              <span className="ml-auto shrink-0 font-mono text-[0.8rem] font-semibold tabular-nums text-brand-700">
+                {times[active.city]}
+              </span>
+            )}
+          </p>
+          {active.address ? (
+            <p className="mt-2 text-pretty text-[0.8rem] leading-relaxed text-ink-500">
+              {active.address}
+            </p>
+          ) : (
+            <p className="mt-2 flex items-center gap-1.5 text-[0.8rem] text-ink-500">
+              <Building2 className="size-3.5 shrink-0 text-ink-400" aria-hidden />
+              Regional office
+            </p>
+          )}
+        </div>
 
         {/* ---- Back to the whole region ---- */}
         {zoomed && (
