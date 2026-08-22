@@ -9,12 +9,12 @@ import {
   useTransform,
   useReducedMotion,
 } from "motion/react";
-import { ShieldCheck, ArrowDown } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { OrbitSystem } from "@/components/visuals/OrbitSystem";
-import { platformStrip, stats } from "@/lib/site";
+import { stats } from "@/lib/site";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -191,53 +191,6 @@ export function Hero() {
         </motion.dl>
       </Container>
 
-      {/* ---------- Platform marquee ---------- */}
-      <motion.div {...rise(1.05)} className="relative mt-12 sm:mt-14">
-        <Container size="wide">
-          <p className="text-center font-mono text-[0.68rem] uppercase tracking-[0.2em] text-ink-600">
-            Platforms &amp; tooling we build on
-          </p>
-        </Container>
-        <div className="marquee-host mask-edges relative mt-7 flex overflow-hidden">
-          <div
-            className="animate-marquee flex shrink-0 items-center gap-3"
-            style={{ ["--marquee-duration" as string]: "48s" }}
-          >
-            {[
-              ...platformStrip,
-              ...platformStrip,
-              ...platformStrip,
-              ...platformStrip,
-            ].map((p, i) => (
-              <span
-                key={p + i}
-                className="shrink-0 rounded-xl border border-ink-200 bg-white px-5 py-2.5 text-[0.85rem] font-medium text-ink-600 shadow-[0_1px_2px_rgba(16,15,20,0.03)] transition-colors duration-300 hover:border-brand-300 hover:text-brand-700"
-              >
-                {p}
-              </span>
-            ))}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* ---------- Scroll cue ---------- */}
-      <motion.div
-        {...rise(1.3)}
-        className="relative mt-10 hidden justify-center lg:flex"
-        aria-hidden
-      >
-        <span className="flex flex-col items-center gap-2 text-ink-600">
-          <span className="font-mono text-[0.62rem] uppercase tracking-[0.22em]">
-            Scroll
-          </span>
-          <motion.span
-            animate={reduce ? undefined : { y: [0, 7, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ArrowDown className="size-4" />
-          </motion.span>
-        </span>
-      </motion.div>
     </section>
   );
 }

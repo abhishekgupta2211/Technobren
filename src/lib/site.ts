@@ -881,8 +881,11 @@ export type NavItem = {
   featured?: boolean;
 };
 
+/**
+ * The logo is the route home, so Home is deliberately not a nav entry — it
+ * would be a second control for the same destination.
+ */
 export const navigation: NavItem[] = [
-  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Hire Developers", href: "/hire-developers" },
   { label: "Services", href: "/services" },

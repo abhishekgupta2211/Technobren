@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "motion/react";
-import { ChevronDown } from "lucide-react";
 import { navigation, contact } from "@/lib/site";
 import { megaMenu } from "@/lib/megaMenu";
 import { Container } from "@/components/ui/Container";
@@ -18,8 +17,11 @@ import { cn } from "@/lib/utils";
  * A floating pill navbar.
  *
  * Every entry is still a plain link to its own page, so a click always lands
- * somewhere. Entries that have a panel in `lib/megaMenu` additionally open it on
- * hover or keyboard focus — Home deliberately has none, so it stays a bare link.
+ * somewhere; entries with a panel in `lib/megaMenu` additionally open it on
+ * hover or keyboard focus. No caret is drawn — the panel itself is the
+ * affordance, and seven carets in a row only add noise.
+ *
+ * There is no Home entry: the logo already goes there.
  *
  * The panel itself is rendered by `<MegaMenu>` as a sibling of the pill: the
  * pill has `overflow-hidden` and `backdrop-blur`, either of which would clip the
@@ -158,28 +160,8 @@ export function Navbar() {
                           : "text-ink-600 hover:text-ink-950",
                       )}
                     >
-                      <span className="relative z-10 flex items-center gap-1">
+                      <span className="relative z-10 block whitespace-nowrap">
                         {item.label}
-
-                        {hasMenu && (
-                          <motion.span
-                            aria-hidden
-                            animate={{ rotate: isOpen ? 180 : 0 }}
-                            transition={
-                              reduce
-                                ? { duration: 0 }
-                                : { duration: 0.32, ease: [0.16, 1, 0.3, 1] }
-                            }
-                            className="flex"
-                          >
-                            <ChevronDown
-                              className={cn(
-                                "size-3 transition-colors duration-300",
-                                isOpen ? "text-brand-600" : "text-ink-400",
-                              )}
-                            />
-                          </motion.span>
-                        )}
 
                         {/* Hover line: expands from center left/right */}
                         {isHovered && !active && (
